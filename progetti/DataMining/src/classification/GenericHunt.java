@@ -90,11 +90,11 @@ public class GenericHunt {
 	 * 
 	 * NB. implementazione solo per attributi nominali
 	 * 
-	 * @param GenericTreeNode<Node>
+	 * @param Node
 	 * @return TestCondition
 	 */
 	private static TestCondition findBestSplit(Node node){
-		// TODO
+
 		node.getData();
 
 		TestCondition testCondition = new TestCondition();

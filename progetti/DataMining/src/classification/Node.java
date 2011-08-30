@@ -5,6 +5,7 @@ package classification;
 
 import java.util.ArrayList;
 
+import utilities.Gini;
 import vivin.GenericTreeNode;
 
 /**
@@ -44,6 +45,11 @@ public class Node extends GenericTreeNode<Node> {
 		this.leaf = false;
 		this.label = "";
 		this.testCondition = new TestCondition();
+	}
+	
+	public float purity() {
+		Gini gini = new Gini();		
+		return gini.value(this.records);
 	}
 	
 	public Boolean isLeaf() {
