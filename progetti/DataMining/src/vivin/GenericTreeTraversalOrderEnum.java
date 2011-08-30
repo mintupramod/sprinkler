@@ -3,7 +3,7 @@
  Distributed under the BSD License
 */
 
-package net.vivin;
+package vivin;
 
 public enum GenericTreeTraversalOrderEnum {
     PRE_ORDER,

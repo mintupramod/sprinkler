@@ -12,24 +12,25 @@ import java.util.ArrayList;
 public class Node {
 	
 	// il nodo è una foglia?
-	Boolean leaf;
+	private Boolean leaf;
 	// etichetta della classe del nodo (solo se leaf)
-	String label;
+	private String label;
 	// condizione di test
-	String testCondition;
+	private String testCondition;
+	// dati (record) contenuti nel nodo in fase di costruzione
+	private ArrayList<ArrayList<String>> data;
 	
-	public String getTestCondition() {
-		return testCondition;
+	/**
+	 * costruisce un nodo nuovo vuoto
+	 */
+	public Node() {
+		super();
+		this.data = null;
+		this.leaf = false;
+		this.label = "";
+		this.testCondition = ""; 
 	}
-
-	public void setTestCondition(String testCondition) {
-		this.testCondition = testCondition;
-	}
-
-	// lista degli oggetti contenuti nel nodo
-	ArrayList<ArrayList<String>> data;
 	
-
 	/**
 	 * costruisce un nodo a partire dalla lista del suo contenuto
 	 * @param data
@@ -37,16 +38,19 @@ public class Node {
 	public Node(ArrayList<ArrayList<String>> data) {
 		super();
 		this.data = data;
+		this.leaf = false;
+		this.label = "";
+		this.testCondition = ""; 
 	}
-
-	public ArrayList<ArrayList<String>> getData() {
-		return data;
+	
+	public Boolean isLeaf() {
+		return leaf;
 	}
-
-	public void setData(ArrayList<ArrayList<String>> data) {
-		this.data = data;
+	
+	public void setLeaf(Boolean leaf) {
+		this.leaf = leaf;
 	}
-
+	
 	public String getLabel() {
 		return label;
 	}
@@ -55,11 +59,20 @@ public class Node {
 		this.label = label;
 	}
 
-	/**
-	 * 
-	 */
-	public Node() {
-		// TODO Auto-generated constructor stub
+	public String getTestCondition() {
+		return testCondition;
+	}
+
+	public void setTestCondition(String testCondition) {
+		this.testCondition = testCondition;
+	}
+
+	public ArrayList<ArrayList<String>> getData() {
+		return data;
+	}
+
+	public void setData(ArrayList<ArrayList<String>> data) {
+		this.data = data;
 	}
 
 }

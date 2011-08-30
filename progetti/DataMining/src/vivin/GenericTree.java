@@ -3,7 +3,7 @@
  Distributed under the BSD License
 */
 
-package net.vivin;
+package vivin;
 
 import java.util.*;
 
