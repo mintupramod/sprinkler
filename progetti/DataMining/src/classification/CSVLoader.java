@@ -47,7 +47,7 @@ public class CSVLoader {
 			}
 
 		} catch (Exception e) {
-			System.out.println("Exception while reading csv file: " + e);
+			System.out.println("Error reading csv file: " + e);
 		}
 		return list;
 	}
@@ -60,7 +60,7 @@ public class CSVLoader {
 	 * @param args
 	 */
 	public static void test() {
-		String strFile = "./data/tic-tac-toe/tic-tac-toe.data";
+		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 
 		ArrayList<ArrayList<String>> list = load(strFile);
 

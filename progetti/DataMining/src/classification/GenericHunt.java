@@ -31,22 +31,22 @@ public class GenericHunt {
 	 */
 	private static boolean stoppingCondition(Node node){
 		return true;
-//		// se tutti i record del nodo hanno la stessa etichetta lo considero una foglia
-//		ArrayList<ArrayList<String>> list = node.getRecords();		
-//		
-//		HashSet<String> labels = new HashSet<String>();
-//		
-//		Iterator<ArrayList<String>> it = list.iterator();
-//		while (it.hasNext()) {
-//			ArrayList<String> sample = it.next();
-//			labels.add(sample.get(sample.size()-1));
-//		}
-//		
-//		if (labels.size() == 1) {
-//			return true;			
-//		} else {
-//			return false;
-//		}
+		//		// se tutti i record del nodo hanno la stessa etichetta lo considero una foglia
+		//		ArrayList<ArrayList<String>> list = node.getRecords();		
+		//		
+		//		HashSet<String> labels = new HashSet<String>();
+		//		
+		//		Iterator<ArrayList<String>> it = list.iterator();
+		//		while (it.hasNext()) {
+		//			ArrayList<String> sample = it.next();
+		//			labels.add(sample.get(sample.size()-1));
+		//		}
+		//		
+		//		if (labels.size() == 1) {
+		//			return true;			
+		//		} else {
+		//			return false;
+		//		}
 	}
 
 	/** 
@@ -58,28 +58,28 @@ public class GenericHunt {
 	 */
 	private static String classify(Node node){
 		// determino l'etichetta adatta al nodo dall'etichetta più ricorrente dei suoi record
-				ArrayList<ArrayList<String>> list = node.getRecords();
-				
-				// lista delle etichette
-				HashSet<String> labels = new HashSet<String>();
-				
-				Iterator<ArrayList<String>> it = list.iterator();
-				while (it.hasNext()) {
-					ArrayList<String> sample = it.next();
-					labels.add(sample.get(sample.size()-1));
-				}
-				
-				int max = 0;
-				String classLabel = null;
-				
-				for (String label : labels) {
-					int freq = Collections.frequency(list, label);
-					if (freq > max) {
-						max = freq;
-						classLabel = label;
-					}
-				}
-				
+		ArrayList<ArrayList<String>> list = node.getRecords();
+
+		// lista delle etichette
+		HashSet<String> labels = new HashSet<String>();
+
+		Iterator<ArrayList<String>> it = list.iterator();
+		while (it.hasNext()) {
+			ArrayList<String> sample = it.next();
+			labels.add(sample.get(sample.size()-1));
+		}
+
+		int max = 0;
+		String classLabel = null;
+
+		for (String label : labels) {
+			int freq = Collections.frequency(list, label);
+			if (freq > max) {
+				max = freq;
+				classLabel = label;
+			}
+		}
+
 		return classLabel;
 	}
 
@@ -96,65 +96,65 @@ public class GenericHunt {
 	private static TestCondition findBestSplit(Node node){
 		// TODO
 		node.getData();
-		
+
 		TestCondition testCondition = new TestCondition();
 		testCondition.setIdAttribute(1);
 		String[] vals = {"x","o","b"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		testCondition.setValues(vals);
-		
+
 		return testCondition;
 	}
-	
+
 	/**
 	 * split()
 	 * ritorna un nodo con tutti i record con attributo = valore
 	 *  
 	 */
 	private static Node split(Node node, int attribute, String value){
-		
+
 		ArrayList<ArrayList<String>> list = node.getRecords();
 		ArrayList<ArrayList<String>> newList = new ArrayList<ArrayList<String>>(0);
-		
+
 		Iterator<ArrayList<String>> it = list.iterator();
 		while (it.hasNext()) {
-			
+
 			ArrayList<String> sample = it.next();
 			if (sample.get(attribute).equals(value)) newList.add(sample);
 		}
-		
+
 		Node newNode= new Node(newList);
-		
+
 		return newNode;
-		
-		
+
+
 	}
 
-//	/** 
-//	 * createNode()
-//	 * estende l'albero creando un nuovo nodo
-//	 * 
-//	 * @param ArrayList<ArrayList<String>>
-//	 * @return GenericTreeNode
-//	 */
-//	private GenericTreeNode<Node> createNode(ArrayList<ArrayList<String>> list){
-//
-//		return null;
-//	}
-//
-//	/** 
-//	 * createNode()
-//	 * estende l'albero creando un nuovo nodo
-//	 * 
-//	 * @param ArrayList<ArrayList<String>>
-//	 * @return GenericTreeNode
-//	 */
-//	private static Node createNode(){
-//		Node node = new Node();
-//		
-//		return node;
-//	}
-	
-	
+	//	/** 
+	//	 * createNode()
+	//	 * estende l'albero creando un nuovo nodo
+	//	 * 
+	//	 * @param ArrayList<ArrayList<String>>
+	//	 * @return GenericTreeNode
+	//	 */
+	//	private GenericTreeNode<Node> createNode(ArrayList<ArrayList<String>> list){
+	//
+	//		return null;
+	//	}
+	//
+	//	/** 
+	//	 * createNode()
+	//	 * estende l'albero creando un nuovo nodo
+	//	 * 
+	//	 * @param ArrayList<ArrayList<String>>
+	//	 * @return GenericTreeNode
+	//	 */
+	//	private static Node createNode(){
+	//		Node node = new Node();
+	//		
+	//		return node;
+	//	}
+
+
 	/** 
 	 * treeGrowth()
 	 * costruisce l'albero di induzione
@@ -163,7 +163,7 @@ public class GenericHunt {
 	 * @return GenericTreeNode
 	 */
 	public static GenericTree treeGrowth(GenericTree tree){
-		
+
 		Node node = (Node) tree.getRoot();
 
 		if (stoppingCondition(node)) {
@@ -174,16 +174,16 @@ public class GenericHunt {
 			// Il nodo deve essere "splittato"
 			int attribute = findBestSplit(node).getIdAttribute();
 			node.setTestAttribute(attribute);
-//			node.setTestCondition(findBestSplit(node).getValues());
-			
+			//			node.setTestCondition(findBestSplit(node).getValues());
+
 			for (String value : findBestSplit(node).getValues()) {
 				Node child = split(node, attribute, value);
-				
+
 				GenericTree<Node> treeChild = new GenericTree<Node>();
 				treeChild.setRoot(child);
-				
+
 				treeGrowth(treeChild);
-				
+
 				node.addChild(child);
 
 			}
@@ -198,21 +198,21 @@ public class GenericHunt {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
 		// file dati
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 		Node root = new Node();
 		root.setRecords(CSVLoader.load(strFile));
-		
+
 		GenericTree<Node> tree = new GenericTree<Node>();
 		tree.setRoot(root);
-		
+
 		tree = treeGrowth(tree);
-		
-		
+
+
 		System.out.println(tree.getNumberOfNodes());
-//		System.out.println(tree.getRoot().getData().getLabel());
-		
+		//		System.out.println(tree.getRoot().getData().getLabel());
+
 
 	}
 
