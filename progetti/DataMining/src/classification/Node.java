@@ -5,30 +5,33 @@ package classification;
 
 import java.util.ArrayList;
 
+import vivin.GenericTreeNode;
+
 /**
  * @author Claudio Tanci
  *
  */
-public class Node {
+public class Node extends GenericTreeNode<Node> {
 	
 	// il nodo è una foglia?
 	private Boolean leaf;
 	// etichetta della classe del nodo (solo se leaf)
 	private String label;
 	// condizione di test
-	private String testCondition;
+	private TestCondition testCondition;
+
 	// dati (record) contenuti nel nodo in fase di costruzione
-	private ArrayList<ArrayList<String>> data;
+	private ArrayList<ArrayList<String>> records;
 	
 	/**
 	 * costruisce un nodo nuovo vuoto
 	 */
 	public Node() {
 		super();
-		this.data = null;
+		this.records = null;
 		this.leaf = false;
 		this.label = "";
-		this.testCondition = ""; 
+		this.testCondition = new TestCondition(); 
 	}
 	
 	/**
@@ -37,10 +40,10 @@ public class Node {
 	 */
 	public Node(ArrayList<ArrayList<String>> data) {
 		super();
-		this.data = data;
+		this.records = data;
 		this.leaf = false;
 		this.label = "";
-		this.testCondition = ""; 
+		this.testCondition = new TestCondition();
 	}
 	
 	public Boolean isLeaf() {
@@ -58,21 +61,29 @@ public class Node {
 	public void setLabel(String label) {
 		this.label = label;
 	}
-
-	public String getTestCondition() {
-		return testCondition;
+	
+	public int getTestAttribute() {
+		return this.testCondition.getIdAttribute();
 	}
 
-	public void setTestCondition(String testCondition) {
-		this.testCondition = testCondition;
+	public void setTestAttribute(int testAttribute) {
+		this.testCondition.setIdAttribute(testAttribute);
 	}
 
-	public ArrayList<ArrayList<String>> getData() {
-		return data;
+	public String[] getTestCondition() {
+		return testCondition.getValues();
 	}
 
-	public void setData(ArrayList<ArrayList<String>> data) {
-		this.data = data;
+	public void setTestCondition(String[] testConditions) {
+		this.testCondition.setValues(testConditions);
+	}
+
+	public ArrayList<ArrayList<String>> getRecords() {
+		return records;
+	}
+
+	public void setRecords(ArrayList<ArrayList<String>> records) {
+		this.records = records;
 	}
 
 }

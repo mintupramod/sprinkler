@@ -30,22 +30,23 @@ public class GenericHunt {
 	 * @return boolean
 	 */
 	private static boolean stoppingCondition(Node node){
-		// se tutti i record del nodo hanno la stessa etichetta lo considero una foglia
-		ArrayList<ArrayList<String>> list = node.getData();		
-		
-		HashSet<String> labels = new HashSet<String>();
-		
-		Iterator<ArrayList<String>> it = list.iterator();
-		while (it.hasNext()) {
-			ArrayList<String> sample = it.next();
-			labels.add(sample.get(sample.size()-1));
-		}
-		
-		if (labels.size() == 1) {
-			return true;			
-		} else {
-			return false;
-		}
+		return true;
+//		// se tutti i record del nodo hanno la stessa etichetta lo considero una foglia
+//		ArrayList<ArrayList<String>> list = node.getRecords();		
+//		
+//		HashSet<String> labels = new HashSet<String>();
+//		
+//		Iterator<ArrayList<String>> it = list.iterator();
+//		while (it.hasNext()) {
+//			ArrayList<String> sample = it.next();
+//			labels.add(sample.get(sample.size()-1));
+//		}
+//		
+//		if (labels.size() == 1) {
+//			return true;			
+//		} else {
+//			return false;
+//		}
 	}
 
 	/** 
@@ -57,7 +58,7 @@ public class GenericHunt {
 	 */
 	private static String classify(Node node){
 		// determino l'etichetta adatta al nodo dall'etichetta più ricorrente dei suoi record
-				ArrayList<ArrayList<String>> list = node.getData();
+				ArrayList<ArrayList<String>> list = node.getRecords();
 				
 				// lista delle etichette
 				HashSet<String> labels = new HashSet<String>();
@@ -87,13 +88,45 @@ public class GenericHunt {
 	 * seleziona l'attributo su cui splittare il nodo dell'albero 
 	 * e ne ritorna l'indice
 	 * 
+	 * NB. implementazione solo per attributi nominali
+	 * 
 	 * @param GenericTreeNode<Node>
-	 * @return int
+	 * @return TestCondition
 	 */
-	private static String findBestSplit(Node node){
+	private static TestCondition findBestSplit(Node node){
+		// TODO
 		node.getData();
-
-		return null;
+		
+		TestCondition testCondition = new TestCondition();
+		testCondition.setIdAttribute(1);
+		String[] vals = {"x","o","b"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		testCondition.setValues(vals);
+		
+		return testCondition;
+	}
+	
+	/**
+	 * split()
+	 * ritorna un nodo con tutti i record con attributo = valore
+	 *  
+	 */
+	private static Node split(Node node, int attribute, String value){
+		
+		ArrayList<ArrayList<String>> list = node.getRecords();
+		ArrayList<ArrayList<String>> newList = new ArrayList<ArrayList<String>>(0);
+		
+		Iterator<ArrayList<String>> it = list.iterator();
+		while (it.hasNext()) {
+			
+			ArrayList<String> sample = it.next();
+			if (sample.get(attribute).equals(value)) newList.add(sample);
+		}
+		
+		Node newNode= new Node(newList);
+		
+		return newNode;
+		
+		
 	}
 
 //	/** 
@@ -129,7 +162,9 @@ public class GenericHunt {
 	 * @param Node
 	 * @return GenericTreeNode
 	 */
-	public static GenericTreeNode treeGrowth(Node node){
+	public static GenericTree treeGrowth(GenericTree tree){
+		
+		Node node = (Node) tree.getRoot();
 
 		if (stoppingCondition(node)) {
 			// Il nodo considerato è una foglia
@@ -137,17 +172,25 @@ public class GenericHunt {
 			node.setLabel(classify(node));
 		} else {
 			// Il nodo deve essere "splittato"
-			node.setTestCondition(findBestSplit(node));
+			int attribute = findBestSplit(node).getIdAttribute();
+			node.setTestAttribute(attribute);
+//			node.setTestCondition(findBestSplit(node).getValues());
 			
-			
-			
+			for (String value : findBestSplit(node).getValues()) {
+				Node child = split(node, attribute, value);
+				
+				GenericTree<Node> treeChild = new GenericTree<Node>();
+				treeChild.setRoot(child);
+				
+				treeGrowth(treeChild);
+				
+				node.addChild(child);
+
+			}
 
 		}
 
-
-
-
-		return null;
+		return tree;
 	}
 
 
@@ -157,11 +200,18 @@ public class GenericHunt {
 	public static void main(String[] args) {
 		
 		// file dati
-		String strFile = "./data/tic-tac-toe/tic-tac-toe.data";
+		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 		Node root = new Node();
-		root.setData(CSVLoader.load(strFile));
-		GenericTreeNode<Node> tree = new GenericTreeNode<Node>(root);
-		treeGrowth(root);
+		root.setRecords(CSVLoader.load(strFile));
+		
+		GenericTree<Node> tree = new GenericTree<Node>();
+		tree.setRoot(root);
+		
+		tree = treeGrowth(tree);
+		
+		
+		System.out.println(tree.getNumberOfNodes());
+//		System.out.println(tree.getRoot().getData().getLabel());
 		
 
 	}
