@@ -4,6 +4,7 @@
 package classification;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import utilities.Gini;
 import vivin.GenericTreeNode;
@@ -47,10 +48,25 @@ public class Node extends GenericTreeNode<Node> {
 		this.testCondition = new TestCondition();
 	}
 	
-	public float purity() {
+	public float getPurity() {
 		Gini gini = new Gini();		
 		return gini.value(this.records);
 	}
+
+	public int howMany(int attribute, String value) {
+		int count = 0;
+		
+		Iterator<ArrayList<String>> it = this.records.iterator();
+		while (it.hasNext()) {
+			ArrayList<String> sample = it.next();
+			if (sample.get(attribute) == value) {
+				count++;
+			}
+		}
+		
+		return count;
+	}
+	
 	
 	public Boolean isLeaf() {
 		return leaf;

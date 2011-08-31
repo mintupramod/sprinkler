@@ -32,7 +32,7 @@ public class Gini implements PurityInterface {
 
 		}
 
-		// Gini index computing
+		// Gini index computing (Introduction to Data Mining eq.4.4, p.158)
 		float gini = 1;
 		int n = list.size();
 		for (String label : labels.keySet()) {

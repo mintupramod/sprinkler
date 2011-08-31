@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.print.attribute.standard.Finishings;
 
 
+import utilities.Gini;
 import vivin.*;
 
 /**
@@ -30,23 +31,34 @@ public class GenericHunt {
 	 * @return boolean
 	 */
 	private static boolean stoppingCondition(Node node){
-		return true;
-		//		// se tutti i record del nodo hanno la stessa etichetta lo considero una foglia
-		//		ArrayList<ArrayList<String>> list = node.getRecords();		
-		//		
-		//		HashSet<String> labels = new HashSet<String>();
-		//		
-		//		Iterator<ArrayList<String>> it = list.iterator();
-		//		while (it.hasNext()) {
-		//			ArrayList<String> sample = it.next();
-		//			labels.add(sample.get(sample.size()-1));
-		//		}
-		//		
-		//		if (labels.size() == 1) {
-		//			return true;			
-		//		} else {
-		//			return false;
-		//		}
+		// if all the records have the same label this node is a leaf
+		// NB gini = 0
+		
+		System.out.println(node.getPurity());
+		
+		if (node.getPurity() == 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+		
+		
+//		ArrayList<ArrayList<String>> list = node.getRecords();		
+//
+//		HashSet<String> labels = new HashSet<String>();
+//
+//		Iterator<ArrayList<String>> it = list.iterator();
+//		while (it.hasNext()) {
+//			ArrayList<String> sample = it.next();
+//			labels.add(sample.get(sample.size()-1));
+//		}
+//
+//		if (labels.size() == 1) {
+//			return true;			
+//		} else {
+//			return false;
+//		}
 	}
 
 	/** 
@@ -94,13 +106,34 @@ public class GenericHunt {
 	 * @return TestCondition
 	 */
 	private static TestCondition findBestSplit(Node node){
-
-		node.getData();
+		
+		// TODO leggere gli attributi dal file, o meglio esportare l'elenco degli attributi all'inizio e leggere in modo dinamico i valori.
+		// questo funziona solamente per il file tic-tac-toe
+		// NB implemented only the multiway split
+		int size = node.getRecords().size();
+		String[] values = {"x","o","b"};
+		int bestSplit = 0;
+		float bestAvg = 1;
+		for (int i = 1; i < 10; i++) {
+			// computing the weighted average index
+			float avg = 0; 
+			for (String value : values) {
+				float valuePurity = split(node, i, value).getPurity();
+				int valueNumber = split(node, i, value).howMany(i, value);
+				
+				avg = avg +	(float) valueNumber / (float) size * valuePurity;
+				
+				if (avg < bestAvg) {
+					bestAvg = avg;
+					bestSplit = i;
+				}
+			}
+			
+		}
 
 		TestCondition testCondition = new TestCondition();
-		testCondition.setIdAttribute(1);
-		String[] vals = {"x","o","b"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		testCondition.setValues(vals);
+		testCondition.setIdAttribute(bestSplit);
+		testCondition.setValues(values);
 
 		return testCondition;
 	}
@@ -167,16 +200,17 @@ public class GenericHunt {
 		Node node = (Node) tree.getRoot();
 
 		if (stoppingCondition(node)) {
-			// Il nodo considerato è una foglia
+			// node is a leaf
 			node.setLeaf(true);
 			node.setLabel(classify(node));
 		} else {
-			// Il nodo deve essere "splittato"
+			// splitting the node
 			int attribute = findBestSplit(node).getIdAttribute();
 			node.setTestAttribute(attribute);
 			//			node.setTestCondition(findBestSplit(node).getValues());
 
 			for (String value : findBestSplit(node).getValues()) {
+				System.out.println(value);
 				Node child = split(node, attribute, value);
 
 				GenericTree<Node> treeChild = new GenericTree<Node>();
