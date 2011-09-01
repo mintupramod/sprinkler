@@ -109,24 +109,34 @@ public class GenericHunt {
 		
 		// TODO leggere gli attributi dal file, o meglio esportare l'elenco degli attributi all'inizio e leggere in modo dinamico i valori.
 		// questo funziona solamente per il file tic-tac-toe
-		// NB implemented only the multiway split
+		// NB implemented only the multiway split, hardcoded "x","o","b"
 		int size = node.getRecords().size();
 		String[] values = {"x","o","b"};
 		int bestSplit = 0;
 		float bestAvg = 1;
 		for (int i = 1; i < 10; i++) {
 			// computing the weighted average index
+			
 			float avg = 0; 
 			for (String value : values) {
-				float valuePurity = split(node, i, value).getPurity();
-				int valueNumber = split(node, i, value).howMany(i, value);
+				float valuePurity = (float) split(node, i, value).getPurity();
+				int valueNumber = split(node, i, value).size();
 				
-				avg = avg +	(float) valueNumber / (float) size * valuePurity;
+				System.out.println("size "+i+" "+value+": "+valueNumber);
+				
+				//TODO
+				
+				
+				avg = (float) avg +	(float) valueNumber / (float) size * valuePurity;
+				
+				System.out.println("attributo "+i+" bestAvg "+bestAvg+" Avg "+avg+" pur/numb"+valuePurity+"/"+valueNumber);
 				
 				if (avg < bestAvg) {
 					bestAvg = avg;
 					bestSplit = i;
+					
 				}
+				
 			}
 			
 		}
@@ -210,7 +220,7 @@ public class GenericHunt {
 			//			node.setTestCondition(findBestSplit(node).getValues());
 
 			for (String value : findBestSplit(node).getValues()) {
-				System.out.println(value);
+
 				Node child = split(node, attribute, value);
 
 				GenericTree<Node> treeChild = new GenericTree<Node>();
@@ -233,6 +243,8 @@ public class GenericHunt {
 	 */
 	public static void main(String[] args) {
 
+//		testSplit();
+		
 		// file dati
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 		Node root = new Node();
@@ -249,5 +261,32 @@ public class GenericHunt {
 
 
 	}
+	
+	public static void testSplit() {
+		
+		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
+		
+		Node root = new Node();
+		root.setRecords(CSVLoader.load(strFile));
+		
+		System.out.println("Test split");
+
+		String[] values = {"x","o","b"};
+		
+		int tot = 0;
+		for (String value : values) {
+			
+			Node node = split(root, 1, value);
+			
+			System.out.println("value "+value+" "+node.size()+", purity "+node.getPurity());
+			tot = tot + node.getRecords().size();
+		}
+		
+		System.out.println("____________");
+		System.out.println("records "+tot);
+	
+		
+	}
+	
 
 }

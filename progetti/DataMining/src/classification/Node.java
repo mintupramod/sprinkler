@@ -52,6 +52,10 @@ public class Node extends GenericTreeNode<Node> {
 		Gini gini = new Gini();		
 		return gini.value(this.records);
 	}
+	
+	public int size() {
+		return this.records.size();
+	}
 
 	public int howMany(int attribute, String value) {
 		int count = 0;
