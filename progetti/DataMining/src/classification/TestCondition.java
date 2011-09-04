@@ -2,6 +2,16 @@ package classification;
 
 public class TestCondition {
 	
+	/**
+	 * 
+	 */
+	public TestCondition() {
+		super();
+		this.idAttribute = 0;
+		String[] v = {"x","o","b"};
+		this.values = v;
+	}
+
 	private int idAttribute;
 	
 	private String[] values;

@@ -131,11 +131,13 @@ public class GenericHunt {
 				
 //				System.out.println("attributo "+i+" bestAvg "+bestAvg+" Avg "+avg+" pur/numb"+valuePurity+"/"+valueNumber);
 				
-				if (avg < bestAvg) {
-					bestAvg = avg;
-					bestSplit = i;
-					
-				}
+
+				
+			}
+			
+			if (avg < bestAvg) {
+				bestAvg = avg;
+				bestSplit = i;
 				
 			}
 			
@@ -145,7 +147,7 @@ public class GenericHunt {
 		testCondition.setIdAttribute(bestSplit);
 		testCondition.setValues(values);
 		
-		System.out.println("best split "+testCondition.getIdAttribute());
+//		System.out.println("best split "+testCondition.getIdAttribute());
 
 		return testCondition;
 	}
@@ -214,7 +216,7 @@ public class GenericHunt {
 
 		if (stoppingCondition(node)) {
 			// node is a leaf
-			System.out.println("LEAF");
+//			System.out.println("LEAF");
 			node.setLeaf(true);
 			node.setLabel(classify(node));
 		} else {
@@ -258,23 +260,33 @@ public class GenericHunt {
 		//GenericTree<Node> tree = new GenericTree<Node>();
 		Tree tree = new Tree();
 		tree.setRoot(root);
-		
-		Node child = split(root, 8, "x");
-		System.out.println(child.size());
 
 		tree = (Tree) treeGrowth(tree);
 
 		System.out.println("numero di nodi "+tree.getNumberOfNodes());
-
-		System.out.println("attributo test "+((Node) tree.getRoot()).getTestAttribute());
 		
-		System.out.println(tree.toStringWithDepth());
+//		System.out.println(tree.toString());
 		
-		for (Iterator<GenericTreeNode<Node>> iterator = tree.getRoot().getChildren().iterator(); iterator.hasNext();) {
-			Node node = (Node) iterator.next();
-			System.out.println(node.getTestCondition());
-			System.out.println(node.getLabel());
-		}
+		
+		
+//		System.out.println(tree.build(GenericTreeTraversalOrderEnum.PRE_ORDER));
+		
+//		for (GenericTreeNode<Node> node : tree.build(GenericTreeTraversalOrderEnum.PRE_ORDER)) {
+//			System.out.println(node.getData());
+			
+			//			if (node.getData().getTestAttribute()==0) {
+//				System.out.println(node.getData().getTestAttribute());			
+//			}
+			
+//		}
+		
+		
+		
+//		for (Iterator<GenericTreeNode<Node>> iterator = tree.getRoot().getChildren().iterator(); iterator.hasNext();) {
+//			Node node = (Node) iterator.next();
+//			System.out.println(node.getTestCondition());
+//			System.out.println(node.getLabel());
+//		}
 
 	}
 	
