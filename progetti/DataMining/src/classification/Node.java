@@ -111,5 +111,9 @@ public class Node extends GenericTreeNode<Node> {
 	public void setRecords(ArrayList<ArrayList<String>> records) {
 		this.records = records;
 	}
+	
+    public String toString() {
+        return records.toString();
+    }
 
 }

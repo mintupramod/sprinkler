@@ -32,11 +32,11 @@ public class GenericHunt {
 	 */
 	private static boolean stoppingCondition(Node node){
 		// if all the records have the same label this node is a leaf
-		// NB gini = 0
+		// NB gini = 0 or gini = 1
 		
-		System.out.println(node.getPurity());
+//		System.out.println(node.getPurity());
 		
-		if (node.getPurity() == 0) {
+		if (node.getPurity() == 0 || node.getPurity() == 1) {
 			return true;
 		} else {
 			return false;
@@ -122,14 +122,14 @@ public class GenericHunt {
 				float valuePurity = (float) split(node, i, value).getPurity();
 				int valueNumber = split(node, i, value).size();
 				
-				System.out.println("size "+i+" "+value+": "+valueNumber);
+//				System.out.println("size "+i+" "+value+": "+valueNumber);
 				
 				//TODO
 				
 				
 				avg = (float) avg +	(float) valueNumber / (float) size * valuePurity;
 				
-				System.out.println("attributo "+i+" bestAvg "+bestAvg+" Avg "+avg+" pur/numb"+valuePurity+"/"+valueNumber);
+//				System.out.println("attributo "+i+" bestAvg "+bestAvg+" Avg "+avg+" pur/numb"+valuePurity+"/"+valueNumber);
 				
 				if (avg < bestAvg) {
 					bestAvg = avg;
@@ -205,7 +205,7 @@ public class GenericHunt {
 	 * @param Node
 	 * @return GenericTreeNode
 	 */
-	public static GenericTree treeGrowth(GenericTree tree){
+	public static Tree treeGrowth(Tree tree){
 
 		Node node = (Node) tree.getRoot();
 
@@ -223,7 +223,7 @@ public class GenericHunt {
 
 				Node child = split(node, attribute, value);
 
-				GenericTree<Node> treeChild = new GenericTree<Node>();
+				Tree treeChild = new Tree();
 				treeChild.setRoot(child);
 
 				treeGrowth(treeChild);
@@ -250,14 +250,17 @@ public class GenericHunt {
 		Node root = new Node();
 		root.setRecords(CSVLoader.load(strFile));
 
-		GenericTree<Node> tree = new GenericTree<Node>();
+		//GenericTree<Node> tree = new GenericTree<Node>();
+		Tree tree = new Tree();
 		tree.setRoot(root);
 
-		tree = treeGrowth(tree);
+		tree = (Tree) treeGrowth(tree);
 
+		System.out.println("numero di nodi "+tree.getNumberOfNodes());
 
-		System.out.println(tree.getNumberOfNodes());
-		//		System.out.println(tree.getRoot().getData().getLabel());
+		System.out.println("attributo test "+((Node) tree.getRoot()).getTestAttribute());
+		
+		System.out.println(tree.toStringWithDepth());
 
 
 	}
