@@ -63,13 +63,13 @@ public class GenericHunt {
 	}
 
 	/** 
-	 * classify()
+	 * label()
 	 * determina l'etichetta di classe da assegnare a un nodo foglia dell'albero
 	 * 
 	 * @param Node
 	 * @return String
 	 */
-	private static String classify(Node node){
+	private static String label(Node node){
 		// determino l'etichetta adatta al nodo dall'etichetta più ricorrente dei suoi record
 		ArrayList<ArrayList<String>> records = node.getRecords();
 		
@@ -227,7 +227,7 @@ public class GenericHunt {
 			// node is a leaf
 //			System.out.println("LEAF");
 			node.setLeaf(true);
-			node.setLabel(classify(node));
+			node.setLabel(label(node));
 			
 		} else {
 			// splitting the node
@@ -336,7 +336,7 @@ public class GenericHunt {
 		
 		System.out.println("Classify test");
 		
-		System.out.println("Node label: "+classify(root));
+		System.out.println("Node label: "+label(root));
 	
 		
 	}
