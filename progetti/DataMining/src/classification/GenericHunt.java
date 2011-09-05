@@ -36,7 +36,8 @@ public class GenericHunt {
 		
 //		System.out.println(node.getPurity());
 		
-		if (node.getPurity() == 0 || node.getPurity() == 1) {
+//		if (node.getPurity() == 0 || node.getPurity() == 1) {
+		if (node.getPurity() < 0.3 || node.getPurity() > 0.7) {
 			return true;
 		} else {
 			return false;
@@ -70,15 +71,22 @@ public class GenericHunt {
 	 */
 	private static String classify(Node node){
 		// determino l'etichetta adatta al nodo dall'etichetta più ricorrente dei suoi record
-		ArrayList<ArrayList<String>> list = node.getRecords();
+		ArrayList<ArrayList<String>> records = node.getRecords();
+		
+		ArrayList<String> list = new ArrayList<String>();
+		
+		for (ArrayList<String> record : records) {
+			list.add(record.get(record.size()-1));
+			
+		}
 
 		// lista delle etichette
 		HashSet<String> labels = new HashSet<String>();
 
-		Iterator<ArrayList<String>> it = list.iterator();
+		Iterator<String> it = list.iterator();
 		while (it.hasNext()) {
-			ArrayList<String> sample = it.next();
-			labels.add(sample.get(sample.size()-1));
+			String label = it.next();
+			labels.add(label);
 		}
 
 		int max = 0;
@@ -86,6 +94,7 @@ public class GenericHunt {
 
 		for (String label : labels) {
 			int freq = Collections.frequency(list, label);
+
 			if (freq > max) {
 				max = freq;
 				classLabel = label;
@@ -219,6 +228,7 @@ public class GenericHunt {
 //			System.out.println("LEAF");
 			node.setLeaf(true);
 			node.setLabel(classify(node));
+			
 		} else {
 			// splitting the node
 			TestCondition bestSplit = findBestSplit(node);
@@ -249,9 +259,10 @@ public class GenericHunt {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-//		testSplit();
 		
+//		testClassify();
+//		System.exit(0);
+
 		// file dati
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 		Node root = new Node();
@@ -265,9 +276,9 @@ public class GenericHunt {
 
 		System.out.println("numero di nodi "+tree.getNumberOfNodes());
 		
-//		System.out.println(tree.toString());
+		System.out.println(tree.toString());
 		
-		
+//		System.out.println(tree.getRoot().toString());
 		
 //		System.out.println(tree.build(GenericTreeTraversalOrderEnum.PRE_ORDER));
 		
@@ -297,7 +308,7 @@ public class GenericHunt {
 		Node root = new Node();
 		root.setRecords(CSVLoader.load(strFile));
 		
-		System.out.println("Test split");
+		System.out.println("Split test");
 
 		String[] values = {"x","o","b"};
 		
@@ -316,5 +327,18 @@ public class GenericHunt {
 		
 	}
 	
-
+	public static void testClassify() {
+		
+		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
+		
+		Node root = new Node();
+		root.setRecords(CSVLoader.load(strFile));
+		
+		System.out.println("Classify test");
+		
+		System.out.println("Node label: "+classify(root));
+	
+		
+	}
+	
 }

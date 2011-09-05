@@ -96,8 +96,8 @@ public class Node extends GenericTreeNode<Node> {
 		this.testCondition.setIdAttribute(testAttribute);
 	}
 
-	public String[] getTestCondition() {
-		return testCondition.getValues();
+	public TestCondition getTestCondition() {
+		return testCondition;
 	}
 
 	public void setTestCondition(String[] testConditions) {
@@ -113,7 +113,9 @@ public class Node extends GenericTreeNode<Node> {
 	}
 	
     public String toString() {
-        return records.toString();
+//        return records.toString();
+    	return "[Label "+getLabel()+" - Test Attr "+getTestAttribute()+" - Size "+size()+" - Leaf "+isLeaf()+"]";
+    	
     }
 
 }
