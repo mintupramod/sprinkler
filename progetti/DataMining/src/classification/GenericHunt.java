@@ -37,7 +37,7 @@ public class GenericHunt {
 //		System.out.println(node.getPurity());
 		
 //		if (node.getPurity() == 0 || node.getPurity() == 1) {
-		if (node.getPurity() < 0.3 || node.getPurity() > 0.7) {
+		if (node.getPurity() < 0.3 || node.getPurity() > 0.7 || node.size() < 4) {
 			return true;
 		} else {
 			return false;
@@ -90,7 +90,7 @@ public class GenericHunt {
 		}
 
 		int max = 0;
-		String classLabel = null;
+		String classLabel = "";
 
 		for (String label : labels) {
 			int freq = Collections.frequency(list, label);
@@ -233,12 +233,21 @@ public class GenericHunt {
 			// splitting the node
 			TestCondition bestSplit = findBestSplit(node);
 			
-			node.setTestAttribute(bestSplit.getIdAttribute());
-			node.setTestCondition(bestSplit.getValues());
+			TestCondition testCondition = new TestCondition();
+			testCondition.setValues(bestSplit.getValues());
+			testCondition.setIdAttribute(bestSplit.getIdAttribute());
+			
+			node.setTestCondition(testCondition);
 
 			for (String value : findBestSplit(node).getValues()) {
 
 				Node child = split(node, bestSplit.getIdAttribute(), value);
+				
+				
+				// ok only for single value split!
+				String[] values = {value};
+				testCondition.setValues(values);
+				child.setTestCondition(testCondition);
 
 				Tree treeChild = new Tree();
 				treeChild.setRoot(child);
@@ -278,6 +287,8 @@ public class GenericHunt {
 		
 		System.out.println(tree.toString());
 		
+		tree.toDot("data/tree.gv");
+		
 //		System.out.println(tree.getRoot().toString());
 		
 //		System.out.println(tree.build(GenericTreeTraversalOrderEnum.PRE_ORDER));
@@ -301,7 +312,7 @@ public class GenericHunt {
 
 	}
 	
-	public static void testSplit() {
+	private static void testSplit() {
 		
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 		
@@ -327,7 +338,7 @@ public class GenericHunt {
 		
 	}
 	
-	public static void testClassify() {
+	private static void testClassify() {
 		
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 		

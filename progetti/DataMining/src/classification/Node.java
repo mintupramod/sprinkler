@@ -4,6 +4,7 @@
 package classification;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import utilities.Gini;
@@ -100,8 +101,8 @@ public class Node extends GenericTreeNode<Node> {
 		return testCondition;
 	}
 
-	public void setTestCondition(String[] testConditions) {
-		this.testCondition.setValues(testConditions);
+	public void setTestCondition(TestCondition testConditions) {
+		this.testCondition = testConditions;
 	}
 
 	public ArrayList<ArrayList<String>> getRecords() {
@@ -113,8 +114,11 @@ public class Node extends GenericTreeNode<Node> {
 	}
 	
     public String toString() {
-//        return records.toString();
-    	return "[Label "+getLabel()+" - Test Attr "+getTestAttribute()+" - Size "+size()+" - Leaf "+isLeaf()+"]";
+//      return records.toString();
+    	return "Label "+getLabel()+" - Test Attr "+getTestAttribute()+" - Test Value "+Arrays.toString(getTestCondition().getValues())+" - Size "+size()+" - Leaf "+isLeaf();
+
+//    	return getLabel()+" "+getTestAttribute()+" "+Arrays.toString(getTestCondition().getValues())+" "+size()+" "+isLeaf();
+
     	
     }
 
