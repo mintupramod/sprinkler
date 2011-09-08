@@ -51,20 +51,27 @@ public class Tree extends GenericTree<Node> {
 			bufferedWriter.write(" digraph graphname {");
 			bufferedWriter.newLine();
 			
-			
-			
+			// nodes and links  
 			for (GenericTreeNode<Node> node : this.build(GenericTreeTraversalOrderEnum.PRE_ORDER)) {
 				if (node.hasChildren()) {
 					// children
 					for (GenericTreeNode<Node> child : node.getChildren()) {
 						bufferedWriter.write("    \""+((Node) node).getName()+"\" -> \""+((Node) child).getName()+"\" [label=\""+((Node) child).getTestAttribute()+"="+Arrays.toString(((Node) child).getTestCondition().getValues())+"\"];");
 						bufferedWriter.newLine();
-					}					
+					}
 				}
-				
 			}
 			 
-			
+			// making leafs green 
+			for (GenericTreeNode<Node> node : this.build(GenericTreeTraversalOrderEnum.PRE_ORDER)) {
+				if (((Node) node).isLeaf()) {
+					bufferedWriter.write("    "+((Node) node).getName()+" [color=green]");
+					bufferedWriter.newLine();
+					bufferedWriter.write("    "+((Node) node).getName()+" [label=\""+((Node) node).getName()+" "+((Node) node).getLabel()+"\"]");
+					bufferedWriter.newLine();
+
+				}
+			}
 
 
 			

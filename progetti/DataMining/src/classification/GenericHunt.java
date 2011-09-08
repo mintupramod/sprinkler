@@ -37,7 +37,8 @@ public class GenericHunt {
 //		System.out.println(node.getPurity());
 		
 //		if (node.getPurity() == 0 || node.getPurity() == 1) {
-		if (node.getPurity() < 0.3 || node.getPurity() > 0.7 || node.size() < 40) {
+//		if (node.getPurity() < 0.3 || node.getPurity() > 0.7 || node.size() < 40) {
+		if (node.getPurity() == 0) {
 			return true;
 		} else {
 			return false;
@@ -128,20 +129,13 @@ public class GenericHunt {
 			
 			float avg = 0; 
 			for (String value : values) {
-				float valuePurity = (float) split(node, i, value).getPurity();
-				int valueNumber = split(node, i, value).size();
+				Node tentativeSplit = split(node, i, value);
 				
-//				System.out.println("size "+i+" "+value+": "+valueNumber);
-				
-				//TODO
-				
-				
+				float valuePurity = (float) tentativeSplit.getPurity();
+				int valueNumber = tentativeSplit.size();
+								
 				avg = (float) avg +	(float) valueNumber / (float) size * valuePurity;
-				
-//				System.out.println("attributo "+i+" bestAvg "+bestAvg+" Avg "+avg+" pur/numb"+valuePurity+"/"+valueNumber);
-				
-
-				
+								
 			}
 			
 			if (avg < bestAvg) {
@@ -154,9 +148,20 @@ public class GenericHunt {
 
 		TestCondition testCondition = new TestCondition();
 		testCondition.setIdAttribute(bestSplit);
-		testCondition.setValues(values);
 		
-//		System.out.println("best split "+testCondition.getIdAttribute());
+		ArrayList<String> tobesplittedValue = new ArrayList<String>(0);
+		
+	
+		for (String value : values) {
+			if (node.howMany(bestSplit, value)>0) {
+				tobesplittedValue.add(value);
+			}
+		}
+		
+		String[] temp = new String[tobesplittedValue.size()];
+		temp = tobesplittedValue.toArray(temp);
+		
+		testCondition.setValues(temp);
 
 		return testCondition;
 	}
@@ -233,11 +238,11 @@ public class GenericHunt {
 			// splitting the node
 			TestCondition bestSplit = findBestSplit(node);
 			
-			TestCondition testCondition = new TestCondition();
-			testCondition.setValues(bestSplit.getValues());
-			testCondition.setIdAttribute(bestSplit.getIdAttribute());
+//			TestCondition testCondition = new TestCondition();
+//			testCondition.setValues(bestSplit.getValues());
+//			testCondition.setIdAttribute(bestSplit.getIdAttribute());
 			
-			node.setTestCondition(testCondition);
+//			node.setTestCondition(testCondition);
 
 			for (String value : findBestSplit(node).getValues()) {
 
@@ -246,12 +251,17 @@ public class GenericHunt {
 				
 				// ok only for single value split!
 				String[] values = {value};
+				
+				TestCondition testCondition = new TestCondition();
 				testCondition.setValues(values);
+				testCondition.setIdAttribute(bestSplit.getIdAttribute());
+				
 				child.setTestCondition(testCondition);
+				
 
 				Tree treeChild = new Tree();
 				treeChild.setRoot(child);
-
+				
 				treeGrowth(treeChild);
 
 				node.addChild(child);
@@ -269,6 +279,7 @@ public class GenericHunt {
 	 */
 	public static void main(String[] args) {
 		
+//		testHowMany();
 //		testClassify();
 //		System.exit(0);
 
@@ -282,10 +293,12 @@ public class GenericHunt {
 		tree.setRoot(root);
 
 		tree = (Tree) treeGrowth(tree);
-
-		System.out.println("numero di nodi "+tree.getNumberOfNodes());
 		
-		System.out.println(tree.toString());
+		System.out.println(((Node) tree.getRoot()).size()+" records analyzed");
+//		System.out.println(Integer.toString(((Node) tree.getRoot()).getCounter())+" nodes generated");
+		System.out.println(tree.getNumberOfNodes()+" nodes in tree");
+		
+//		System.out.println(tree.toString());
 		
 		tree.toDot("data/tree.gv");
 
@@ -316,6 +329,32 @@ public class GenericHunt {
 	
 		
 	}
+	
+	private static void testHowMany() {
+		
+String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
+		
+		Node root = new Node();
+		root.setRecords(CSVLoader.load(strFile));
+		
+		System.out.println("HowMany for attribute=0 test");
+
+		String[] values = {"x","o","b"};
+		
+		int tot = 0;
+		for (String value : values) {
+			
+			System.out.println("value "+value+" "+root.howMany(0, value));
+			
+		}
+		
+		tot = tot + root.getRecords().size();
+		
+		System.out.println("____________");
+		System.out.println("records "+tot);
+		
+	}
+	
 	
 	private static void testClassify() {
 		

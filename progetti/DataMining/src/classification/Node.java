@@ -73,7 +73,7 @@ public class Node extends GenericTreeNode<Node> {
 		Iterator<ArrayList<String>> it = this.records.iterator();
 		while (it.hasNext()) {
 			ArrayList<String> sample = it.next();
-			if (sample.get(attribute) == value) {
+			if (sample.get(attribute).equals(value)) {
 				count++;
 			}
 		}
@@ -121,6 +121,10 @@ public class Node extends GenericTreeNode<Node> {
 	public void setRecords(ArrayList<ArrayList<String>> records) {
 		this.records = records;
 	}
+
+    public int getCounter() {
+    	return this.counter;    	
+    }
 	
     public String getName() {
     	return this.name;    	
