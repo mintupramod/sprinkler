@@ -9,6 +9,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Arrays;
+import java.util.List;
 
 import vivin.GenericTree;
 import vivin.GenericTreeNode;
@@ -49,11 +51,13 @@ public class Tree extends GenericTree<Node> {
 			bufferedWriter.write(" digraph graphname {");
 			bufferedWriter.newLine();
 			
+			
+			
 			for (GenericTreeNode<Node> node : this.build(GenericTreeTraversalOrderEnum.PRE_ORDER)) {
 				if (node.hasChildren()) {
 					// children
 					for (GenericTreeNode<Node> child : node.getChildren()) {
-						bufferedWriter.write("    \""+node.toString()+"\" -> \""+child.toString()+"\";");
+						bufferedWriter.write("    \""+((Node) node).getName()+"\" -> \""+((Node) child).getName()+"\" [label=\""+((Node) child).getTestAttribute()+"="+Arrays.toString(((Node) child).getTestCondition().getValues())+"\"];");
 						bufferedWriter.newLine();
 					}					
 				}

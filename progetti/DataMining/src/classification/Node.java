@@ -16,6 +16,13 @@ import vivin.GenericTreeNode;
  */
 public class Node extends GenericTreeNode<Node> {
 	
+	// counter
+	static int counter = 0;
+	
+	// name
+	private String name;
+	
+	
 	// il nodo è una foglia?
 	private Boolean leaf;
 	// etichetta della classe del nodo (solo se leaf)
@@ -31,6 +38,7 @@ public class Node extends GenericTreeNode<Node> {
 	 */
 	public Node() {
 		super();
+		this.name=Integer.toString(counter++);
 		this.records = null;
 		this.leaf = false;
 		this.label = "";
@@ -43,6 +51,7 @@ public class Node extends GenericTreeNode<Node> {
 	 */
 	public Node(ArrayList<ArrayList<String>> data) {
 		super();
+		this.name=Integer.toString(counter++);
 		this.records = data;
 		this.leaf = false;
 		this.label = "";
@@ -113,13 +122,13 @@ public class Node extends GenericTreeNode<Node> {
 		this.records = records;
 	}
 	
-    public String toString() {
-//      return records.toString();
-    	return "Label "+getLabel()+" - Test Attr "+getTestAttribute()+" - Test Value "+Arrays.toString(getTestCondition().getValues())+" - Size "+size()+" - Leaf "+isLeaf();
-
-//    	return getLabel()+" "+getTestAttribute()+" "+Arrays.toString(getTestCondition().getValues())+" "+size()+" "+isLeaf();
-
-    	
+    public String getName() {
+    	return this.name;    	
     }
+    
+    public String toString() {
+    	return "Test Attr "+getTestAttribute()+" - Test Values "+Arrays.toString(getTestCondition().getValues())+" "+size()+" records  isLeaf="+isLeaf()+" "+getLabel();    	
+    }
+	
 
 }

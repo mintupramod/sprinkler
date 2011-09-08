@@ -37,7 +37,7 @@ public class GenericHunt {
 //		System.out.println(node.getPurity());
 		
 //		if (node.getPurity() == 0 || node.getPurity() == 1) {
-		if (node.getPurity() < 0.3 || node.getPurity() > 0.7 || node.size() < 4) {
+		if (node.getPurity() < 0.3 || node.getPurity() > 0.7 || node.size() < 40) {
 			return true;
 		} else {
 			return false;
@@ -288,27 +288,6 @@ public class GenericHunt {
 		System.out.println(tree.toString());
 		
 		tree.toDot("data/tree.gv");
-		
-//		System.out.println(tree.getRoot().toString());
-		
-//		System.out.println(tree.build(GenericTreeTraversalOrderEnum.PRE_ORDER));
-		
-//		for (GenericTreeNode<Node> node : tree.build(GenericTreeTraversalOrderEnum.PRE_ORDER)) {
-//			System.out.println(node.getData());
-			
-			//			if (node.getData().getTestAttribute()==0) {
-//				System.out.println(node.getData().getTestAttribute());			
-//			}
-			
-//		}
-		
-		
-		
-//		for (Iterator<GenericTreeNode<Node>> iterator = tree.getRoot().getChildren().iterator(); iterator.hasNext();) {
-//			Node node = (Node) iterator.next();
-//			System.out.println(node.getTestCondition());
-//			System.out.println(node.getLabel());
-//		}
 
 	}
 	
