@@ -1,14 +1,15 @@
 /**
  * Implementa il tipo nodo dell'albero di decisione
  */
-package classification;
+package hunt.data;
+
+import hunt.purity.Gini;
+import hunt.vivin.GenericTreeNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import utilities.Gini;
-import vivin.GenericTreeNode;
 
 /**
  * @author Claudio Tanci

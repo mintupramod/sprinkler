@@ -1,4 +1,4 @@
-package classification;
+package hunt.data;
 
 public class TestCondition implements java.io.Serializable {
 	

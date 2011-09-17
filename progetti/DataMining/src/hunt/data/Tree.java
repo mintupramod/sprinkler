@@ -1,4 +1,8 @@
-package classification;
+package hunt.data;
+
+import hunt.vivin.GenericTree;
+import hunt.vivin.GenericTreeNode;
+import hunt.vivin.GenericTreeTraversalOrderEnum;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -14,9 +18,6 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
 
-import vivin.GenericTree;
-import vivin.GenericTreeNode;
-import vivin.GenericTreeTraversalOrderEnum;
 
 public class Tree extends GenericTree<Node> implements java.io.Serializable {
 

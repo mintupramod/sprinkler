@@ -2,7 +2,8 @@
  * Parse CSV File using StringTokenizer.
  * 
  */
-package classification;
+package hunt.utilities;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;

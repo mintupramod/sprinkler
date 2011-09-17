@@ -3,7 +3,7 @@
  Distributed under the BSD License
 */
 
-package vivin;
+package hunt.vivin;
 
 import java.util.*;
 

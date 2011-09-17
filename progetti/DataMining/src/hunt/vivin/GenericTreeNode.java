@@ -3,7 +3,7 @@
  Distributed under the BSD license
 */
 
-package vivin;
+package hunt.vivin;
 
 import java.util.ArrayList;
 import java.util.List;

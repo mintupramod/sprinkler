@@ -1,7 +1,15 @@
 /**
  * 
  */
-package classification;
+package hunt;
+
+import hunt.data.Node;
+import hunt.data.TestCondition;
+import hunt.data.Tree;
+import hunt.purity.Gini;
+import hunt.utilities.Bundle;
+import hunt.utilities.CSVLoader;
+import hunt.vivin.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,8 +25,6 @@ import java.util.Set;
 
 import javax.print.attribute.standard.Finishings;
 
-import utilities.Gini;
-import vivin.*;
 
 /**
  * @author Claudio Tanci

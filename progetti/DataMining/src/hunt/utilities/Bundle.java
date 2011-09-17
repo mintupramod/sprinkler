@@ -1,10 +1,10 @@
-package classification;
+package hunt.utilities;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Bundle {
-	private static final String BUNDLE_NAME = "classification.bundle"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "hunt.bundle"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
 			.getBundle(BUNDLE_NAME);

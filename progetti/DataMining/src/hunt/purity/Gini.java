@@ -1,4 +1,7 @@
-package utilities;
+package hunt.purity;
+
+import hunt.utilities.Bundle;
+import hunt.utilities.CSVLoader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,8 +9,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import classification.Bundle;
-import classification.CSVLoader;
 
 /**
  * @author Claudio Tanci

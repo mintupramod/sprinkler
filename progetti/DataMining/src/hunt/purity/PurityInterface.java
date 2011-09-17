@@ -1,7 +1,7 @@
 /**
  * Misura la disparità tra elementi di un insieme
  */
-package utilities;
+package hunt.purity;
 
 import java.util.ArrayList;
 
