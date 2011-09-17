@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GenericTreeNode<T> {
+public class GenericTreeNode<T> implements java.io.Serializable {
 
     private T data;
     private List<GenericTreeNode<T>> children;

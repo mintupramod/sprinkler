@@ -1,6 +1,6 @@
 package classification;
 
-public class TestCondition {
+public class TestCondition implements java.io.Serializable {
 	
 	/**
 	 * 

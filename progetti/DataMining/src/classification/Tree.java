@@ -3,8 +3,10 @@ package classification;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
@@ -16,7 +18,7 @@ import vivin.GenericTree;
 import vivin.GenericTreeNode;
 import vivin.GenericTreeTraversalOrderEnum;
 
-public class Tree extends GenericTree<Node> {
+public class Tree extends GenericTree<Node> implements java.io.Serializable {
 
 	private Node root;
 
@@ -35,7 +37,19 @@ public class Tree extends GenericTree<Node> {
 
 		return stringRepresentation;
 	}
+	
+	public void save(String filename) throws IOException {
+		// Write to disk with FileOutputStream
+		FileOutputStream f_out = new FileOutputStream(filename);
 
+		// Write object with ObjectOutputStream
+		ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
+
+		// Write object out to disk
+		obj_out.writeObject(this);
+	
+	}
+	
 	public void toDot(String filename) {
 
 		BufferedWriter bufferedWriter = null;

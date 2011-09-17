@@ -3,6 +3,12 @@
  */
 package classification;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,74 +17,51 @@ import java.util.Set;
 
 import javax.print.attribute.standard.Finishings;
 
-
 import utilities.Gini;
 import vivin.*;
 
 /**
  * @author Claudio Tanci
- *
+ * 
  */
 public class GenericHunt {
 
-
-	/** 
-	 * stoppingCondition()
-	 * controlla se la condizione per la terminazione dell'accrescimento
-	 * dell'albero è stata raggiunta
+	/**
+	 * stoppingCondition() controlla se la condizione per la terminazione
+	 * dell'accrescimento dell'albero è stata raggiunta
 	 * 
 	 * @param Node
 	 * @return boolean
 	 */
-	private static boolean stoppingCondition(Node node){
+	private static boolean stoppingCondition(Node node) {
 		// if all the records have the same label this node is a leaf
-		// NB gini = 0 or gini = 1
-		
-//		System.out.println(node.getPurity());
-		
-//		if (node.getPurity() == 0 || node.getPurity() == 1) {
-//		if (node.getPurity() < 0.3 || node.getPurity() > 0.7 || node.size() < 40) {
-		if (node.getPurity() == 0) {
+
+		// if (node.getPurity() < 0.3 || node.size() < 40) {
+		if (node.getPurity() < 0.4) {
+			// if (node.getPurity() == 0) {
 			return true;
 		} else {
 			return false;
 		}
-		
-		
-		
-//		ArrayList<ArrayList<String>> list = node.getRecords();		
-//
-//		HashSet<String> labels = new HashSet<String>();
-//
-//		Iterator<ArrayList<String>> it = list.iterator();
-//		while (it.hasNext()) {
-//			ArrayList<String> sample = it.next();
-//			labels.add(sample.get(sample.size()-1));
-//		}
-//
-//		if (labels.size() == 1) {
-//			return true;			
-//		} else {
-//			return false;
-//		}
 	}
 
-	/** 
-	 * label()
-	 * determina l'etichetta di classe da assegnare a un nodo foglia dell'albero
+	/**
+	 * label() determina l'etichetta di classe da assegnare a un nodo foglia
+	 * dell'albero
 	 * 
 	 * @param Node
 	 * @return String
 	 */
-	private static String label(Node node){
-		// determino l'etichetta adatta al nodo dall'etichetta più ricorrente dei suoi record
+	private static String label(Node node) {
+		// determino l'etichetta adatta al nodo dall'etichetta più ricorrente
+		// dei suoi record
 		ArrayList<ArrayList<String>> records = node.getRecords();
-		
+
 		ArrayList<String> list = new ArrayList<String>();
-		
+
 		for (ArrayList<String> record : records) {
-			list.add(record.get(record.size()-1));
-			
+			list.add(record.get(record.size() - 1));
+
 		}
 
 		// lista delle etichette
@@ -105,163 +88,160 @@ public class GenericHunt {
 		return classLabel;
 	}
 
-	/** 
-	 * findBestSplit()
-	 * seleziona l'attributo su cui splittare il nodo dell'albero 
-	 * e ne ritorna l'indice
+	/**
+	 * findBestSplit() seleziona l'attributo su cui splittare il nodo
+	 * dell'albero e ne ritorna l'indice
 	 * 
 	 * NB. implementazione solo per attributi nominali
 	 * 
 	 * @param Node
 	 * @return TestCondition
 	 */
-	private static TestCondition findBestSplit(Node node){
-		
-		// TODO leggere gli attributi dal file, o meglio esportare l'elenco degli attributi all'inizio e leggere in modo dinamico i valori.
+	private static TestCondition findBestSplit(Node node) {
+
+		// TODO leggere gli attributi dal file, o meglio esportare l'elenco
+		// degli attributi all'inizio e leggere in modo dinamico i valori.
 		// questo funziona solamente per il file tic-tac-toe
 		// NB implemented only the multiway split, hardcoded "x","o","b"
 		int size = node.getRecords().size();
-		String[] values = {"x","o","b"};
+		String[] values = { "x", "o", "b" };
 		int bestSplit = 0;
 		float bestAvg = 1;
 		for (int i = 0; i < 9; i++) {
 			// computing the weighted average index
-			
-			float avg = 0; 
+
+			float avg = 0;
 			for (String value : values) {
 				Node tentativeSplit = split(node, i, value);
-				
+
 				float valuePurity = (float) tentativeSplit.getPurity();
 				int valueNumber = tentativeSplit.size();
-								
-				avg = (float) avg +	(float) valueNumber / (float) size * valuePurity;
-								
+
+				avg = (float) avg + (float) valueNumber / (float) size
+						* valuePurity;
+
 			}
-			
+
 			if (avg < bestAvg) {
 				bestAvg = avg;
 				bestSplit = i;
-				
+
 			}
-			
+
 		}
 
 		TestCondition testCondition = new TestCondition();
 		testCondition.setIdAttribute(bestSplit);
-		
+
 		ArrayList<String> tobesplittedValue = new ArrayList<String>(0);
-		
-	
+
 		for (String value : values) {
-			if (node.howMany(bestSplit, value)>0) {
+			if (node.howMany(bestSplit, value) > 0) {
 				tobesplittedValue.add(value);
 			}
 		}
-		
+
 		String[] temp = new String[tobesplittedValue.size()];
 		temp = tobesplittedValue.toArray(temp);
-		
+
 		testCondition.setValues(temp);
 
 		return testCondition;
 	}
 
 	/**
-	 * split()
-	 * ritorna un nodo con tutti i record con attributo = valore
-	 *  
+	 * split() ritorna un nodo con tutti i record con attributo = valore
+	 * 
 	 */
-	private static Node split(Node node, int attribute, String value){
+	private static Node split(Node node, int attribute, String value) {
 
 		ArrayList<ArrayList<String>> list = node.getRecords();
-		ArrayList<ArrayList<String>> newList = new ArrayList<ArrayList<String>>(0);
+		ArrayList<ArrayList<String>> newList = new ArrayList<ArrayList<String>>(
+				0);
 
 		Iterator<ArrayList<String>> it = list.iterator();
 		while (it.hasNext()) {
 
 			ArrayList<String> sample = it.next();
-			if (sample.get(attribute).equals(value)) newList.add(sample);
-			
+			if (sample.get(attribute).equals(value))
+				newList.add(sample);
+
 		}
 
-		Node newNode= new Node(newList);
+		Node newNode = new Node(newList);
 
 		return newNode;
 
-
 	}
 
-	//	/** 
-	//	 * createNode()
-	//	 * estende l'albero creando un nuovo nodo
-	//	 * 
-	//	 * @param ArrayList<ArrayList<String>>
-	//	 * @return GenericTreeNode
-	//	 */
-	//	private GenericTreeNode<Node> createNode(ArrayList<ArrayList<String>> list){
+	// /**
+	// * createNode()
+	// * estende l'albero creando un nuovo nodo
+	// *
+	// * @param ArrayList<ArrayList<String>>
+	// * @return GenericTreeNode
+	// */
+	// private GenericTreeNode<Node> createNode(ArrayList<ArrayList<String>>
+	// list){
 	//
-	//		return null;
-	//	}
+	// return null;
+	// }
 	//
-	//	/** 
-	//	 * createNode()
-	//	 * estende l'albero creando un nuovo nodo
-	//	 * 
-	//	 * @param ArrayList<ArrayList<String>>
-	//	 * @return GenericTreeNode
-	//	 */
-	//	private static Node createNode(){
-	//		Node node = new Node();
-	//		
-	//		return node;
-	//	}
+	// /**
+	// * createNode()
+	// * estende l'albero creando un nuovo nodo
+	// *
+	// * @param ArrayList<ArrayList<String>>
+	// * @return GenericTreeNode
+	// */
+	// private static Node createNode(){
+	// Node node = new Node();
+	//
+	// return node;
+	// }
 
-
-	/** 
-	 * treeGrowth()
-	 * costruisce l'albero di induzione
+	/**
+	 * treeGrowth() costruisce l'albero di induzione
 	 * 
 	 * @param Node
 	 * @return GenericTreeNode
 	 */
-	public static Tree treeGrowth(Tree tree){
+	public static Tree treeGrowth(Tree tree) {
 
 		Node node = (Node) tree.getRoot();
 
 		if (stoppingCondition(node)) {
 			// node is a leaf
-//			System.out.println("LEAF");
+			// System.out.println("LEAF");
 			node.setLeaf(true);
 			node.setLabel(label(node));
-			
+
 		} else {
 			// splitting the node
 			TestCondition bestSplit = findBestSplit(node);
-			
-//			TestCondition testCondition = new TestCondition();
-//			testCondition.setValues(bestSplit.getValues());
-//			testCondition.setIdAttribute(bestSplit.getIdAttribute());
-			
-//			node.setTestCondition(testCondition);
+
+			// TestCondition testCondition = new TestCondition();
+			// testCondition.setValues(bestSplit.getValues());
+			// testCondition.setIdAttribute(bestSplit.getIdAttribute());
+
+			// node.setTestCondition(testCondition);
 
 			for (String value : findBestSplit(node).getValues()) {
 
 				Node child = split(node, bestSplit.getIdAttribute(), value);
-				
-				
+
 				// ok only for single value split!
-				String[] values = {value};
-				
+				String[] values = { value };
+
 				TestCondition testCondition = new TestCondition();
 				testCondition.setValues(values);
 				testCondition.setIdAttribute(bestSplit.getIdAttribute());
-				
+
 				child.setTestCondition(testCondition);
-				
 
 				Tree treeChild = new Tree();
 				treeChild.setRoot(child);
-				
+
 				treeGrowth(treeChild);
 
 				node.addChild(child);
@@ -273,101 +253,133 @@ public class GenericHunt {
 		return tree;
 	}
 
-
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-//		testHowMany();
-//		testClassify();
-//		System.exit(0);
+
+		// testHowMany();
+		// testClassify();
+		// System.exit(0);
 
 		// file dati
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 		Node root = new Node();
+
+		System.out.println("Reading file data " + strFile);
 		root.setRecords(CSVLoader.load(strFile));
 
-		//GenericTree<Node> tree = new GenericTree<Node>();
+		System.out.println("Generating decision tree...");
 		Tree tree = new Tree();
 		tree.setRoot(root);
 
 		tree = (Tree) treeGrowth(tree);
-		
-		System.out.println(((Node) tree.getRoot()).size()+" records analyzed");
-//		System.out.println(Integer.toString(((Node) tree.getRoot()).getCounter())+" nodes generated");
-		System.out.println(tree.getNumberOfNodes()+" nodes in tree");
-		
-//		System.out.println(tree.toString());
-		
-		tree.toDot("data/tree.gv");
+
+		System.out.println(((Node) tree.getRoot()).size() + " records analyzed");
+
+		System.out.println(tree.getNumberOfNodes() + " nodes in the tree");
+
+		try {
+			String fileName = Bundle.getString("Resources.SaveFileName");
+			tree.save(fileName);
+			System.out.println("Decision tree saved as "+fileName);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+//		// Read from disk using FileInputStream
+//		FileInputStream f_in;
+//		try {
+//			f_in = new FileInputStream(Bundle.getString("Resources.SaveFileName"));
+//
+//			// Read object using ObjectInputStream
+//			ObjectInputStream obj_in = new ObjectInputStream(f_in);
+//
+//			// Read an object
+//			Object obj = obj_in.readObject();
+//
+//			if (obj instanceof Tree) {
+//				// Cast object to Tree
+//				Tree treeNew = (Tree) obj;
+//
+//				// Do something with tree....
+//				treeNew.toDot(Bundle.getString("Resources.DotFileName"));
+//			}
+//
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
+		String fileName = Bundle.getString("Resources.DotFileName"); 
+		tree.toDot(fileName);
+		System.out.println("Decision tree dot file saved as "+fileName);
 
 	}
-	
+
 	private static void testSplit() {
-		
+
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
-		
+
 		Node root = new Node();
 		root.setRecords(CSVLoader.load(strFile));
-		
+
 		System.out.println("Split test");
 
-		String[] values = {"x","o","b"};
-		
+		String[] values = { "x", "o", "b" };
+
 		int tot = 0;
 		for (String value : values) {
-			
+
 			Node node = split(root, 1, value);
-			
-			System.out.println("value "+value+" "+node.size()+", purity "+node.getPurity());
+
+			System.out.println("value " + value + " " + node.size()
+					+ ", purity " + node.getPurity());
 			tot = tot + node.getRecords().size();
 		}
-		
+
 		System.out.println("____________");
-		System.out.println("records "+tot);
-	
-		
+		System.out.println("records " + tot);
+
 	}
-	
+
 	private static void testHowMany() {
-		
-String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
-		
+
+		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
+
 		Node root = new Node();
 		root.setRecords(CSVLoader.load(strFile));
-		
+
 		System.out.println("HowMany for attribute=0 test");
 
-		String[] values = {"x","o","b"};
-		
+		String[] values = { "x", "o", "b" };
+
 		int tot = 0;
 		for (String value : values) {
-			
-			System.out.println("value "+value+" "+root.howMany(0, value));
-			
+
+			System.out.println("value " + value + " " + root.howMany(0, value));
+
 		}
-		
+
 		tot = tot + root.getRecords().size();
-		
+
 		System.out.println("____________");
-		System.out.println("records "+tot);
-		
+		System.out.println("records " + tot);
+
 	}
-	
-	
+
 	private static void testClassify() {
-		
+
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
-		
+
 		Node root = new Node();
 		root.setRecords(CSVLoader.load(strFile));
-		
+
 		System.out.println("Classify test");
-		
-		System.out.println("Node label: "+label(root));
-	
-		
+
+		System.out.println("Node label: " + label(root));
+
 	}
-	
+
 }

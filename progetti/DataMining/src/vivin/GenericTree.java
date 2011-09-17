@@ -7,7 +7,7 @@ package vivin;
 
 import java.util.*;
 
-public class GenericTree<T> {
+public class GenericTree<T> implements java.io.Serializable {
 
     private GenericTreeNode<T> root;
 
