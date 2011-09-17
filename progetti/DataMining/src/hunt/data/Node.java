@@ -18,7 +18,7 @@ import java.util.Iterator;
 public class Node extends GenericTreeNode<Node> {
 	
 	// counter
-	//static int counter = 0;
+	static int counter = 0;
 	
 	// name
 	private String name;
@@ -39,7 +39,7 @@ public class Node extends GenericTreeNode<Node> {
 	 */
 	public Node() {
 		super();
-//		this.name=Integer.toString(counter++);
+		this.name=Integer.toString(counter++);
 		this.records = null;
 		this.leaf = false;
 		this.label = "";
@@ -52,7 +52,7 @@ public class Node extends GenericTreeNode<Node> {
 	 */
 	public Node(ArrayList<ArrayList<String>> data) {
 		super();
-//		this.name=Integer.toString(counter++);
+		this.name=Integer.toString(counter++);
 		this.records = data;
 		this.leaf = false;
 		this.label = "";

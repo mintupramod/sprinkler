@@ -1,15 +1,18 @@
 package hunt.data;
 
+import hunt.utilities.Bundle;
 import hunt.vivin.GenericTree;
 import hunt.vivin.GenericTreeNode;
 import hunt.vivin.GenericTreeTraversalOrderEnum;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -39,6 +42,9 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		return stringRepresentation;
 	}
 	
+	/*
+	 * Salva l'albero su disco
+	 */
 	public void save(String filename) throws IOException {
 		// Write to disk with FileOutputStream
 		FileOutputStream f_out = new FileOutputStream(filename);
@@ -49,6 +55,18 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		// Write object out to disk
 		obj_out.writeObject(this);
 	
+	}
+
+	/*
+	 * Cancella i record presenti nell'albero
+	 */
+	public void clean() {
+
+		// for all nodes
+		for (GenericTreeNode<Node> node : this.build(GenericTreeTraversalOrderEnum.PRE_ORDER)) {
+			((Node) node).setRecords(null);
+		}
+
 	}
 	
 	public void toDot(String filename) {
@@ -137,6 +155,39 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		//
 		// return outputStream;
 
+	}
+
+	public String classify(TicTacToeRecord record) {
+		
+		Node root = (Node) this.getRoot();
+		return classify(root, record);
+	}
+	
+	
+	public String classify(Node node, TicTacToeRecord record) {
+		
+		String label = null;
+		
+		if (node.hasChildren()) {
+			for (GenericTreeNode<Node> child : node.getChildren()) {
+				int attr = ((Node) child).getTestCondition().getIdAttribute();
+				String[] values = ((Node) child).getTestCondition().getValues();
+				
+				for (int i = 0; i < values.length; i++) {
+					String value = values[i];
+					
+					if (record.getAttribute(attr).value.equals(value)) {
+						label = classify((Node) child, record);
+						
+					}
+					
+				}
+				
+			}
+			
+		} else {label = node.getLabel();}
+		
+		return label;
 	}
 
 }

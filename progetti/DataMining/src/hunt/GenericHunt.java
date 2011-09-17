@@ -43,8 +43,10 @@ public class GenericHunt {
 		// if all the records have the same label this node is a leaf
 
 		// if (node.getPurity() < 0.3 || node.size() < 40) {
-		if (node.getPurity() < 0.4) {
-			// if (node.getPurity() == 0) {
+		if (node.getPurity() < 0.3) {
+		
+		// complete grow
+//		if (node.getPurity() == 0) {
 			return true;
 		} else {
 			return false;
@@ -284,7 +286,12 @@ public class GenericHunt {
 		System.out.println(((Node) tree.getRoot()).size() + " records analyzed");
 
 		System.out.println(tree.getNumberOfNodes() + " nodes in the tree");
-
+		
+		System.out.println("Cleaning data set records...");
+		tree.clean();
+		
+		
+		// saving the tree
 		try {
 			String fileName = Bundle.getString("Resources.SaveFileName");
 			tree.save(fileName);
@@ -294,33 +301,17 @@ public class GenericHunt {
 			e.printStackTrace();
 		}
 
-//		// Read from disk using FileInputStream
-//		FileInputStream f_in;
-//		try {
-//			f_in = new FileInputStream(Bundle.getString("Resources.SaveFileName"));
-//
-//			// Read object using ObjectInputStream
-//			ObjectInputStream obj_in = new ObjectInputStream(f_in);
-//
-//			// Read an object
-//			Object obj = obj_in.readObject();
-//
-//			if (obj instanceof Tree) {
-//				// Cast object to Tree
-//				Tree treeNew = (Tree) obj;
-//
-//				// Do something with tree....
-//				treeNew.toDot(Bundle.getString("Resources.DotFileName"));
-//			}
-//
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// exporting tree dot file
+		tree.toDot(Bundle.getString("Resources.DotFileName"));		
+		
+		
+		
+		
+		
+		
+		
 
-		String fileName = Bundle.getString("Resources.DotFileName"); 
-		tree.toDot(fileName);
-		System.out.println("Decision tree dot file saved as "+fileName);
+
 
 	}
 
