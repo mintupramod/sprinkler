@@ -5,6 +5,11 @@
 package hunt.utilities;
 
 
+import hunt.data.Label;
+import hunt.data.NominalAttribute;
+import hunt.data.RecordSet;
+import hunt.data.TicTacToeRecord;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -17,9 +22,67 @@ import java.util.StringTokenizer;
  */
 public class CSVLoader {
 
-	/**
-	 * @param args
+	
+	/*
+	 * nuova funzione di load !!! 
 	 */
+	public static ArrayList<TicTacToeRecord> loadRecordSet(String strFile) {
+		
+		ArrayList<TicTacToeRecord> recordSet = new ArrayList<TicTacToeRecord>(0);
+
+		try {
+
+			// create BufferedReader to read csv file
+			BufferedReader br = new BufferedReader(new FileReader(strFile));
+			String strLine = "";
+			StringTokenizer st = null;
+
+			// read comma separated file line by line
+			while ((strLine = br.readLine()) != null) {
+
+				// break comma separated line using ","
+				st = new StringTokenizer(strLine, ",");
+
+				ArrayList<NominalAttribute> attributes = new ArrayList<NominalAttribute>(0);
+				
+				// attributes (last token assumed to be a label)
+				
+				String l = "";
+				
+				while (st.hasMoreTokens()) {
+					
+					if (st.countTokens() > 1) {
+						NominalAttribute attribute = new NominalAttribute(st.nextToken());
+						attributes.add(attribute);
+					} else {
+						l = st.nextToken();
+					}
+					
+				}
+				
+				Label label = new Label(l);
+				 
+
+				TicTacToeRecord record = new TicTacToeRecord(attributes, label);
+				
+				recordSet.add(record);
+
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error reading csv file: " + e);
+		}
+		return recordSet;
+	}
+	
+	
+	
+
+	/**
+	 * @deprecated
+	 * 
+	 */
+	
 	public static ArrayList<ArrayList<String>> load(String strFile) {
 
 		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>(0);

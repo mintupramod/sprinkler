@@ -7,5 +7,9 @@ public class Label {
 	public Label(String string) {
 		this.label = string;
 	}
+	
+	public String toString(){
+		return this.label;
+	}
 
 }

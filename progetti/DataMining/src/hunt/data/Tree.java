@@ -157,6 +157,25 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 
 	}
 
+	public double validate(RecordSet recordSet) {
+		
+		int positive = 0;
+		
+		for (TicTacToeRecord record : recordSet.getRecords()) {
+			
+//			System.out.println(this.classify(record)+" "+record.getLabel().toString());
+			
+			if (this.classify(record).equals(record.getLabel().toString())) {
+				positive++;
+			}
+			
+		}
+
+		// return error ratio
+		return 1.0 - (double) positive / (double) recordSet.getRecords().size();
+	}
+	
+	
 	public String classify(TicTacToeRecord record) {
 		
 		Node root = (Node) this.getRoot();

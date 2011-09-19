@@ -43,10 +43,10 @@ public class GenericHunt {
 		// if all the records have the same label this node is a leaf
 
 		// if (node.getPurity() < 0.3 || node.size() < 40) {
-		if (node.getPurity() < 0.3) {
+//		if (node.getPurity() < 0.3) {
 		
 		// complete grow
-//		if (node.getPurity() == 0) {
+		if (node.getPurity() == 0) {
 			return true;
 		} else {
 			return false;
