@@ -43,10 +43,10 @@ public class GenericHunt {
 		// if all the records have the same label this node is a leaf
 
 		// if (node.getPurity() < 0.3 || node.size() < 40) {
-//		if (node.getPurity() < 0.3) {
+		if (node.getPurity() < 0.4) {
 		
 		// complete grow
-		if (node.getPurity() == 0) {
+//		if (node.getPurity() == 0) {
 			return true;
 		} else {
 			return false;
@@ -217,12 +217,15 @@ public class GenericHunt {
 	public static Tree treeGrowth(Tree tree) {
 
 		Node node = (Node) tree.getRoot();
+		
+		// setting the label for both leaf and not leaf nodes
+		node.setLabel(label(node));
 
 		if (stoppingCondition(node)) {
 			// node is a leaf
 			// System.out.println("LEAF");
 			node.setLeaf(true);
-			node.setLabel(label(node));
+//			node.setLabel(label(node));
 
 		} else {
 			// splitting the node
