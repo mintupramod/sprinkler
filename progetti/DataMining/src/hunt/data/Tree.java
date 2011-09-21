@@ -198,13 +198,14 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 					if (record.getAttribute(attr).value.equals(value)) {
 						label = classify((Node) child, record);
 						
-					} else {
-						// with n-way decision tree we may not find an appropriate child node for the record,
-						// in this case we classify the record with the label of the father node.
-						label = node.getLabel();
-					}
+					} 
 					
 				}
+				
+			} if (label == null) {
+				// with n-way decision tree we may not find an appropriate child node for the record,
+				// in this case we classify the record with the label of the father node.
+				label = node.getLabel();
 				
 			}
 			
