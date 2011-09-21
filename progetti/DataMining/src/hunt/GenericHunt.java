@@ -1,6 +1,3 @@
-/**
- * 
- */
 package hunt;
 
 import hunt.data.Node;
@@ -25,17 +22,15 @@ import java.util.Set;
 
 import javax.print.attribute.standard.Finishings;
 
-
 /**
  * @author Claudio Tanci
+ * This class implements a generic Hunt algorithm for decision tree growing
  * 
  */
 public class GenericHunt {
 
 	/**
-	 * stoppingCondition() controlla se la condizione per la terminazione
-	 * dell'accrescimento dell'albero è stata raggiunta
-	 * 
+	 * stoppingCondition has the stopping condition been reached? 
 	 * @param Node
 	 * @return boolean
 	 */
@@ -43,7 +38,7 @@ public class GenericHunt {
 		// if all the records have the same label this node is a leaf
 
 		// if (node.getPurity() < 0.3 || node.size() < 40) {
-		if (node.getPurity() < 0.4) {
+		if (node.getPurity() < 0.2) {
 		
 		// complete grow
 //		if (node.getPurity() == 0) {
@@ -54,15 +49,12 @@ public class GenericHunt {
 	}
 
 	/**
-	 * label() determina l'etichetta di classe da assegnare a un nodo foglia
-	 * dell'albero
-	 * 
+	 * label
 	 * @param Node
-	 * @return String
+	 * @return label to be assigned to the node
 	 */
 	private static String label(Node node) {
-		// determino l'etichetta adatta al nodo dall'etichetta più ricorrente
-		// dei suoi record
+		// the ode label is the most recurrent label of its records
 		ArrayList<ArrayList<String>> records = node.getRecords();
 
 		ArrayList<String> list = new ArrayList<String>();
@@ -72,7 +64,7 @@ public class GenericHunt {
 
 		}
 
-		// lista delle etichette
+		// computing the labels list
 		HashSet<String> labels = new HashSet<String>();
 
 		Iterator<String> it = list.iterator();
@@ -97,27 +89,25 @@ public class GenericHunt {
 	}
 
 	/**
-	 * findBestSplit() seleziona l'attributo su cui splittare il nodo
-	 * dell'albero e ne ritorna l'indice
-	 * 
-	 * NB. implementazione solo per attributi nominali
-	 * 
+	 * findBestSplit select the most appropriate attribute to split
+	 * NB. only nominal attributes supported
 	 * @param Node
 	 * @return TestCondition
 	 */
 	private static TestCondition findBestSplit(Node node) {
 
-		// TODO leggere gli attributi dal file, o meglio esportare l'elenco
-		// degli attributi all'inizio e leggere in modo dinamico i valori.
-		// questo funziona solamente per il file tic-tac-toe
-		// NB implemented only the multiway split, hardcoded "x","o","b"
+		/* TODO leggere gli attributi dal file, o meglio esportare l'elenco
+		 * degli attributi all'inizio e leggere in modo dinamico i valori.
+		 * questo funziona solamente per il file tic-tac-toe
+		 * NB implemented only the multiway split, hardcoded "x","o","b"
+		 */
 		int size = node.getRecords().size();
 		String[] values = { "x", "o", "b" };
 		int bestSplit = 0;
 		float bestAvg = 1;
 		for (int i = 0; i < 9; i++) {
+			
 			// computing the weighted average index
-
 			float avg = 0;
 			for (String value : values) {
 				Node tentativeSplit = split(node, i, value);
@@ -158,8 +148,11 @@ public class GenericHunt {
 	}
 
 	/**
-	 * split() ritorna un nodo con tutti i record con attributo = valore
-	 * 
+	 * split a node
+	 * @param parent node to be splitted
+	 * @param attribute
+	 * @param value
+	 * @return a node with all the records with attribute = value
 	 */
 	private static Node split(Node node, int attribute, String value) {
 
@@ -182,37 +175,10 @@ public class GenericHunt {
 
 	}
 
-	// /**
-	// * createNode()
-	// * estende l'albero creando un nuovo nodo
-	// *
-	// * @param ArrayList<ArrayList<String>>
-	// * @return GenericTreeNode
-	// */
-	// private GenericTreeNode<Node> createNode(ArrayList<ArrayList<String>>
-	// list){
-	//
-	// return null;
-	// }
-	//
-	// /**
-	// * createNode()
-	// * estende l'albero creando un nuovo nodo
-	// *
-	// * @param ArrayList<ArrayList<String>>
-	// * @return GenericTreeNode
-	// */
-	// private static Node createNode(){
-	// Node node = new Node();
-	//
-	// return node;
-	// }
-
 	/**
-	 * treeGrowth() costruisce l'albero di induzione
-	 * 
-	 * @param Node
-	 * @return GenericTreeNode
+	 * treeGrowth build the decision tree
+	 * @param tree
+	 * @return tree
 	 */
 	public static Tree treeGrowth(Tree tree) {
 
@@ -223,9 +189,7 @@ public class GenericHunt {
 
 		if (stoppingCondition(node)) {
 			// node is a leaf
-			// System.out.println("LEAF");
 			node.setLeaf(true);
-//			node.setLabel(label(node));
 
 		} else {
 			// splitting the node
@@ -265,6 +229,7 @@ public class GenericHunt {
 	}
 
 	/**
+	 * main
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -273,7 +238,7 @@ public class GenericHunt {
 		// testClassify();
 		// System.exit(0);
 
-		// file dati
+		// record set
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 		Node root = new Node();
 
@@ -306,18 +271,12 @@ public class GenericHunt {
 
 		// exporting tree dot file
 		tree.toDot(Bundle.getString("Resources.DotFileName"));		
-		
-		
-		
-		
-		
-		
-		
-
-
 
 	}
 
+	/**
+	 * testSplit test a node splitting
+	 */
 	private static void testSplit() {
 
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
@@ -344,6 +303,9 @@ public class GenericHunt {
 
 	}
 
+	/**
+	 * testHowMany
+	 */
 	private static void testHowMany() {
 
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
@@ -369,6 +331,9 @@ public class GenericHunt {
 
 	}
 
+	/**
+	 * testClassify
+	 */
 	private static void testClassify() {
 
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$

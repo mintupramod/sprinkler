@@ -12,10 +12,15 @@ import java.util.Iterator;
 
 /**
  * @author Claudio Tanci
+ * implements Gini index, a type of purity measure
  * 
  */
 public class Gini implements PurityInterface {
 
+	/**
+	 * value
+	 * @param a list of records
+	 */
 	public float value(ArrayList<ArrayList<String>> list) {
 
 		// computing a list of labels and occurrences
@@ -33,7 +38,7 @@ public class Gini implements PurityInterface {
 
 		}
 
-		// Gini index computing (Introduction to Data Mining eq.4.4, p.158)
+		// Gini index computing (see "Introduction to Data Mining" eq.4.4, p.158)
 		float gini = 1;
 		int n = list.size();
 		for (String label : labels.keySet()) {
@@ -43,10 +48,17 @@ public class Gini implements PurityInterface {
 		return gini;
 	}
 
+	/**
+	 * main
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		test();
 	}
 
+	/**
+	 * test the Gini index operation
+	 */
 	public static void test() {
 		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
 

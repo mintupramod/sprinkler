@@ -1,9 +1,4 @@
-/*
- * Parse CSV File using StringTokenizer.
- * 
- */
 package hunt.utilities;
-
 
 import hunt.data.Label;
 import hunt.data.NominalAttribute;
@@ -18,13 +13,15 @@ import java.util.StringTokenizer;
 
 /**
  * @author Claudio Tanci
+ * load a record set from a CSV File
  * 
  */
 public class CSVLoader {
 
-	
-	/*
-	 * nuova funzione di load !!! 
+	/**
+	 * loadRecordSet
+	 * @param file name
+	 * return an ArrayList of records 
 	 */
 	public static ArrayList<TicTacToeRecord> loadRecordSet(String strFile) {
 		
@@ -46,7 +43,6 @@ public class CSVLoader {
 				ArrayList<NominalAttribute> attributes = new ArrayList<NominalAttribute>(0);
 				
 				// attributes (last token assumed to be a label)
-				
 				String l = "";
 				
 				while (st.hasMoreTokens()) {
@@ -61,7 +57,6 @@ public class CSVLoader {
 				}
 				
 				Label label = new Label(l);
-				 
 
 				TicTacToeRecord record = new TicTacToeRecord(attributes, label);
 				
@@ -74,13 +69,12 @@ public class CSVLoader {
 		}
 		return recordSet;
 	}
-	
-	
-	
 
 	/**
 	 * @deprecated
-	 * 
+	 * load
+	 * @param file name
+	 * return an ArrayList of record (deprecated)
 	 */
 	
 	public static ArrayList<ArrayList<String>> load(String strFile) {
@@ -121,6 +115,7 @@ public class CSVLoader {
 	}
 
 	/**
+	 * test
 	 * @param args
 	 */
 	public static void test() {

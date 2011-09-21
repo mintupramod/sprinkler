@@ -21,15 +21,23 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * @author Claudio Tanci
+ * This class implements a decision tree 
+ *
+ */
 public class Tree extends GenericTree<Node> implements java.io.Serializable {
 
+	// root node
 	private Node root;
 
+	/**
+	 * @deprecated
+	 * print the tree
+	 * @return string
+	 */
 	public String print() {
-		/*
-		 * We're going to assume a pre-order traversal by default
-		 */
+		// We're going to assume a pre-order traversal by default
 
 		String stringRepresentation = "";
 
@@ -42,8 +50,9 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		return stringRepresentation;
 	}
 	
-	/*
-	 * Salva l'albero su disco
+	/**
+	 * save tree to disk
+	 * @param file name
 	 */
 	public void save(String filename) throws IOException {
 		// Write to disk with FileOutputStream
@@ -57,8 +66,8 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 	
 	}
 
-	/*
-	 * Cancella i record presenti nell'albero
+	/**
+	 * clean tree nodes records
 	 */
 	public void clean() {
 
@@ -69,6 +78,10 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 
 	}
 	
+	/**
+	 * toDot export a representation of the tree as a dot file
+	 * @param file name
+	 */
 	public void toDot(String filename) {
 
 		BufferedWriter bufferedWriter = null;
@@ -106,9 +119,6 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 				}
 			}
 
-
-			
-
 			// footer
 			bufferedWriter.newLine();
 			bufferedWriter.write(" }");
@@ -118,6 +128,7 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
+			
 			// Close the BufferedWriter
 			try {
 				if (bufferedWriter != null) {
@@ -128,42 +139,18 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 				ex.printStackTrace();
 			}
 		}
-
-		// OutputStream stream = null;
-		// BufferedWriter outputStream = null;
-		//
-		// try {
-		// outputStream = new BufferedWriter(outputStream);
-		// outputStream.newLine();
-		// outputStream.write("hi");
-		//
-		//
-		// } catch (Exception e) {
-		// // TODO: handle exception
-		// } finally {
-		// // Close the BufferedWriter
-		// try {
-		// if (outputStream != null) {
-		// outputStream.flush();
-		// outputStream.close();
-		// }
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-		//
-		// return outputStream;
-
 	}
 
+	/**
+	 * validate the decision tree using a record set
+	 * @param recordset
+	 * @return error ratio
+	 */
 	public double validate(RecordSet recordSet) {
 		
 		int positive = 0;
 		
 		for (TicTacToeRecord record : recordSet.getRecords()) {
-			
-//			System.out.println(this.classify(record)+" "+record.getLabel().toString());
 			
 			if (this.classify(record).equals(record.getLabel().toString())) {
 				positive++;
@@ -175,14 +162,23 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		return 1.0 - (double) positive / (double) recordSet.getRecords().size();
 	}
 	
-	
+	/**
+	 * classify a record
+	 * @param record
+	 * @return label
+	 */
 	public String classify(TicTacToeRecord record) {
 		
 		Node root = (Node) this.getRoot();
 		return classify(root, record);
 	}
 	
-	
+	/**
+	 * classify a record
+	 * @param node
+	 * @param record
+	 * @return label
+	 */
 	public String classify(Node node, TicTacToeRecord record) {
 		
 		String label = null;
@@ -197,7 +193,6 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 					
 					if (record.getAttribute(attr).value.equals(value)) {
 						label = classify((Node) child, record);
-						
 					} 
 					
 				}
@@ -206,12 +201,11 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 				// with n-way decision tree we may not find an appropriate child node for the record,
 				// in this case we classify the record with the label of the father node.
 				label = node.getLabel();
-				
 			}
 			
 		} else {label = node.getLabel();}
 		
 		return label;
 	}
-
+	
 }
