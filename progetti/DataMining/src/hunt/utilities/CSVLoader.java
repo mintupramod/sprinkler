@@ -25,6 +25,13 @@ public class CSVLoader {
 	 */
 	public static ArrayList<TicTacToeRecord> loadRecordSet(String strFile) {
 		
+		// domain initialization
+		// TODO load domain method in the file
+		ArrayList<String> domain = new ArrayList<String>(0);
+		domain.add("x");
+		domain.add("o");
+		domain.add("b");
+		
 		ArrayList<TicTacToeRecord> recordSet = new ArrayList<TicTacToeRecord>(0);
 
 		try {
@@ -48,7 +55,7 @@ public class CSVLoader {
 				while (st.hasMoreTokens()) {
 					
 					if (st.countTokens() > 1) {
-						NominalAttribute attribute = new NominalAttribute(st.nextToken());
+						NominalAttribute attribute = new NominalAttribute(domain, st.nextToken());
 						attributes.add(attribute);
 					} else {
 						l = st.nextToken();

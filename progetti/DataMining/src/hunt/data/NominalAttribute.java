@@ -1,5 +1,7 @@
 package hunt.data;
 
+import java.util.ArrayList;
+
 /**
  * @author Claudio Tanci
  * This class implements the attribute type "nominal" 
@@ -8,13 +10,15 @@ package hunt.data;
 public class NominalAttribute {
 	
 	String value;
+	ArrayList<String> domain;
 	
 	/**
 	 * new NominalAttribute
 	 * @param attribute 
 	 */
-	public NominalAttribute(String string) {
-		this.value = string;
+	public NominalAttribute(ArrayList<String> domain, String value) {
+		this.value = value;
+		this.domain = domain;
 	}
 
 	/**
@@ -22,6 +26,15 @@ public class NominalAttribute {
 	 */
 	public NominalAttribute() {
 		this.value = null;
+		this.domain = null;
+	}
+
+	/**
+	 * getValue
+	 * @return value of the attribute
+	 */
+	public String getValue() {
+		return this.value;
 	}
 	
 	/**
