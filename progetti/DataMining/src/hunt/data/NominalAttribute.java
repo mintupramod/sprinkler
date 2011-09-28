@@ -30,6 +30,22 @@ public class NominalAttribute {
 	}
 
 	/**
+	 * getDomain
+	 * @return domain of the attribute
+	 */
+	public ArrayList<String> getDomain() {
+		return this.domain;
+	}
+	
+	/**
+	 * setDomain
+	 * @param ArrayList of possible values
+	 */
+	public void setDomain(ArrayList<String> domain) {
+		this.domain = domain;
+	}
+	
+	/**
 	 * getValue
 	 * @return value of the attribute
 	 */
