@@ -42,5 +42,6 @@ public class TicTacToeRecord {
 	public Label getLabel() {
 		return label;
 	}
+	
 
 }

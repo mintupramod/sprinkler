@@ -7,6 +7,7 @@ import hunt.data.TicTacToeRecord;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
@@ -22,8 +23,9 @@ public class CSVLoader {
 	 * loadRecordSet
 	 * @param file name
 	 * return an ArrayList of records 
+	 * @throws IOException 
 	 */
-	public static ArrayList<TicTacToeRecord> loadRecordSet(String strFile) {
+	public static RecordSet loadRecordSet(String strFile) throws IOException {
 		
 		// domain initialization
 		// TODO load domain method in the file
@@ -32,9 +34,10 @@ public class CSVLoader {
 		domain.add("o");
 		domain.add("b");
 		
-		ArrayList<TicTacToeRecord> recordSet = new ArrayList<TicTacToeRecord>(0);
+//		ArrayList<TicTacToeRecord> recordSet = new ArrayList<TicTacToeRecord>(0);
+		RecordSet recordSet = new RecordSet();
 
-		try {
+
 
 			// create BufferedReader to read csv file
 			BufferedReader br = new BufferedReader(new FileReader(strFile));
@@ -68,12 +71,10 @@ public class CSVLoader {
 				TicTacToeRecord record = new TicTacToeRecord(attributes, label);
 				
 				recordSet.add(record);
-
 			}
 
-		} catch (Exception e) {
-			System.out.println("Error reading csv file: " + e);
-		}
+
+
 		return recordSet;
 	}
 

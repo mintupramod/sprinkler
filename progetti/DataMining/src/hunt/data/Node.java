@@ -168,10 +168,20 @@ public class Node extends GenericTreeNode<Node> {
 
 	/**
 	 * setRecords
+	 * @deprecated
 	 * @param records
 	 */
 	public void setRecords(ArrayList<ArrayList<String>> records) {
 		this.records = records;
+	}
+	
+	/**
+	 * TODO pastrocchio di test
+	 * setRecords
+	 * @param records
+	 */
+	public void setRecordsR(RecordSet records) {
+		this.records = records.toArray();
 	}
 
 	/**
