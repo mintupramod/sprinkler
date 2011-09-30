@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.text.AttributedCharacterIterator.Attribute;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 import hunt.data.Label;
 import hunt.data.Node;
@@ -16,6 +17,8 @@ import hunt.data.TrainingTestCouple;
 import hunt.data.Tree;
 import hunt.utilities.Bundle;
 import hunt.utilities.CSVLoader;
+import hunt.utilities.normaldistributionBounds;
+import hunt.utilities.utils;
 
 /**
  * @author Claudio Tanci
@@ -25,28 +28,48 @@ import hunt.utilities.CSVLoader;
 public class Test {
 	
 	public static void main(String[] args) {
-		Test.testAccuracy(1000);
+		
+		float confidence = (float) .5;
+		int samples = 100;
+		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
+		
+		System.out.println("Loading file data " + strFile);
+		
+		int records;
+		try {
+			records = CSVLoader.loadRecordSet(strFile).size();
+			
+			System.out.println(records+" records in the set");
+			
+			System.out.println(samples+" samples");
+			double accBoot = Test.bootstrapAccuracy(strFile, samples);
+			System.out.println("Estimated accuracy "+accBoot);		
+			
+			try {
+				System.out.println("Confidence interval for "+confidence+" confidence "+confidenceInterval(confidence, accBoot, records));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
 
 	/**
 	 * Calculate accuracy using .638 bootstrap method
 	 * (see book)
 	 * @param number of samples to take
+	 * @throws IOException 
 	 */
-	public static void testAccuracy(int samples) {
+	public static double bootstrapAccuracy(String strFile, int samples) throws IOException {
 		
 		// load record set for training
-		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
-		System.out.println("Loading file data " + strFile);
 		RecordSet allRecordSet = new RecordSet();
-		try {
-			allRecordSet = CSVLoader.loadRecordSet(strFile);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println(samples+" samples");
+		allRecordSet = CSVLoader.loadRecordSet(strFile);
 		
 		// generating a decision tree from the training set
 		Node root = new Node();
@@ -83,11 +106,34 @@ public class Test {
 			
 		}
 				
-		System.out.println("Estimated accuracy "+accBoot);		
-		System.out.println("Estimated error rate "+(1-accBoot));
+		return accBoot;
+		
+	}
 		
 		
+	/**
+	 * Estimate a confidence interval for the accuracy
+	 * (for the error due to the limited number of records, NOT from undersamplig with the bootstrap method) 
+	 * (see book 4.6.1 - eq. 4.13)
+	 * @param confidence requested (one of ".99" ".98" ".95" ".9" ".8" ".7" ".5")
+	 * @param acc previously calculated
+	 * @param number of samples
+	 * @return confidence intervals
+	 * @throws Exception 
+	 */
+	public static ArrayList<Double> confidenceInterval(float confidence, double acc, int n) throws Exception {
 		
+		ArrayList<Double> intervals = new ArrayList<Double>();
+		
+		float z = normaldistributionBounds.getBound(confidence);
+		
+		double temp = z * Math.sqrt(Math.pow(z, 2) + 4 * n * acc - 4 * n * Math.pow(acc, 2));
+		intervals.add(utils.round(((2 * n * acc + z) + temp) / (2 * (n + Math.pow(z, 2))), 3));
+		intervals.add(utils.round(((2 * n * acc + z) - temp) / (2 * (n + Math.pow(z, 2))), 3));
+		
+		return intervals;
+		
+	}
 		
 		
 		
@@ -123,7 +169,5 @@ public class Test {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-
-	}
 
 }
