@@ -2,7 +2,7 @@ package hunt.utilities;
 
 import java.util.HashMap;
 
-public class normaldistributionBounds {
+public class NormalDistributionBounds {
 	
 	/**
 	 * 

@@ -17,8 +17,8 @@ import hunt.data.TrainingTestCouple;
 import hunt.data.Tree;
 import hunt.utilities.Bundle;
 import hunt.utilities.CSVLoader;
-import hunt.utilities.normaldistributionBounds;
-import hunt.utilities.utils;
+import hunt.utilities.NormalDistributionBounds;
+import hunt.utilities.Utils;
 
 /**
  * @author Claudio Tanci
@@ -125,11 +125,11 @@ public class Test {
 		
 		ArrayList<Double> intervals = new ArrayList<Double>();
 		
-		float z = normaldistributionBounds.getBound(confidence);
+		float z = NormalDistributionBounds.getBound(confidence);
 		
 		double temp = z * Math.sqrt(Math.pow(z, 2) + 4 * n * acc - 4 * n * Math.pow(acc, 2));
-		intervals.add(utils.round(((2 * n * acc + z) + temp) / (2 * (n + Math.pow(z, 2))), 3));
-		intervals.add(utils.round(((2 * n * acc + z) - temp) / (2 * (n + Math.pow(z, 2))), 3));
+		intervals.add(Utils.round(((2 * n * acc + z) + temp) / (2 * (n + Math.pow(z, 2))), 3));
+		intervals.add(Utils.round(((2 * n * acc + z) - temp) / (2 * (n + Math.pow(z, 2))), 3));
 		
 		return intervals;
 		
