@@ -42,6 +42,13 @@ public class TicTacToeRecord {
 	public Label getLabel() {
 		return label;
 	}
-	
+
+	/**
+	 * toString
+	 * @return record as a String
+	 */
+	public String toString() {
+		return attributes.toString()+label.toString();
+	}
 
 }

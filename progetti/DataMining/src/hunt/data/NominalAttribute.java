@@ -60,5 +60,13 @@ public class NominalAttribute {
 	public void setValue(String string) {
 		this.value = string;
 	}
+	
+	/**
+	 * toString
+	 * @return attribute as a string
+	 */
+	public String toString(){
+		return this.value;
+	}
 
 }

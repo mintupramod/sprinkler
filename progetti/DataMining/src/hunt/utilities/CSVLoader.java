@@ -107,49 +107,49 @@ public class CSVLoader {
 		return recordSet;
 	}
 
-	/**
-	 * @deprecated
-	 * load
-	 * @param file name
-	 * return an ArrayList of record (deprecated)
-	 */
-	
-	public static ArrayList<ArrayList<String>> load(String strFile) {
-
-		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>(0);
-
-		try {
-
-			// create BufferedReader to read csv file
-			BufferedReader br = new BufferedReader(new FileReader(strFile));
-			String strLine = "";
-			StringTokenizer st = null;
-
-			// read comma separated file line by line
-			while ((strLine = br.readLine()) != null) {
-				
-				//skip comment lines
-				if (!strLine.substring(0).substring(0, 1).equals("#")) {
-					
-					// break comma separated line using ","
-					st = new StringTokenizer(strLine, ",");
-
-					ArrayList<String> attributes = new ArrayList<String>(0);
-
-					while (st.hasMoreTokens()) {
-						attributes.add(st.nextToken());
-					}
-
-					list.add(attributes);
-					
-				}
-			}
-
-		} catch (Exception e) {
-			System.out.println("Error reading csv file: " + e);
-		}
-		return list;
-	}
+//	/**
+//	 * @deprecated
+//	 * load
+//	 * @param file name
+//	 * return an ArrayList of record (deprecated)
+//	 */
+//	
+//	public static ArrayList<ArrayList<String>> load(String strFile) {
+//
+//		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>(0);
+//
+//		try {
+//
+//			// create BufferedReader to read csv file
+//			BufferedReader br = new BufferedReader(new FileReader(strFile));
+//			String strLine = "";
+//			StringTokenizer st = null;
+//
+//			// read comma separated file line by line
+//			while ((strLine = br.readLine()) != null) {
+//				
+//				//skip comment lines
+//				if (!strLine.substring(0).substring(0, 1).equals("#")) {
+//					
+//					// break comma separated line using ","
+//					st = new StringTokenizer(strLine, ",");
+//
+//					ArrayList<String> attributes = new ArrayList<String>(0);
+//
+//					while (st.hasMoreTokens()) {
+//						attributes.add(st.nextToken());
+//					}
+//
+//					list.add(attributes);
+//					
+//				}
+//			}
+//
+//		} catch (Exception e) {
+//			System.out.println("Error reading csv file: " + e);
+//		}
+//		return list;
+//	}
 
 	public static void main(String[] args) {
 		test();
@@ -160,15 +160,19 @@ public class CSVLoader {
 	 * @param args
 	 */
 	public static void test() {
-		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
+		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
 
-		ArrayList<ArrayList<String>> list = load(strFile);
+		RecordSet list = new RecordSet();
+		try {
+			list = loadRecordSet(strFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		// display csv values
-		Iterator<ArrayList<String>> it = list.iterator();
-		while (it.hasNext()) {
-			ArrayList<String> sample = it.next();
-			System.out.println(sample);
+		// display values
+		for (TicTacToeRecord record : list.getRecords()) {
+			System.out.println(record.toString());
 		}
 
 	}
