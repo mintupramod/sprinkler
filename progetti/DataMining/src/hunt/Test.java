@@ -29,7 +29,7 @@ public class Test {
 	
 	public static void main(String[] args) {
 		
-		float confidence = (float) .5;
+		float confidence = (float) .99;
 		int samples = 100;
 		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
 		
