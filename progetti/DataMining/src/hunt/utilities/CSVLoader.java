@@ -28,11 +28,16 @@ public class CSVLoader {
 	public static RecordSet loadRecordSet(String strFile) throws IOException {
 		
 		// domain initialization
+		ArrayList<ArrayList<String>> recordsDomains = new ArrayList<ArrayList<String>>();
+		
+		
+		
+		
 		// TODO load domain method in the file
-		ArrayList<String> domain = new ArrayList<String>(0);
-		domain.add("x");
-		domain.add("o");
-		domain.add("b");
+//		ArrayList<String> domain = new ArrayList<String>(0);
+//		domain.add("x");
+//		domain.add("o");
+//		domain.add("b");
 		
 //		ArrayList<TicTacToeRecord> recordSet = new ArrayList<TicTacToeRecord>(0);
 		RecordSet recordSet = new RecordSet();
@@ -46,31 +51,55 @@ public class CSVLoader {
 
 			// read comma separated file line by line
 			while ((strLine = br.readLine()) != null) {
-
-				// break comma separated line using ","
-				st = new StringTokenizer(strLine, ",");
-
-				ArrayList<NominalAttribute> attributes = new ArrayList<NominalAttribute>(0);
 				
-				// attributes (last token assumed to be a label)
-				String l = "";
-				
-				while (st.hasMoreTokens()) {
+				//skip comment lines
+				if (!strLine.substring(0).substring(0, 1).equals("#")) {
+										
+					// break comma separated line using ","
+					st = new StringTokenizer(strLine, ",");
+
+					ArrayList<NominalAttribute> attributes = new ArrayList<NominalAttribute>();
 					
-					if (st.countTokens() > 1) {
-						NominalAttribute attribute = new NominalAttribute(domain, st.nextToken());
-						attributes.add(attribute);
-					} else {
-						l = st.nextToken();
+					// attributes (last token assumed to be a label)
+					String l = "";
+					
+					// recordsDomains index
+					int i = 0;
+					
+					while (st.hasMoreTokens()) {
+						
+						if (st.countTokens() > 1) {
+							NominalAttribute attribute = new NominalAttribute(recordsDomains.get(i), st.nextToken());
+							attributes.add(attribute);
+						} else {
+							l = st.nextToken();
+						}
+						
+						i++;
+					}
+					
+					Label label = new Label(l);
+
+					TicTacToeRecord record = new TicTacToeRecord(attributes, label);
+					
+					recordSet.add(record);
+					
+				} else if (strLine.substring(0).substring(0, 3).equals("# {")) {
+					// this is the record information line (defines attributes and domains)
+					String line = strLine.substring(3, strLine.length()-1);
+					for (String attribute : line.split(":")) {
+						
+						ArrayList<String> domain = new ArrayList<String>();
+						
+						for (String d : attribute.split(",")) {
+							domain.add(d);
+						}
+						
+						recordsDomains.add(domain);
+						
 					}
 					
 				}
-				
-				Label label = new Label(l);
-
-				TicTacToeRecord record = new TicTacToeRecord(attributes, label);
-				
-				recordSet.add(record);
 			}
 
 
@@ -98,18 +127,22 @@ public class CSVLoader {
 
 			// read comma separated file line by line
 			while ((strLine = br.readLine()) != null) {
+				
+				//skip comment lines
+				if (!strLine.substring(0).substring(0, 1).equals("#")) {
+					
+					// break comma separated line using ","
+					st = new StringTokenizer(strLine, ",");
 
-				// break comma separated line using ","
-				st = new StringTokenizer(strLine, ",");
+					ArrayList<String> attributes = new ArrayList<String>(0);
 
-				ArrayList<String> attributes = new ArrayList<String>(0);
+					while (st.hasMoreTokens()) {
+						attributes.add(st.nextToken());
+					}
 
-				while (st.hasMoreTokens()) {
-					attributes.add(st.nextToken());
+					list.add(attributes);
+					
 				}
-
-				list.add(attributes);
-
 			}
 
 		} catch (Exception e) {

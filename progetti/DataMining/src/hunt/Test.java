@@ -53,7 +53,7 @@ public class Test {
 			}
 			
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			System.out.println("Impossibile leggere il file");
 			e1.printStackTrace();
 		}
 		

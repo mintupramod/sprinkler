@@ -24,9 +24,9 @@ public class NominalAttribute {
 	/**
 	 * new NominalAttribute 
 	 */
-	public NominalAttribute() {
+	public NominalAttribute(ArrayList<String> domain) {
 		this.value = null;
-		this.domain = null;
+		this.domain = domain;
 	}
 
 	/**
