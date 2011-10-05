@@ -3,7 +3,7 @@ package hunt.utilities;
 import hunt.data.Label;
 import hunt.data.NominalAttribute;
 import hunt.data.RecordSet;
-import hunt.data.TicTacToeRecord;
+import hunt.data.NominalRecord;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -83,7 +83,7 @@ public class CSVLoader {
 					
 					Label label = new Label(recordsDomains.get(recordsDomains.size()-1), l);
 
-					TicTacToeRecord record = new TicTacToeRecord(attributes, label);
+					NominalRecord record = new NominalRecord(attributes, label);
 					
 					recordSet.add(record);
 					
@@ -174,7 +174,7 @@ public class CSVLoader {
 		}
 
 		// display values
-		for (TicTacToeRecord record : list.getRecords()) {
+		for (NominalRecord record : list.getRecords()) {
 			System.out.println(record.toString());
 		}
 

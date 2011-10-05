@@ -3,7 +3,7 @@ package hunt;
 import java.util.ArrayList;
 
 import hunt.data.RecordSet;
-import hunt.data.TicTacToeRecord;
+import hunt.data.NominalRecord;
 import hunt.data.TrainingTestCouple;
 import hunt.utilities.Bundle;
 
@@ -39,7 +39,7 @@ public class Evaluator {
 		}
 		
 		// building the coupled test set 
-		for (TicTacToeRecord record : recordSet.getRecords()) {
+		for (NominalRecord record : recordSet.getRecords()) {
 			if (! trainingSet.contains(record)) {
 				testSet.add(record);
 			}

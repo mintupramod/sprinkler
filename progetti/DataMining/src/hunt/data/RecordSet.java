@@ -12,13 +12,13 @@ import java.util.ArrayList;
 public class RecordSet {
 	
 	// recordSet
-	private ArrayList<TicTacToeRecord> records;
+	private ArrayList<NominalRecord> records;
 
 	/**
 	 * New record set
 	 */
 	public RecordSet(){
-		this.records = new ArrayList<TicTacToeRecord>(0);
+		this.records = new ArrayList<NominalRecord>(0);
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class RecordSet {
 	 * getRecords
 	 * @return an ArrayList of records
 	 */
-	public ArrayList<TicTacToeRecord> getRecords() {
+	public ArrayList<NominalRecord> getRecords() {
 		return records;
 	}
 
@@ -43,7 +43,7 @@ public class RecordSet {
 	 * @param int
 	 * @return record required
 	 */
-	public TicTacToeRecord getRecord(int i) {
+	public NominalRecord getRecord(int i) {
 		return records.get(i);
 	}
 	
@@ -52,7 +52,7 @@ public class RecordSet {
 	 * @param record
 	 * @return true if record exists in the recordset
 	 */
-	public boolean contains(TicTacToeRecord record) {
+	public boolean contains(NominalRecord record) {
 		return records.contains(record);
 	}
 	
@@ -60,7 +60,7 @@ public class RecordSet {
 	 * add
 	 * @param add a record to the record set
 	 */
-	public void add(TicTacToeRecord record) {
+	public void add(NominalRecord record) {
 		records.add(record);
 		
 	}
@@ -80,7 +80,7 @@ public class RecordSet {
 	 */
 	public ArrayList<ArrayList<String>> toArray() {
 		ArrayList<ArrayList<String>> array = new ArrayList<ArrayList<String>>(0);
-		for (TicTacToeRecord record : records) {
+		for (NominalRecord record : records) {
 			ArrayList<String> r = new ArrayList<String>(0);
 			for (int j = 1; j < record.attributes.size(); j++) {
 				r.add(record.getAttribute(j-1).value);

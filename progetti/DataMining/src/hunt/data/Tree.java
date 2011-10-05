@@ -150,7 +150,7 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		
 		int positive = 0;
 		
-		for (TicTacToeRecord record : recordSet.getRecords()) {
+		for (NominalRecord record : recordSet.getRecords()) {
 			
 			if (this.classify(record).equals(record.getLabel().toString())) {
 				positive++;
@@ -167,7 +167,7 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 	 * @param record
 	 * @return label
 	 */
-	public String classify(TicTacToeRecord record) {
+	public String classify(NominalRecord record) {
 		
 		Node root = (Node) this.getRoot();
 		return classify(root, record);
@@ -179,7 +179,7 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 	 * @param record
 	 * @return label
 	 */
-	public String classify(Node node, TicTacToeRecord record) {
+	public String classify(Node node, NominalRecord record) {
 		
 		String label = null;
 		

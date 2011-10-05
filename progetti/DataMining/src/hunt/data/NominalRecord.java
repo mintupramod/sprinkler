@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * This class implements a record of type TicTacToe
  *
  */
-public class TicTacToeRecord {
+public class NominalRecord {
 	
 	// attributes
 	ArrayList<NominalAttribute> attributes;
@@ -20,7 +20,7 @@ public class TicTacToeRecord {
 	 * @param attributes
 	 * @param label
 	 */
-	public TicTacToeRecord(ArrayList<NominalAttribute> attributes, Label label) {
+	public NominalRecord(ArrayList<NominalAttribute> attributes, Label label) {
 		super();
 		this.attributes = attributes;
 		this.label = label;

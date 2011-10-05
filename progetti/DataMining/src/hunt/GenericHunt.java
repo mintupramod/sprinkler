@@ -3,7 +3,7 @@ package hunt;
 import hunt.data.Node;
 import hunt.data.RecordSet;
 import hunt.data.TestCondition;
-import hunt.data.TicTacToeRecord;
+import hunt.data.NominalRecord;
 import hunt.data.Tree;
 import hunt.purity.Gini;
 import hunt.utilities.Bundle;
@@ -61,7 +61,7 @@ public class GenericHunt {
 
 		ArrayList<String> list = new ArrayList<String>();
 		
-		for (TicTacToeRecord record : records.getRecords()) {
+		for (NominalRecord record : records.getRecords()) {
 			list.add(record.getLabel().toString());
 		}
 
@@ -164,7 +164,7 @@ public class GenericHunt {
 		
 		RecordSet newRecordSet = new RecordSet();
 		
-		for (TicTacToeRecord record : node.getRecords().getRecords()) {
+		for (NominalRecord record : node.getRecords().getRecords()) {
 			if (record.getAttribute(attribute).toString().equals(value)) {
 				newRecordSet.add(record);
 			}

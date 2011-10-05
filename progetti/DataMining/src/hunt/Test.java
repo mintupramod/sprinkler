@@ -12,7 +12,7 @@ import hunt.data.Label;
 import hunt.data.Node;
 import hunt.data.NominalAttribute;
 import hunt.data.RecordSet;
-import hunt.data.TicTacToeRecord;
+import hunt.data.NominalRecord;
 import hunt.data.TrainingTestCouple;
 import hunt.data.Tree;
 import hunt.utilities.Bundle;

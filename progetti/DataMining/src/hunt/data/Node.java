@@ -85,7 +85,7 @@ public class Node extends GenericTreeNode<Node> {
 		
 //		Iterator<ArrayList<String>> it = this.records.getRecords() iterator();
 		
-		for (TicTacToeRecord record : this.records.getRecords()) {
+		for (NominalRecord record : this.records.getRecords()) {
 			if (record.getAttribute(attribute).toString().equals(value)) {
 				count++;
 			}

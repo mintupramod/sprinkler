@@ -1,7 +1,7 @@
 package hunt.purity;
 
 import hunt.data.RecordSet;
-import hunt.data.TicTacToeRecord;
+import hunt.data.NominalRecord;
 import hunt.utilities.Bundle;
 import hunt.utilities.CSVLoader;
 
@@ -32,7 +32,7 @@ public class Gini implements PurityInterface {
 		// computing a list of labels and occurrences
 		HashMap<String, Integer> labels = new HashMap<String, Integer>();
 		
-		for (TicTacToeRecord record : recordSet.getRecords()) {
+		for (NominalRecord record : recordSet.getRecords()) {
 			String label = record.getLabel().toString();
 			
 			if (labels.containsKey(label)) {
