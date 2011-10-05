@@ -30,7 +30,7 @@ public class Node extends GenericTreeNode<Node> {
 	private TestCondition testCondition;
 
 	// records associated with the node while building the tree
-	private ArrayList<ArrayList<String>> records;
+	private RecordSet records;
 	
 	/**
 	 * New node
@@ -48,7 +48,7 @@ public class Node extends GenericTreeNode<Node> {
 	 * New node from its records
 	 * @param data
 	 */
-	public Node(ArrayList<ArrayList<String>> data) {
+	public Node(RecordSet data) {
 		super();
 		this.name=Integer.toString(counter++);
 		this.records = data;
@@ -62,7 +62,7 @@ public class Node extends GenericTreeNode<Node> {
 	 * @return a purity measure of the records
 	 */
 	public float getPurity() {
-		Gini gini = new Gini();		
+		Gini gini = new Gini();
 		return gini.value(this.records);
 	}
 	
@@ -83,13 +83,21 @@ public class Node extends GenericTreeNode<Node> {
 	public int howMany(int attribute, String value) {
 		int count = 0;
 		
-		Iterator<ArrayList<String>> it = this.records.iterator();
-		while (it.hasNext()) {
-			ArrayList<String> sample = it.next();
-			if (sample.get(attribute).equals(value)) {
+//		Iterator<ArrayList<String>> it = this.records.getRecords() iterator();
+		
+		for (TicTacToeRecord record : this.records.getRecords()) {
+			if (record.getAttribute(attribute).equals(value)) {
 				count++;
 			}
+			
 		}
+		
+//		while (it.hasNext()) {
+//			ArrayList<String> sample = it.next();
+//			if (sample.get(attribute).equals(value)) {
+//				count++;
+//			}
+//		}
 		
 		return count;
 	}
@@ -162,26 +170,26 @@ public class Node extends GenericTreeNode<Node> {
 	 * getRecords
 	 * @return records
 	 */
-	public ArrayList<ArrayList<String>> getRecords() {
+	public RecordSet getRecords() {
 		return records;
 	}
 
-	/**
-	 * setRecords
-	 * @deprecated
-	 * @param records
-	 */
-	public void setRecords(ArrayList<ArrayList<String>> records) {
-		this.records = records;
-	}
+//	/**
+//	 * setRecords
+//	 * @deprecated
+//	 * @param records
+//	 */
+//	public void setRecords(ArrayList<ArrayList<String>> records) {
+//		this.records = records;
+//	}
 	
 	/**
 	 * TODO pastrocchio di test
 	 * setRecords
 	 * @param records
 	 */
-	public void setRecordsR(RecordSet records) {
-		this.records = records.toArray();
+	public void setRecords(RecordSet records) {
+		this.records = records;
 	}
 
 	/**

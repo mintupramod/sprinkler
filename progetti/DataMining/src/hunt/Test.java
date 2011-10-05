@@ -74,7 +74,7 @@ public class Test {
 		// generating a decision tree from the training set
 		Node root = new Node();
 
-		root.setRecords(CSVLoader.load(strFile));
+		root.setRecords(CSVLoader.loadRecordSet(strFile));
 
 		Tree allRecordsTree = new Tree();
 		allRecordsTree.setRoot(root);
@@ -92,7 +92,7 @@ public class Test {
 
 			// generate training tree for sample j
 			Node trainingRoot = new Node();
-			trainingRoot.setRecordsR(couple.getTrainingSet());
+			trainingRoot.setRecords(couple.getTrainingSet());
 			Tree trainingTree = new Tree();
 			trainingTree.setRoot(trainingRoot);
 			trainingTree = (Tree) GenericHunt.treeGrowth(trainingTree);

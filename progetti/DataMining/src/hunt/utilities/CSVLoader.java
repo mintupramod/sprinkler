@@ -69,16 +69,19 @@ public class CSVLoader {
 					while (st.hasMoreTokens()) {
 						
 						if (st.countTokens() > 1) {
+							// attribute initialization
 							NominalAttribute attribute = new NominalAttribute(recordsDomains.get(i), st.nextToken());
 							attributes.add(attribute);
 						} else {
+							// label initialization
 							l = st.nextToken();
+							
 						}
 						
 						i++;
 					}
 					
-					Label label = new Label(l);
+					Label label = new Label(recordsDomains.get(recordsDomains.size()-1), l);
 
 					TicTacToeRecord record = new TicTacToeRecord(attributes, label);
 					

@@ -1,7 +1,9 @@
 package hunt;
 
 import hunt.data.Node;
+import hunt.data.RecordSet;
 import hunt.data.TestCondition;
+import hunt.data.TicTacToeRecord;
 import hunt.data.Tree;
 import hunt.purity.Gini;
 import hunt.utilities.Bundle;
@@ -54,15 +56,16 @@ public class GenericHunt {
 	 * @return label to be assigned to the node
 	 */
 	private static String label(Node node) {
-		// the ode label is the most recurrent label of its records
-		ArrayList<ArrayList<String>> records = node.getRecords();
+		// the node label is the most recurrent label of its records
+		RecordSet records = node.getRecords();
 
 		ArrayList<String> list = new ArrayList<String>();
-
-		for (ArrayList<String> record : records) {
-			list.add(record.get(record.size() - 1));
-
+		
+		for (TicTacToeRecord record : records.getRecords()) {
+			list.add(record.getLabel().toString());
 		}
+
+		
 
 		// computing the labels list
 		HashSet<String> labels = new HashSet<String>();
@@ -156,21 +159,28 @@ public class GenericHunt {
 	 */
 	private static Node split(Node node, int attribute, String value) {
 
-		ArrayList<ArrayList<String>> list = node.getRecords();
-		ArrayList<ArrayList<String>> newList = new ArrayList<ArrayList<String>>(
-				0);
-
-		Iterator<ArrayList<String>> it = list.iterator();
-		while (it.hasNext()) {
-
-			ArrayList<String> sample = it.next();
-			if (sample.get(attribute).equals(value))
-				newList.add(sample);
-
+//		RecordSet list = node.getRecords();
+//		ArrayList<ArrayList<String>> newList = new ArrayList<ArrayList<String>>();
+		
+		RecordSet newRecordSet = new RecordSet();
+		
+		for (TicTacToeRecord record : node.getRecords().getRecords()) {
+			if (record.getAttribute(attribute).equals(value)) {
+				newRecordSet.add(record);
+			}
+			
 		}
 
-		Node newNode = new Node(newList);
+//		Iterator<ArrayList<String>> it = list.iterator();
+//		while (it.hasNext()) {
+//
+//			ArrayList<String> sample = it.next();
+//			if (sample.get(attribute).equals(value))
+//				newList.add(sample);
+//
+//		}
 
+		Node newNode = new Node(newRecordSet);
 		return newNode;
 
 	}
@@ -239,11 +249,16 @@ public class GenericHunt {
 		// System.exit(0);
 
 		// record set
-		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
+		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
 		Node root = new Node();
 
 		System.out.println("Reading file data " + strFile);
-		root.setRecords(CSVLoader.load(strFile));
+		try {
+			root.setRecords(CSVLoader.loadRecordSet(strFile));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		System.out.println("Generating decision tree...");
 		Tree tree = new Tree();

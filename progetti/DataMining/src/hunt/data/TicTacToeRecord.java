@@ -51,4 +51,8 @@ public class TicTacToeRecord {
 		return attributes.toString()+label.toString();
 	}
 
+	public ArrayList<NominalAttribute> getAttributes() {
+		return attributes;
+	}
+
 }

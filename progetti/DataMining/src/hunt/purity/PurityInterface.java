@@ -1,5 +1,7 @@
 package hunt.purity;
 
+import hunt.data.RecordSet;
+
 import java.util.ArrayList;
 
 /**
@@ -9,6 +11,6 @@ import java.util.ArrayList;
  */
 public interface PurityInterface {
 	
-	float value(ArrayList<ArrayList<String>> list);
+	float value(RecordSet records);
 	
 }
