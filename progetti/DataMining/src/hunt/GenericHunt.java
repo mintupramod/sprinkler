@@ -165,7 +165,7 @@ public class GenericHunt {
 		RecordSet newRecordSet = new RecordSet();
 		
 		for (TicTacToeRecord record : node.getRecords().getRecords()) {
-			if (record.getAttribute(attribute).equals(value)) {
+			if (record.getAttribute(attribute).toString().equals(value)) {
 				newRecordSet.add(record);
 			}
 			
@@ -244,9 +244,10 @@ public class GenericHunt {
 	 */
 	public static void main(String[] args) {
 
-		// testHowMany();
+		testSplit();
+//		testHowMany();
 		// testClassify();
-		// System.exit(0);
+		 System.exit(0);
 
 		// record set
 		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
@@ -294,10 +295,15 @@ public class GenericHunt {
 	 */
 	private static void testSplit() {
 
-		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
+		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
 
 		Node root = new Node();
-		root.setRecords(CSVLoader.load(strFile));
+		try {
+			root.setRecords(CSVLoader.loadRecordSet(strFile));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		System.out.println("Split test");
 
@@ -323,10 +329,15 @@ public class GenericHunt {
 	 */
 	private static void testHowMany() {
 
-		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
+		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
 
 		Node root = new Node();
-		root.setRecords(CSVLoader.load(strFile));
+		try {
+			root.setRecords(CSVLoader.loadRecordSet(strFile));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		System.out.println("HowMany for attribute=0 test");
 
@@ -351,10 +362,15 @@ public class GenericHunt {
 	 */
 	private static void testClassify() {
 
-		String strFile = Bundle.getString("Resources.TrainingSet"); //$NON-NLS-1$
+		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
 
 		Node root = new Node();
-		root.setRecords(CSVLoader.load(strFile));
+		try {
+			root.setRecords(CSVLoader.loadRecordSet(strFile));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		System.out.println("Classify test");
 
