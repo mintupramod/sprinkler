@@ -30,6 +30,8 @@ import javax.print.attribute.standard.Finishings;
  * 
  */
 public class GenericHunt {
+	
+	static int a=0;
 
 	/**
 	 * stoppingCondition has the stopping condition been reached? 
@@ -43,7 +45,7 @@ public class GenericHunt {
 //		System.out.println(purity);
 
 		// if (node.getPurity() < 0.3 || node.size() < 40) {
-		if (node.getPurity() <= (float) purity) {
+		if (node.getPurity() <= (float) purity || node.size() < 40) {
 		
 		// complete grow
 //		if (node.getPurity() == 0) {
@@ -120,7 +122,6 @@ public class GenericHunt {
 			// domain value for the attribute i
 			ArrayList<String> values = node.getRecords().getRecord(0).getAttribute(i).getDomain();
 			
-			
 			// computing the weighted average index
 			float avg = 0;
 			
@@ -137,7 +138,7 @@ public class GenericHunt {
 			
 			
 
-			if (avg < bestAvg) {
+			if (avg <= bestAvg) {
 				bestAvg = avg;
 				bestSplit = i;
 
@@ -225,6 +226,8 @@ public class GenericHunt {
 		} else {
 			// splitting the node
 			TestCondition bestSplit = findBestSplit(node);
+			
+			System.out.println("attributo: "+bestSplit.getIdAttribute());
 
 			// TestCondition testCondition = new TestCondition();
 			// testCondition.setValues(bestSplit.getValues());
@@ -235,7 +238,9 @@ public class GenericHunt {
 			for (String value : findBestSplit(node).getValues()) {
 
 				Node child = split(node, bestSplit.getIdAttribute(), value);
-
+				node.addChild(child);
+				
+			
 				// ok only for single value split!
 				String[] values = { value };
 
@@ -244,14 +249,19 @@ public class GenericHunt {
 				testCondition.setIdAttribute(bestSplit.getIdAttribute());
 
 				child.setTestCondition(testCondition);
+			}
+			
+			// flush records from parent for memory issues
+			node.setRecords(null);
+			
+			for (GenericTreeNode<Node> child : node.getChildren()) {
 
 				Tree treeChild = new Tree();
 				treeChild.setRoot(child);
 
+				System.out.println(a++);
 				treeGrowth(treeChild, purity);
-
-				node.addChild(child);
-
+				System.out.println(a--);
 			}
 
 		}
@@ -265,7 +275,7 @@ public class GenericHunt {
 	 */
 	public static void main(String[] args) {
 		
-		float purity = (float) 0.0;
+		float purity = (float) 0.1;
 
 //		testSplit();
 //		testHowMany();
@@ -273,7 +283,8 @@ public class GenericHunt {
 //		System.exit(0);
 
 		// record set
-		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
+		//String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
+		String strFile = "./data/connect4/connect4.data";
 		Node root = new Node();
 
 		System.out.println("Reading file data " + strFile);
@@ -288,9 +299,9 @@ public class GenericHunt {
 		Tree tree = new Tree();
 		tree.setRoot(root);
 
+		System.out.println(((Node) tree.getRoot()).size() + " records to be analyzed");
+		
 		tree = (Tree) treeGrowth(tree, purity);
-
-		System.out.println(((Node) tree.getRoot()).size() + " records analyzed");
 
 		System.out.println(tree.getNumberOfNodes() + " nodes in the tree");
 		

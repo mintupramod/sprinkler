@@ -31,12 +31,13 @@ public class Test {
 //		test();
 		
 		float pstart = 0;
-		float pstop = (float) 0.2;
-		int steps = 5; 
+		float pstop = (float) 0.5;
+		int steps = 6; 
 		
-		float step = (pstop - pstart)/(float)steps;
+		float step = (pstop - pstart)/(float)(steps-1);
 		
-		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
+//		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
+		String strFile = "./data/connect4/connect4.data";
 		float confidence = (float) .99;
 		float purity;
 		int samples = 10;
