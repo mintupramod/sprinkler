@@ -19,8 +19,9 @@ public class TestCondition implements java.io.Serializable {
 	public TestCondition() {
 		super();
 		this.idAttribute = 0;
-		String[] v = {"x","o","b"};
-		this.values = v;
+//		String[] v = {"x","o","b"};
+//		this.values = v;
+		this.values = new String[10];
 	}
 
 	/**

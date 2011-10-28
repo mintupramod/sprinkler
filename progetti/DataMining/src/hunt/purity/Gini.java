@@ -64,8 +64,11 @@ public class Gini implements PurityInterface {
 		float gini = 1;
 		int n = recordSet.size();
 		for (String label : labels.keySet()) {
-			gini = (float) (gini - Math.pow(((float)labels.get(label) / (float)n), 2));
+			gini = (float) (gini - Math.pow(( labels.get(label) / (float)n), 2));
 		}
+		
+		// when no record with the appropriate value is present
+		if (gini == 1) {gini = 0;}
 
 		return gini;
 	}

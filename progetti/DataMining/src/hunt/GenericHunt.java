@@ -34,18 +34,22 @@ public class GenericHunt {
 	/**
 	 * stoppingCondition has the stopping condition been reached? 
 	 * @param Node
+	 * @param purity required
 	 * @return boolean
 	 */
-	private static boolean stoppingCondition(Node node) {
+	private static boolean stoppingCondition(Node node, float purity) {
 		// if all the records have the same label this node is a leaf
+		
+//		System.out.println(purity);
 
 		// if (node.getPurity() < 0.3 || node.size() < 40) {
-//		if (node.getPurity() < 0.20) {
+		if (node.getPurity() <= (float) purity) {
 		
 		// complete grow
-		if (node.getPurity() == 0) {
+//		if (node.getPurity() == 0) {
 			return true;
 		} else {
+//			System.out.println(node.getPurity()+" "+(float)purity);
 			return false;
 		}
 	}
@@ -98,20 +102,28 @@ public class GenericHunt {
 	 * @return TestCondition
 	 */
 	private static TestCondition findBestSplit(Node node) {
-
-		/* TODO leggere gli attributi dal file, o meglio esportare l'elenco
-		 * degli attributi all'inizio e leggere in modo dinamico i valori.
-		 * questo funziona solamente per il file tic-tac-toe
-		 * NB implemented only the multiway split, hardcoded "x","o","b"
+		
+		/* 
+		 * implements a multiway split
 		 */
 		int size = node.getRecords().size();
-		String[] values = { "x", "o", "b" };
+//		String[] values = { "x", "o", "b" };
+		
+		// number of attributes
+		int numberOfAttributes = node.getRecords().getRecord(0).getAttributes().size();
+		
+		
 		int bestSplit = 0;
 		float bestAvg = 1;
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < numberOfAttributes; i++) {
+			
+			// domain value for the attribute i
+			ArrayList<String> values = node.getRecords().getRecord(0).getAttribute(i).getDomain();
+			
 			
 			// computing the weighted average index
 			float avg = 0;
+			
 			for (String value : values) {
 				Node tentativeSplit = split(node, i, value);
 
@@ -122,6 +134,8 @@ public class GenericHunt {
 						* valuePurity;
 
 			}
+			
+			
 
 			if (avg < bestAvg) {
 				bestAvg = avg;
@@ -130,14 +144,18 @@ public class GenericHunt {
 			}
 
 		}
-
+		
+		
 		TestCondition testCondition = new TestCondition();
 		testCondition.setIdAttribute(bestSplit);
 
-		ArrayList<String> tobesplittedValue = new ArrayList<String>(0);
-
+		ArrayList<String> tobesplittedValue = new ArrayList<String>();
+		
+		
+		ArrayList<String> values = node.getRecords().getRecord(0).getAttribute(bestSplit).getDomain();
 		for (String value : values) {
-			if (node.howMany(bestSplit, value) > 0) {
+			int a = node.howMany(bestSplit, value);
+			if (a > 0) {
 				tobesplittedValue.add(value);
 			}
 		}
@@ -188,16 +206,19 @@ public class GenericHunt {
 	/**
 	 * treeGrowth build the decision tree
 	 * @param tree
+	 * @param purity
 	 * @return tree
 	 */
-	public static Tree treeGrowth(Tree tree) {
-
+	public static Tree treeGrowth(Tree tree, float purity) {
+		
 		Node node = (Node) tree.getRoot();
+		
+//		System.out.println(node.getName()+" "+node.getRecords().toArray().toString());
 		
 		// setting the label for both leaf and not leaf nodes
 		node.setLabel(label(node));
 
-		if (stoppingCondition(node)) {
+		if (stoppingCondition(node, purity)) {
 			// node is a leaf
 			node.setLeaf(true);
 
@@ -210,7 +231,7 @@ public class GenericHunt {
 			// testCondition.setIdAttribute(bestSplit.getIdAttribute());
 
 			// node.setTestCondition(testCondition);
-
+			
 			for (String value : findBestSplit(node).getValues()) {
 
 				Node child = split(node, bestSplit.getIdAttribute(), value);
@@ -227,7 +248,7 @@ public class GenericHunt {
 				Tree treeChild = new Tree();
 				treeChild.setRoot(child);
 
-				treeGrowth(treeChild);
+				treeGrowth(treeChild, purity);
 
 				node.addChild(child);
 
@@ -243,11 +264,13 @@ public class GenericHunt {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		float purity = (float) 0.0;
 
-		testSplit();
+//		testSplit();
 //		testHowMany();
-		// testClassify();
-		 System.exit(0);
+//		testClassify();
+//		System.exit(0);
 
 		// record set
 		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
@@ -265,7 +288,7 @@ public class GenericHunt {
 		Tree tree = new Tree();
 		tree.setRoot(root);
 
-		tree = (Tree) treeGrowth(tree);
+		tree = (Tree) treeGrowth(tree, purity);
 
 		System.out.println(((Node) tree.getRoot()).size() + " records analyzed");
 
@@ -305,14 +328,14 @@ public class GenericHunt {
 			e.printStackTrace();
 		}
 
-		System.out.println("Split test");
+		System.out.println("Split test for attribute 0");
 
 		String[] values = { "x", "o", "b" };
 
 		int tot = 0;
 		for (String value : values) {
 
-			Node node = split(root, 1, value);
+			Node node = split(root, 0, value);
 
 			System.out.println("value " + value + " " + node.size()
 					+ ", purity " + node.getPurity());
