@@ -30,16 +30,21 @@ public class Test {
 	public static void main(String[] args) {
 //		test();
 		
+		float pstart = 0;
+		float pstop = (float) 0.2;
+		int steps = 5; 
+		
+		float step = (pstop - pstart)/(float)steps;
+		
 		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
 		float confidence = (float) .99;
-//		float purity = (float) 0.1;
 		float purity;
 		int samples = 10;
-		int steps = 5;
+		
+		
 		
 		System.out.println("Stopping condition"+"\t"+"Estimated accuracy"+"\t"+"Confidence Interval");
-		for (int i = 1; i < steps+1; i++) {
-			purity = (float) 0.5 * (float) i / (float) steps;
+		for (purity = pstart; purity <= pstop; purity+=step) {
 			testPurity(strFile, purity, confidence, samples);
 		}
 		
