@@ -31,6 +31,7 @@ import javax.print.attribute.standard.Finishings;
  */
 public class GenericHunt {
 	
+	// recursion level
 	static int a=0;
 
 	/**
@@ -42,16 +43,23 @@ public class GenericHunt {
 	private static boolean stoppingCondition(Node node, float purity) {
 		// if all the records have the same label this node is a leaf
 		
-//		System.out.println(purity);
+		
 
 		// if (node.getPurity() < 0.3 || node.size() < 40) {
+		
+		if (((Node) node.getParent()) != null){
+			if (((Node) node.getParent()).getPurity() == node.getPurity()) {
+				return true;
+			}
+		}
+		System.out.println("purity test: "+node.getPurity()+"<="+purity+" || "+node.size()+"<40");
 		if (node.getPurity() <= (float) purity || node.size() < 40) {
 		
 		// complete grow
 //		if (node.getPurity() == 0) {
+			System.out.println("stoppingcondition");
 			return true;
 		} else {
-//			System.out.println(node.getPurity()+" "+(float)purity);
 			return false;
 		}
 	}
@@ -103,7 +111,7 @@ public class GenericHunt {
 	 * @param Node
 	 * @return TestCondition
 	 */
-	private static TestCondition findBestSplit(Node node) {
+	private static TestCondition findBestSplit(Node node, ArrayList<Integer> attributes) {
 		
 		/* 
 		 * implements a multiway split
@@ -112,21 +120,25 @@ public class GenericHunt {
 //		String[] values = { "x", "o", "b" };
 		
 		// number of attributes
-		int numberOfAttributes = node.getRecords().getRecord(0).getAttributes().size();
-		
+//		int numberOfAttributes = node.getRecords().getRecord(0).getAttributes().size();
+//		System.out.println(attributes);
 		
 		int bestSplit = 0;
 		float bestAvg = 1;
-		for (int i = 0; i < numberOfAttributes; i++) {
+		for (Integer attribute : attributes) {
+			
+			System.out.println(attribute);
+		
+//		for (int i = 0; i < numberOfAttributes; i++) {
 			
 			// domain value for the attribute i
-			ArrayList<String> values = node.getRecords().getRecord(0).getAttribute(i).getDomain();
+			ArrayList<String> values = node.getRecords().getRecord(0).getAttribute(attribute).getDomain();
 			
 			// computing the weighted average index
 			float avg = 0;
 			
 			for (String value : values) {
-				Node tentativeSplit = split(node, i, value);
+				Node tentativeSplit = split(node, attribute, value);
 
 				float valuePurity = (float) tentativeSplit.getPurity();
 				int valueNumber = tentativeSplit.size();
@@ -140,7 +152,7 @@ public class GenericHunt {
 
 			if (avg <= bestAvg) {
 				bestAvg = avg;
-				bestSplit = i;
+				bestSplit = attribute;
 
 			}
 
@@ -205,29 +217,48 @@ public class GenericHunt {
 	}
 
 	/**
-	 * treeGrowth build the decision tree
+	 * treeGrowth build the decision tree (first call)
 	 * @param tree
 	 * @param purity
 	 * @return tree
 	 */
 	public static Tree treeGrowth(Tree tree, float purity) {
+		Node node = (Node) tree.getRoot();
+		// number of attributes
+		int numberOfAttributes = node.getRecords().getRecord(0).getAttributes().size();
+		ArrayList<Integer> attributes = new ArrayList<Integer>();
+		for (int i = 0; i < numberOfAttributes; i++) {
+			attributes.add(i);
+		}
+		
+		return treeGrowth(tree, purity, attributes);
+	}
+		/**
+		 * treeGrowth build the decision tree
+		 * @param tree
+		 * @param purity
+		 * @param attributes to consider for the split
+		 * @return tree
+		 */
+		public static Tree treeGrowth(Tree tree, float purity, ArrayList<Integer> attributes) {		
 		
 		Node node = (Node) tree.getRoot();
 		
 //		System.out.println(node.getName()+" "+node.getRecords().toArray().toString());
+//		System.out.println(attributes);
 		
 		// setting the label for both leaf and not leaf nodes
 		node.setLabel(label(node));
 
-		if (stoppingCondition(node, purity)) {
+		if (stoppingCondition(node, purity) ) {
 			// node is a leaf
 			node.setLeaf(true);
 
 		} else {
 			// splitting the node
-			TestCondition bestSplit = findBestSplit(node);
+			TestCondition bestSplit = findBestSplit(node, attributes);
 			
-			System.out.println("attributo: "+bestSplit.getIdAttribute());
+			System.out.println("attributo: "+bestSplit.getIdAttribute()+" attributes.size()= "+attributes.size());
 
 			// TestCondition testCondition = new TestCondition();
 			// testCondition.setValues(bestSplit.getValues());
@@ -235,7 +266,7 @@ public class GenericHunt {
 
 			// node.setTestCondition(testCondition);
 			
-			for (String value : findBestSplit(node).getValues()) {
+			for (String value : bestSplit.getValues()) {
 
 				Node child = split(node, bestSplit.getIdAttribute(), value);
 				node.addChild(child);
@@ -252,16 +283,26 @@ public class GenericHunt {
 			}
 			
 			// flush records from parent for memory issues
-			node.setRecords(null);
+//			node.setRecords(null);
+			
+			// remove splitted attribute
+			ArrayList<Integer> childAttributes = (ArrayList<Integer>) attributes.clone();
+//			System.out.println("attributes= "+attributes);
+//			System.out.println("best= "+bestSplit.getIdAttribute());
+//			System.out.println(" "+node.size());
+			childAttributes.remove(attributes.indexOf(bestSplit.getIdAttribute()));
+			
 			
 			for (GenericTreeNode<Node> child : node.getChildren()) {
 
 				Tree treeChild = new Tree();
 				treeChild.setRoot(child);
 
-				System.out.println(a++);
-				treeGrowth(treeChild, purity);
-				System.out.println(a--);
+				System.out.println("level "+a++);
+				
+				ArrayList<Integer> childAttr = (ArrayList<Integer>) childAttributes.clone();
+				treeGrowth(treeChild, purity, childAttr);
+				System.out.println("level "+a--);
 			}
 
 		}
