@@ -53,10 +53,7 @@ public class Validate {
 		float step = (pstop - pstart)/(float)(steps-1);
 		
 		float purity;
-		
-		
-		
-		
+
 		System.out.println("Stopping condition"+"\t"+"Estimated accuracy"+"\t"+"Confidence Interval");
 		for (purity = pstart; purity <= pstop; purity+=step) {
 			testPurity(strFile, purity, confidence, samples);
@@ -77,7 +74,7 @@ public class Validate {
 			try {
 				ArrayList<Double> interval = confidenceInterval(confidence, accBoot, records);
 				System.out.print(interval+"\t");
-				System.out.println(confidenceAscii(interval, accBoot, 100));
+				System.out.println(confidenceAscii(interval, accBoot, 80));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -166,7 +163,7 @@ public class Validate {
 			double eI = 1 - trainingTree.validate(couple.getTestSet());
 			
 			// update average of accuracy
-			//System.out.println(accBoot+" + (double) .632 * "+eI+ " (double) .638 * "+accS+")) / (double) "+samples);
+			//System.out.println(accBoot+" + (double) .632 * "+eI+ " (double) .368 * "+accS+")) / (double) "+samples);
 			accBoot = (accBoot + (((double) .632 * eI + (double) .368 * accS)) / (double) samples);
 			
 		}

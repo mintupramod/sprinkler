@@ -16,7 +16,7 @@ public class NominalRecord {
 	Label label;
 	
 	/**
-	 * New TicTacToeRecord
+	 * New NominalRecord
 	 * @param attributes
 	 * @param label
 	 */

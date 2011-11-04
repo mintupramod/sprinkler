@@ -316,13 +316,16 @@ public class GenericHunt {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		float purity = (float) 0.1;
-
+		test();
 //		testSplit();
 //		testHowMany();
 //		testClassify();
-//		System.exit(0);
+	}
+		
+		
+	public static void test() {
+		
+		float purity = (float) 0.1;
 
 		// record set
 		//String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
