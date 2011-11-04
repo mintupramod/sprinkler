@@ -32,7 +32,7 @@ import javax.print.attribute.standard.Finishings;
 public class GenericHunt {
 	
 	// recursion level
-	static int a=0;
+//	static int recursion=0;
 
 	/**
 	 * stoppingCondition has the stopping condition been reached? 
@@ -47,17 +47,18 @@ public class GenericHunt {
 
 		// if (node.getPurity() < 0.3 || node.size() < 40) {
 		
-		if (((Node) node.getParent()) != null){
-			if (((Node) node.getParent()).getPurity() == node.getPurity()) {
-				return true;
-			}
-		}
-		System.out.println("purity test: "+node.getPurity()+"<="+purity+" || "+node.size()+"<40");
-		if (node.getPurity() <= (float) purity || node.size() < 40) {
+//		if (((Node) node.getParent()) != null){
+//			if (((Node) node.getParent()).getPurity() == node.getPurity()) {
+//				return true;
+//			}
+//		}
+//		System.out.println("purity test: "+node.getPurity()+"<="+purity+" || "+node.size()+"<40");
+//		if (node.getPurity() <= (float) purity || node.size() < 40) {
+		if (node.getPurity() <= (float) purity) {
 		
 		// complete grow
 //		if (node.getPurity() == 0) {
-			System.out.println("stoppingcondition");
+//			System.out.println("stoppingcondition");
 			return true;
 		} else {
 			return false;
@@ -127,7 +128,7 @@ public class GenericHunt {
 		float bestAvg = 1;
 		for (Integer attribute : attributes) {
 			
-			System.out.println(attribute);
+//			System.out.println(attribute);
 		
 //		for (int i = 0; i < numberOfAttributes; i++) {
 			
@@ -258,7 +259,7 @@ public class GenericHunt {
 			// splitting the node
 			TestCondition bestSplit = findBestSplit(node, attributes);
 			
-			System.out.println("attributo: "+bestSplit.getIdAttribute()+" attributes.size()= "+attributes.size());
+//			System.out.println("attributo: "+bestSplit.getIdAttribute()+" attributes.size()= "+attributes.size());
 
 			// TestCondition testCondition = new TestCondition();
 			// testCondition.setValues(bestSplit.getValues());
@@ -298,11 +299,11 @@ public class GenericHunt {
 				Tree treeChild = new Tree();
 				treeChild.setRoot(child);
 
-				System.out.println("level "+a++);
+//				System.out.println("level "+recursion++);
 				
 				ArrayList<Integer> childAttr = (ArrayList<Integer>) childAttributes.clone();
 				treeGrowth(treeChild, purity, childAttr);
-				System.out.println("level "+a--);
+//				System.out.println("level "+recursion--);
 			}
 
 		}

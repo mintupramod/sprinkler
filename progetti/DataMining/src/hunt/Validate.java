@@ -25,22 +25,35 @@ import hunt.utilities.Utils;
  * build and validate a decision tree
  *
  */
-public class Test {
+public class Validate {
 	
 	public static void main(String[] args) {
-//		test();
+//		testPurityVsAccuracy();
+		
+	}
+		
+	public static void testPurityVsAccuracy() {
+		
+//		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
+		String strFile = "./data/tic-tac-toe/tic-tac-toe.data";
+		float confidence = (float) .99;
+		
+		int samples = 10;
 		
 		float pstart = 0;
 		float pstop = (float) 0.5;
 		int steps = 6; 
-		
+
+		validate(strFile, samples, pstart, pstop, steps, confidence);
+	
+	}
+	
+	public static void validate(String strFile, int samples, float pstart, float pstop, int steps, float confidence) {
+
 		float step = (pstop - pstart)/(float)(steps-1);
 		
-//		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
-		String strFile = "./data/connect4/connect4.data";
-		float confidence = (float) .99;
 		float purity;
-		int samples = 10;
+		
 		
 		
 		
@@ -58,7 +71,7 @@ public class Test {
 			records = CSVLoader.loadRecordSet(strFile).size();
 			
 			System.out.print(purity+"\t");
-			double accBoot = Test.bootstrapAccuracy(strFile, samples, (float) purity);
+			double accBoot = Validate.bootstrapAccuracy(strFile, samples, (float) purity);
 			System.out.print(accBoot+"\t");		
 			
 			try {
@@ -77,7 +90,7 @@ public class Test {
 		
 	}
 	
-	public static void test() {
+	public static void testSingleAccuracy() {
 		
 		float confidence = (float) .99;
 		float purity = (float) 0.1;
@@ -93,7 +106,7 @@ public class Test {
 			System.out.println(records+" records in the set");
 			System.out.println("Stopping condition: purity value < "+purity);
 			System.out.println(samples+" samples");
-			double accBoot = Test.bootstrapAccuracy(strFile, samples, (float) purity);
+			double accBoot = Validate.bootstrapAccuracy(strFile, samples, (float) purity);
 			System.out.println("Estimated accuracy "+accBoot);		
 			
 			try {
