@@ -1,20 +1,23 @@
 Logistic Regression - .632 bootstrap validation
 
-Dataset	tic-tac-toe (x=1,o=0,b=-1,positive=1,negative=0)
-Samples	10
-Lambda	0.1
+Dataset		tic-tac-toe (x=1,o=0,b=-1,positive=1,negative=0)
+Samples		10
+Lambda		0.1
 
+Tests:
       max degree = 1 (linear)
       Train Accuracy: 0.678701
       Train Accuracy: 0.685753
       Train Accuracy: 0.680724
       Train Accuracy: 0.682372
+                Mean: 0.68189
 
       max degree = 2 (quadratic)
       Train Accuracy: 0.984909
       Train Accuracy: 0.988119
       Train Accuracy: 0.981531
       Train Accuracy: 0.986795
+                Mean: 0.98534
       
       max degree = 4
       Train Accuracy: 0.991064
