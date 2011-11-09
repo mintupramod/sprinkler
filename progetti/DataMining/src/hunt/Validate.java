@@ -121,7 +121,7 @@ public class Validate {
 	}
 
 	/**
-	 * Calculate accuracy using .638 bootstrap method
+	 * Calculate accuracy using .632 bootstrap method
 	 * (see book)
 	 * @param number of samples to take
 	 * @param purity required for stopping splitting
