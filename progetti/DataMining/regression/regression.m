@@ -1,5 +1,11 @@
 #! /usr/bin/octave -qf
 
+% A Logistic Regression classificator in Octave
+% based on code developed for ml-class.org class.
+%
+% note: this code support only binary classification
+%
+
 arg_list = argv();
 data_file = arg_list{[1]};
 

@@ -1,5 +1,8 @@
 function out = mapFeatureRic(x, d)
-
+% MAPFEATURE Feature mapping function to polynomial features
+%
+%   recursive part of mapFeature
+%
 if (length(x)==1)
   out=[];
   for i=0:d
