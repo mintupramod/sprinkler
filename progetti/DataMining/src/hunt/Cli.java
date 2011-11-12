@@ -76,9 +76,9 @@ public class Cli {
 		System.out.println("  generate training_set_file purity output_path_tree_file output_dot_file");
 		System.out.println("To classify a record");
 		System.out.println("  classify tree_file record");
-		System.out.println("To perform full iterative validation for Accuracy Vs Purity in a data set using .638 validation");
+		System.out.println("To perform full iterative validation for Accuracy Vs Purity in a data set using .632 validation");
 		System.out.println("  validate training_set_file samples pstart pstop steps confidence");
-		System.out.println("  where samples        number of samples to be taken for .638 validation");
+		System.out.println("  where samples        number of samples to be taken for .632 bootstrap validation");
 		System.out.println("        pstart, pstop  min, max purity values to test in [0-1] (gini index)");
 		System.out.println("        steps          number of steps requested for purity");
 		System.out.println("        confidence     confidence value requested (one of one of .99 .98 .95 .9 .8 .7 .5)");

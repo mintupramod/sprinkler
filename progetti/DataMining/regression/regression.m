@@ -10,7 +10,7 @@ arg_list = argv();
 data_file = arg_list{[1]};
 
 samples = 10;
-degree = 1;
+degree = 2;
 
 % Set regularization parameter lambda
 lambda = 0.1;

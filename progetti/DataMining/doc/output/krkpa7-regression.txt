@@ -6,20 +6,17 @@ Lambda		0.1
 
 Tests:
       max degree = 1 (linear)
-      Train Accuracy: 
-      Train Accuracy: 0.
-      Train Accuracy: 0.
-      Train Accuracy: 0.
-                Mean: 0.
+      Train Accuracy: 0.959090
+      Train Accuracy: 0.959568
+      Train Accuracy: 0.958138
+      Train Accuracy: 0.958654
+                Mean: 0.95886
 
       max degree = 2 (quadratic)
-      Train Accuracy: 0.
-      Train Accuracy: 0.
-      Train Accuracy: 0.
-      Train Accuracy: 0.
-                Mean: 0.
-      
-      max degree = 4
-      Train Accuracy: 0.
+      Train Accuracy: 0.978432
+      Train Accuracy: 0.977230
+      Train Accuracy: 0.976025
+      Train Accuracy: 0.976874
+                Mean: 0.97714
 
 ./regression.m krkpa7.data

@@ -19,7 +19,7 @@ Tests:
       Train Accuracy: 0.986795
                 Mean: 0.98534
       
-      max degree = 4
+      max degree = 4 (quartic)
       Train Accuracy: 0.991064
 
 ./regression.m ttt.data
