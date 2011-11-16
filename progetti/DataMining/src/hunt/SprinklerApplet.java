@@ -45,26 +45,26 @@ public class SprinklerApplet extends JApplet {
 		
 		getContentPane().setLayout(null);
 		
-		JButton btnLoadTrainingSet = new JButton("Initialize");
-		btnLoadTrainingSet.setBounds(285, 60, 189, 25);
+		JButton btnLoadTrainingSet = new JButton("Initialize Model");
+		btnLoadTrainingSet.setBounds(240, 60, 189, 25);
 		getContentPane().add(btnLoadTrainingSet);
 		
 		final JButton btnLoadTestSet = new JButton("Test");
 		
 		btnLoadTestSet.setEnabled(false);
-		btnLoadTestSet.setBounds(285, 116, 189, 25);
+		btnLoadTestSet.setBounds(240, 102, 189, 25);
 		getContentPane().add(btnLoadTestSet);
 		
-		JLabel lblLoadTrainingSet = new JLabel("2) Load Training Set and create model");
-		lblLoadTrainingSet.setBounds(12, 57, 267, 30);
+		JLabel lblLoadTrainingSet = new JLabel("2) Load Training Set");
+		lblLoadTrainingSet.setBounds(12, 57, 215, 30);
 		getContentPane().add(lblLoadTrainingSet);
 		
 		JLabel lblPrepruningValue = new JLabel("1) Set Pre-Pruning value");
-		lblPrepruningValue.setBounds(12, 12, 136, 30);
+		lblPrepruningValue.setBounds(12, 12, 215, 30);
 		getContentPane().add(lblPrepruningValue);
 		
 		final JLabel lblErr = new JLabel("n/a");
-		lblErr.setBounds(177, 166, 70, 30);
+		lblErr.setBounds(351, 139, 70, 30);
 		getContentPane().add(lblErr);
 		
 		
@@ -76,12 +76,16 @@ public class SprinklerApplet extends JApplet {
 			}
 		});
 		spinner.setModel(new SpinnerNumberModel(new Float(0), new Float(0), new Float(1), new Float(0.05)));
-		spinner.setBounds(285, 10, 58, 30);
+		spinner.setBounds(240, 13, 60, 30);
 		getContentPane().add(spinner);
 		
 		JLabel lblErrorRate = new JLabel("Error Rate:");
-		lblErrorRate.setBounds(12, 166, 99, 30);
+		lblErrorRate.setBounds(240, 139, 99, 30);
 		getContentPane().add(lblErrorRate);
+		
+		JLabel lblLoadTest = new JLabel("3) Load Test Set");
+		lblLoadTest.setBounds(12, 99, 215, 30);
+		getContentPane().add(lblLoadTest);
 		
 		
 		

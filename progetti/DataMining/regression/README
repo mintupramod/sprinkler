@@ -1,0 +1,4 @@
+An alternative Logistic Regression binary classificator
+in Octave based on code developed for ml-class.org class.
+
+use: ./regression.m dataset
