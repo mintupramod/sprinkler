@@ -1,4 +1,4 @@
-package hunt.data;
+package sprinkler.data;
 
 import java.util.ArrayList;
 

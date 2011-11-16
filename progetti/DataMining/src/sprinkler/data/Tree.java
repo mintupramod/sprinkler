@@ -1,6 +1,5 @@
-package hunt.data;
+package sprinkler.data;
 
-import hunt.utilities.Bundle;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -18,6 +17,7 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
 
+import sprinkler.utilities.Bundle;
 import vivin.GenericTree;
 import vivin.GenericTreeNode;
 import vivin.GenericTreeTraversalOrderEnum;

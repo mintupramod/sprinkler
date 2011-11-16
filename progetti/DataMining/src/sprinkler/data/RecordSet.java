@@ -1,8 +1,9 @@
-package hunt.data;
+package sprinkler.data;
 
-import hunt.utilities.CSVLoader;
 
 import java.util.ArrayList;
+
+import sprinkler.utilities.CSVLoader;
 
 /**
  * @author Claudio Tanci

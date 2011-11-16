@@ -1,4 +1,4 @@
-package hunt.utilities;
+package sprinkler.utilities;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

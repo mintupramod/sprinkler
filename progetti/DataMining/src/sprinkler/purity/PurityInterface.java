@@ -1,8 +1,9 @@
-package hunt.purity;
+package sprinkler.purity;
 
-import hunt.data.RecordSet;
 
 import java.util.ArrayList;
+
+import sprinkler.data.RecordSet;
 
 /**
  * @author Claudio Tanci

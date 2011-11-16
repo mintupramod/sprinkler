@@ -1,4 +1,4 @@
-package hunt.utilities;
+package sprinkler.utilities;
 
 public class Utils {
 	

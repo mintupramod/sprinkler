@@ -1,9 +1,5 @@
-package hunt.purity;
+package sprinkler.purity;
 
-import hunt.data.RecordSet;
-import hunt.data.NominalRecord;
-import hunt.utilities.Bundle;
-import hunt.utilities.CSVLoader;
 
 import java.io.IOException;
 import java.util.AbstractList;
@@ -12,6 +8,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+
+import sprinkler.data.NominalRecord;
+import sprinkler.data.RecordSet;
+import sprinkler.utilities.Bundle;
+import sprinkler.utilities.CSVLoader;
 
 
 /**

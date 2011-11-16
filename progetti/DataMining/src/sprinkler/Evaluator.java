@@ -1,11 +1,12 @@
-package hunt;
+package sprinkler;
 
 import java.util.ArrayList;
 
-import hunt.data.RecordSet;
-import hunt.data.NominalRecord;
-import hunt.data.TrainingTestCouple;
-import hunt.utilities.Bundle;
+import sprinkler.data.NominalRecord;
+import sprinkler.data.RecordSet;
+import sprinkler.data.TrainingTestCouple;
+import sprinkler.utilities.Bundle;
+
 
 public class Evaluator {
 	

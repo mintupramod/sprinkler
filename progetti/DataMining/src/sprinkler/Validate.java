@@ -1,4 +1,4 @@
-package hunt;
+package sprinkler;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,17 +8,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import hunt.data.Label;
-import hunt.data.Node;
-import hunt.data.NominalAttribute;
-import hunt.data.RecordSet;
-import hunt.data.NominalRecord;
-import hunt.data.TrainingTestCouple;
-import hunt.data.Tree;
-import hunt.utilities.Bundle;
-import hunt.utilities.CSVLoader;
-import hunt.utilities.NormalDistributionBounds;
-import hunt.utilities.Utils;
+import sprinkler.data.Label;
+import sprinkler.data.Node;
+import sprinkler.data.NominalAttribute;
+import sprinkler.data.NominalRecord;
+import sprinkler.data.RecordSet;
+import sprinkler.data.TrainingTestCouple;
+import sprinkler.data.Tree;
+import sprinkler.utilities.Bundle;
+import sprinkler.utilities.CSVLoader;
+import sprinkler.utilities.NormalDistributionBounds;
+import sprinkler.utilities.Utils;
+
 
 /**
  * @author Claudio Tanci

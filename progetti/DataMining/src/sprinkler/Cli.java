@@ -1,22 +1,23 @@
 /**
  * 
  */
-package hunt;
+package sprinkler;
 
-import hunt.data.Label;
-import hunt.data.Node;
-import hunt.data.NominalAttribute;
-import hunt.data.NominalRecord;
-import hunt.data.RecordSet;
-import hunt.data.Tree;
-import hunt.utilities.Bundle;
-import hunt.utilities.CSVLoader;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
+import sprinkler.data.Label;
+import sprinkler.data.Node;
+import sprinkler.data.NominalAttribute;
+import sprinkler.data.NominalRecord;
+import sprinkler.data.RecordSet;
+import sprinkler.data.Tree;
+import sprinkler.utilities.Bundle;
+import sprinkler.utilities.CSVLoader;
 
 /**
  * @author Claudio Tanci

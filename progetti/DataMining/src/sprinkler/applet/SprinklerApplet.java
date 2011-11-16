@@ -1,8 +1,5 @@
-package hunt;
+package sprinkler.applet;
 
-import hunt.data.Node;
-import hunt.data.Tree;
-import hunt.utilities.CSVLoader;
 
 import javax.swing.JApplet;
 import javax.swing.JButton;
@@ -22,6 +19,11 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+
+import sprinkler.GenericHunt;
+import sprinkler.data.Node;
+import sprinkler.data.Tree;
+import sprinkler.utilities.CSVLoader;
 
 public class SprinklerApplet extends JApplet {
 	

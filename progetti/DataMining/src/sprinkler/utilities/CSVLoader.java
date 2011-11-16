@@ -1,9 +1,5 @@
-package hunt.utilities;
+package sprinkler.utilities;
 
-import hunt.data.Label;
-import hunt.data.NominalAttribute;
-import hunt.data.RecordSet;
-import hunt.data.NominalRecord;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +8,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
+
+import sprinkler.data.Label;
+import sprinkler.data.NominalAttribute;
+import sprinkler.data.NominalRecord;
+import sprinkler.data.RecordSet;
 
 /**
  * @author Claudio Tanci

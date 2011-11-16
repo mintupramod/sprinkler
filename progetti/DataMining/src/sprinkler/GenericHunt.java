@@ -1,13 +1,5 @@
-package hunt;
+package sprinkler;
 
-import hunt.data.Node;
-import hunt.data.RecordSet;
-import hunt.data.TestCondition;
-import hunt.data.NominalRecord;
-import hunt.data.Tree;
-import hunt.purity.Gini;
-import hunt.utilities.Bundle;
-import hunt.utilities.CSVLoader;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,6 +15,14 @@ import java.util.Set;
 
 import javax.print.attribute.standard.Finishings;
 
+import sprinkler.data.Node;
+import sprinkler.data.NominalRecord;
+import sprinkler.data.RecordSet;
+import sprinkler.data.TestCondition;
+import sprinkler.data.Tree;
+import sprinkler.purity.Gini;
+import sprinkler.utilities.Bundle;
+import sprinkler.utilities.CSVLoader;
 import vivin.*;
 
 /**

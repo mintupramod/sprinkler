@@ -1,11 +1,11 @@
-package hunt.data;
+package sprinkler.data;
 
-import hunt.purity.Gini;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import sprinkler.purity.Gini;
 import vivin.GenericTreeNode;
 
 /**
