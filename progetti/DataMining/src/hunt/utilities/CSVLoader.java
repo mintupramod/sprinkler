@@ -6,6 +6,7 @@ import hunt.data.RecordSet;
 import hunt.data.NominalRecord;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.StringTokenizer;
  * 
  */
 public class CSVLoader {
-
+	
 	/**
 	 * loadRecordSet
 	 * @param file name
@@ -26,26 +27,24 @@ public class CSVLoader {
 	 * @throws IOException 
 	 */
 	public static RecordSet loadRecordSet(String strFile) throws IOException {
+		return loadRecordSet(new File(strFile));
+	}
+
+	/**
+	 * loadRecordSet
+	 * @param file
+	 * return an ArrayList of records 
+	 * @throws IOException 
+	 */
+	public static RecordSet loadRecordSet(File file) throws IOException {
 		
 		// domain initialization
 		ArrayList<ArrayList<String>> recordsDomains = new ArrayList<ArrayList<String>>();
 		
-		
-		
-		
-		// TODO load domain method in the file
-//		ArrayList<String> domain = new ArrayList<String>(0);
-//		domain.add("x");
-//		domain.add("o");
-//		domain.add("b");
-		
-//		ArrayList<TicTacToeRecord> recordSet = new ArrayList<TicTacToeRecord>(0);
 		RecordSet recordSet = new RecordSet();
 
-
-
 			// create BufferedReader to read csv file
-			BufferedReader br = new BufferedReader(new FileReader(strFile));
+			BufferedReader br = new BufferedReader(new FileReader(file));
 			String strLine = "";
 			StringTokenizer st = null;
 

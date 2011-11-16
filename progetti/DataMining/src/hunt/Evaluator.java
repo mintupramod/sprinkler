@@ -9,18 +9,6 @@ import hunt.utilities.Bundle;
 
 public class Evaluator {
 	
-//	RecordSet trainingSet;
-//	RecordSet sampleSet;
-//	
-//	/**
-//	 * @param trainingSet
-//	 */
-//	public Evaluator(RecordSet trainingSet) {
-//		super();
-//		this.trainingSet = trainingSet;
-//		
-//	}
-
 	/**
 	 * Generate a sample set with replacement
 	 * @param training set
