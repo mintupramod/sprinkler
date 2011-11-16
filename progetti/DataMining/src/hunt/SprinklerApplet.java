@@ -55,11 +55,11 @@ public class SprinklerApplet extends JApplet {
 		btnLoadTestSet.setBounds(285, 116, 189, 25);
 		getContentPane().add(btnLoadTestSet);
 		
-		JLabel lblLoadTrainingSet = new JLabel("Load Training Set and create model");
+		JLabel lblLoadTrainingSet = new JLabel("2) Load Training Set and create model");
 		lblLoadTrainingSet.setBounds(12, 57, 267, 30);
 		getContentPane().add(lblLoadTrainingSet);
 		
-		JLabel lblPrepruningValue = new JLabel("Prepruning value");
+		JLabel lblPrepruningValue = new JLabel("1) Set Pre-Pruning value");
 		lblPrepruningValue.setBounds(12, 12, 136, 30);
 		getContentPane().add(lblPrepruningValue);
 		

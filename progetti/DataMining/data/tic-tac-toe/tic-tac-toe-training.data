@@ -1,5 +1,5 @@
 # Tic-Tac-Toe Endgame database (see tic-tac-toe.names for references)
-# {(x,o,b),(x,o,b),(x,o,b),(x,o,b),(x,o,b),(x,o,b),(x,o,b),(x,o,b),(x,o,b),(label)}
+# {x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:positive,negative}
 o,b,b,x,x,x,x,o,o,positive
 x,b,x,x,o,x,o,o,o,negative
 x,o,b,x,b,x,x,o,o,positive

@@ -1,9 +1,6 @@
 package hunt.data;
 
 import hunt.utilities.Bundle;
-import hunt.vivin.GenericTree;
-import hunt.vivin.GenericTreeNode;
-import hunt.vivin.GenericTreeTraversalOrderEnum;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -20,6 +17,10 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
+
+import vivin.GenericTree;
+import vivin.GenericTreeNode;
+import vivin.GenericTreeTraversalOrderEnum;
 
 /**
  * @author Claudio Tanci

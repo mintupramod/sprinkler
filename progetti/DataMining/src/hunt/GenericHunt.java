@@ -8,7 +8,6 @@ import hunt.data.Tree;
 import hunt.purity.Gini;
 import hunt.utilities.Bundle;
 import hunt.utilities.CSVLoader;
-import hunt.vivin.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,6 +22,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.print.attribute.standard.Finishings;
+
+import vivin.*;
 
 /**
  * @author Claudio Tanci
