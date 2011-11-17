@@ -1,3 +1,5 @@
+Graphs generated in R with ggplot2 as following:
+
 classification tree purity vs accuracy graph:
 > myData <- read.delim("output/krkpa7.tsv",header=T,sep="\t",dec=".");
 > library(ggplot2);
