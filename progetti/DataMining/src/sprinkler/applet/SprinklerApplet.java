@@ -38,19 +38,22 @@ public class SprinklerApplet extends JApplet {
 	
 	//Create a file chooser
 	final JFileChooser fc = new JFileChooser();
+	
+	public void init() {
+	    try {
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	    } catch (Exception ex) {
+	        // Just accept the default L&F
+	    }
+	    SwingUtilities.updateComponentTreeUI(this);
+	    super.init();
+	}
 
 	/**
 	 * Create the applet.
 	 */
 	public SprinklerApplet() {
-		
-		try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch (Exception ed) {
-            ed.printStackTrace();
-        }
-		
+				
 		getContentPane().setLayout(null);
 		
 		JButton btnLoadTrainingSet = new JButton("Initialize Model");
@@ -60,7 +63,7 @@ public class SprinklerApplet extends JApplet {
 		final JButton btnLoadTestSet = new JButton("Test");
 		
 		btnLoadTestSet.setEnabled(false);
-		btnLoadTestSet.setBounds(240, 102, 189, 25);
+		btnLoadTestSet.setBounds(240, 105, 189, 25);
 		getContentPane().add(btnLoadTestSet);
 		
 		JLabel lblLoadTrainingSet = new JLabel("2) Load Training Set");
@@ -92,12 +95,12 @@ public class SprinklerApplet extends JApplet {
 		getContentPane().add(lblErrorRate);
 		
 		JLabel lblLoadTest = new JLabel("3) Load Test Set");
-		lblLoadTest.setBounds(12, 99, 215, 30);
+		lblLoadTest.setBounds(12, 102, 215, 30);
 		getContentPane().add(lblLoadTest);
 		
 		final JLabel lblStatus = new JLabel("Welcome");
 		lblStatus.setForeground(Color.GRAY);
-		lblStatus.setBounds(12, 190, 417, 15);
+		lblStatus.setBounds(12, 190, 417, 30);
 		getContentPane().add(lblStatus);
 
 		btnLoadTrainingSet.addActionListener(new ActionListener() {
@@ -113,21 +116,17 @@ public class SprinklerApplet extends JApplet {
 		            lblStatus.setText("Reading data file");
 		    		try {
 		    			root.setRecords(CSVLoader.loadRecordSet(file));
-		    		} catch (IOException e1) {
+		    			
+		    			lblStatus.setText("Generating decision tree...");
+			    		tree.setRoot(root);
+			    		tree = (Tree) GenericHunt.treeGrowth(tree, (Float) spinner.getValue() / Float.valueOf(2));
+			    		lblStatus.setText(tree.getNumberOfNodes() + " nodes in the tree");
+			    		tree.clean();
+			    		btnLoadTestSet.setEnabled(true);
+			    		
+		    		} catch (Exception e1) {
 		    			lblStatus.setText("Sorry, an error occurred while reading the file");
 		    		}
-
-		    		lblStatus.setText("Generating decision tree...");
-		    		
-		    		tree.setRoot(root);
-
-		    		tree = (Tree) GenericHunt.treeGrowth(tree, (Float) spinner.getValue() / Float.valueOf(2));
-
-		    		lblStatus.setText(tree.getNumberOfNodes() + " nodes in the tree");
-
-		    		tree.clean();
-
-		    		btnLoadTestSet.setEnabled(true);
 		        }
 			}
 		});
