@@ -2,6 +2,10 @@ package sprinkler.utilities;
 
 import java.util.HashMap;
 
+/**
+ * @author Claudio Tanci
+ *
+ */
 public class NormalDistributionBounds {
 	
 	/**
@@ -25,8 +29,6 @@ public class NormalDistributionBounds {
 			return table.get(confidence);
 		} else {
 			throw new Exception("confidence level not supported (must be one of \".99\" \".98\" \".95\" \".9\" \".8\" \".7\" \".5\")");
-		}
-		
+		}		
 	}
-
 }

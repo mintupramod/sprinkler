@@ -68,5 +68,4 @@ public class NominalAttribute {
 	public String toString(){
 		return this.value;
 	}
-
 }

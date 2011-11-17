@@ -3,6 +3,10 @@ package sprinkler.utilities;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * @author Claudio Tanci
+ *
+ */
 public class Bundle {
 	private static final String BUNDLE_NAME = "hunt.bundle"; //$NON-NLS-1$
 
@@ -12,6 +16,10 @@ public class Bundle {
 	private Bundle() {
 	}
 
+	/**
+	 * @param key
+	 * @return
+	 */
 	public static String getString(String key) {
 		try {
 			return RESOURCE_BUNDLE.getString(key);

@@ -25,10 +25,13 @@ import sprinkler.data.Node;
 import sprinkler.data.Tree;
 import sprinkler.utilities.CSVLoader;
 
+/**
+ * @author Claudio Tanci
+ *
+ */
 public class SprinklerApplet extends JApplet {
 	
 	Tree tree = new Tree();
-	
 	
 	//Create a file chooser
 	final JFileChooser fc = new JFileChooser();
@@ -88,10 +91,7 @@ public class SprinklerApplet extends JApplet {
 		JLabel lblLoadTest = new JLabel("3) Load Test Set");
 		lblLoadTest.setBounds(12, 99, 215, 30);
 		getContentPane().add(lblLoadTest);
-		
-		
-		
-		
+
 		btnLoadTrainingSet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -121,17 +121,13 @@ public class SprinklerApplet extends JApplet {
 		    		
 //		    		System.out.println("Cleaning data set records...");
 		    		tree.clean();
-		            
-		    		// 
+
 		    		btnLoadTestSet.setEnabled(true);
-		    		
-		            
-		            
+
 //		            log.append("Opening: " + file.getName() + "." + newline);
 		        } else {
 //		            log.append("Open command cancelled by user." + newline);
 		        }
-		        
 			}
 		});
 		
@@ -150,15 +146,12 @@ public class SprinklerApplet extends JApplet {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-		            
-		            
-		            
+
 		        } else {
 //		            log.append("Open command cancelled by user." + newline);
 		        }
 			}
 		});
-		
 
 	}
 }

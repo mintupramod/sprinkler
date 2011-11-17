@@ -126,7 +126,7 @@ public class Cli {
 	
 	private static void classify(String treeFile, String recordStr){
 		
-//		load the decision tree and classify the record
+		// load the decision tree and classify the record
 		System.out.println("loading decision tree in "+treeFile);
 		
 		FileInputStream f_in;

@@ -1,7 +1,16 @@
 package sprinkler.utilities;
 
+/**
+ * @author Claudio Tanci
+ *
+ */
 public class Utils {
 	
+	/**
+	 * @param value
+	 * @param places
+	 * @return
+	 */
 	public static double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 
@@ -10,5 +19,4 @@ public class Utils {
 	    long tmp = Math.round(value);
 	    return (double) tmp / factor;
 	}
-
 }

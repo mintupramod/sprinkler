@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * @author Claudio Tanci
- * This class implements a record of type TicTacToe
+ * This class implements a nominal type record
  *
  */
 public class NominalRecord {

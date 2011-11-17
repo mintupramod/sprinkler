@@ -12,8 +12,8 @@ public class Evaluator {
 	
 	/**
 	 * Generate a sample set with replacement
-	 * @param training set
-	 * @return sample set
+	 * @param record set
+	 * @return training-test coupled sets
 	 */
 	public static TrainingTestCouple generateBootstrapSample(RecordSet recordSet) {
 		

@@ -83,22 +83,13 @@ public class Node extends GenericTreeNode<Node> {
 	 */
 	public int howMany(int attribute, String value) {
 		int count = 0;
-		
-//		Iterator<ArrayList<String>> it = this.records.getRecords() iterator();
-		
+
 		for (NominalRecord record : this.records.getRecords()) {
 			if (record.getAttribute(attribute).toString().equals(value)) {
 				count++;
 			}
 			
 		}
-		
-//		while (it.hasNext()) {
-//			ArrayList<String> sample = it.next();
-//			if (sample.get(attribute).equals(value)) {
-//				count++;
-//			}
-//		}
 		
 		return count;
 	}
@@ -174,18 +165,8 @@ public class Node extends GenericTreeNode<Node> {
 	public RecordSet getRecords() {
 		return records;
 	}
-
-//	/**
-//	 * setRecords
-//	 * @deprecated
-//	 * @param records
-//	 */
-//	public void setRecords(ArrayList<ArrayList<String>> records) {
-//		this.records = records;
-//	}
 	
 	/**
-	 * TODO pastrocchio di test
 	 * setRecords
 	 * @param records
 	 */
@@ -216,6 +197,4 @@ public class Node extends GenericTreeNode<Node> {
     public String toString() {
     	return "Test Attr "+getTestAttribute()+" - Test Values "+Arrays.toString(getTestCondition().getValues())+" "+size()+" records  isLeaf="+isLeaf()+" "+getLabel();    	
     }
-	
-
 }

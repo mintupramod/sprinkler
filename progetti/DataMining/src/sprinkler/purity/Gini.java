@@ -27,9 +27,6 @@ public class Gini implements PurityInterface {
 	 * @param a list of records
 	 */
 	public float value(RecordSet recordSet) {
-
-//		ArrayList<TicTacToeRecord> list = new ArrayList<TicTacToeRecord>();
-		
 		// computing a list of labels and occurrences
 		HashMap<String, Integer> labels = new HashMap<String, Integer>();
 		
@@ -41,25 +38,7 @@ public class Gini implements PurityInterface {
 			} else {
 				labels.put((label), 1);
 			}
-			
-			
 		}
-		
-		
-		
-//		Iterator<TicTacToeRecord> it = list.iterator();
-//		while (it.hasNext()) {
-//			TicTacToeRecord sample = it.next();
-//			String label = sample.getLabel().toString();
-//			if (labels.containsKey(label)) {
-//				labels.put((label), labels.get(label) + 1);				
-//			} else {
-//				labels.put((label), 1);
-//			}
-			
-			
-
-//		}
 
 		// Gini index computing (see "Introduction to Data Mining" eq.4.4, p.158)
 		float gini = 1;
@@ -70,7 +49,7 @@ public class Gini implements PurityInterface {
 		
 		// when no record with the appropriate value is present
 		if (gini == 1) {gini = 0;}
-
+		
 		return gini;
 	}
 
@@ -79,7 +58,7 @@ public class Gini implements PurityInterface {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		test();
+//		test();
 	}
 
 	/**
@@ -93,14 +72,10 @@ public class Gini implements PurityInterface {
 			list = CSVLoader.loadRecordSet(strFile);
 			
 			// compute and display the Gini index
-
 			Gini gini = new Gini();
 			System.out.println("Gini index for \""+strFile+"\" labels: "+gini.value(list));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
-
 }

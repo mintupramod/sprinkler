@@ -11,7 +11,5 @@ import sprinkler.data.RecordSet;
  *
  */
 public interface PurityInterface {
-	
 	float value(RecordSet records);
-	
 }

@@ -20,7 +20,6 @@ import sprinkler.utilities.CSVLoader;
 import sprinkler.utilities.NormalDistributionBounds;
 import sprinkler.utilities.Utils;
 
-
 /**
  * @author Claudio Tanci
  * build and validate a decision tree
@@ -28,13 +27,17 @@ import sprinkler.utilities.Utils;
  */
 public class Validate {
 	
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 //		testPurityVsAccuracy();
-		
 	}
 		
+	/**
+	 * 
+	 */
 	public static void testPurityVsAccuracy() {
-		
 //		String strFile = Bundle.getString("Resources.RecordSet"); //$NON-NLS-1$
 		String strFile = "./data/tic-tac-toe/tic-tac-toe.data";
 		float confidence = (float) .99;
@@ -46,24 +49,33 @@ public class Validate {
 		int steps = 6; 
 
 		validate(strFile, samples, pstart, pstop, steps, confidence);
-	
 	}
 	
+	/**
+	 * @param file to validate
+	 * @param number of samples 
+	 * @param pstart
+	 * @param pstop
+	 * @param steps
+	 * @param confidence requested
+	 */
 	public static void validate(String strFile, int samples, float pstart, float pstop, int steps, float confidence) {
-
 		float step = (pstop - pstart)/(float)(steps-1);
-		
 		float purity;
 
 		System.out.println("Stopping condition"+"\t"+"Estimated accuracy"+"\t"+"Confidence Interval");
 		for (purity = pstart; purity <= pstop; purity+=step) {
 			testPurity(strFile, purity, confidence, samples);
 		}
-		
 	}
 	
+	/**
+	 * @param file to test
+	 * @param purity 
+	 * @param confidence requested
+	 * @param number of samples
+	 */
 	public static void testPurity(String strFile, float purity, float confidence, int samples) {
-		
 		int records;
 		try {
 			records = CSVLoader.loadRecordSet(strFile).size();
@@ -77,19 +89,19 @@ public class Validate {
 				System.out.print(interval+"\t");
 				System.out.println(confidenceAscii(interval, accBoot, 80));
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		} catch (IOException e1) {
-			System.out.println("Impossibile leggere il file");
+			System.out.println("Error reading the file");
 			e1.printStackTrace();
 		}
-		
 	}
 	
+	/**
+	 * 
+	 */
 	public static void testSingleAccuracy() {
-		
 		float confidence = (float) .99;
 		float purity = (float) 0.1;
 		int samples = 100;
@@ -110,20 +122,18 @@ public class Validate {
 			try {
 				System.out.println("Confidence interval for "+confidence+" confidence "+confidenceInterval(confidence, accBoot, records));
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		} catch (IOException e1) {
-			System.out.println("Impossibile leggere il file");
+			System.out.println("Error reading the file");
 			e1.printStackTrace();
 		}
-		
 	}
 
 	/**
 	 * Calculate accuracy using .632 bootstrap method
-	 * (see book)
+	 * (see Introduction to Data Mining book)
 	 * @param number of samples to take
 	 * @param purity required for stopping splitting
 	 * @throws IOException 
@@ -164,15 +174,11 @@ public class Validate {
 			double eI = 1 - trainingTree.validate(couple.getTestSet());
 			
 			// update average of accuracy
-			//System.out.println(accBoot+" + (double) .632 * "+eI+ " (double) .368 * "+accS+")) / (double) "+samples);
 			accBoot = (accBoot + (((double) .632 * eI + (double) .368 * accS)) / (double) samples);
-			
 		}
 				
 		return accBoot;
-		
 	}
-		
 		
 	/**
 	 * Estimate a confidence interval for the accuracy
@@ -195,7 +201,6 @@ public class Validate {
 		intervals.add(Utils.round(((2 * n * acc + z) + temp) / (2 * (n + Math.pow(z, 2))), 3));
 		
 		return intervals;
-		
 	}
 	
 	/**
@@ -219,39 +224,4 @@ public class Validate {
 		
 		return graph;		
 	}
-		
-			
-			//		// build the decision tree
-//		GenericHunt.main(args);
-//		
-//		// test error ratio
-//		// load the decision tree and classify the record
-//		System.out.println("loading decision tree in "+Bundle.getString("Resources.SaveFileName"));
-//		
-//		FileInputStream f_in;
-//		try {
-//			f_in = new FileInputStream(Bundle.getString("Resources.SaveFileName"));
-//
-//			// Read object using ObjectInputStream
-//			ObjectInputStream obj_in = new ObjectInputStream(f_in);
-//
-//			// Read the object
-//			Object obj = obj_in.readObject();
-//
-//			if (obj instanceof Tree) {
-//				// Cast object to Tree
-//				Tree tree = (Tree) obj;
-//				
-//				// load validation set in a record set
-//				RecordSet recordSet = new RecordSet(Bundle.getString("Resources.ValidationSet"));
-//				
-//				// validate the decision tree with the validation record set
-//				System.out.println("error rate = "+tree.validate(recordSet));
-//			}
-//
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
 }

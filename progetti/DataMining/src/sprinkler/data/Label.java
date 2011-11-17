@@ -13,8 +13,8 @@ public class Label {
 	ArrayList<String> domain;
 	
 	/**
-	 * New label
-	 * @param label
+	 * @param domain
+	 * @param string
 	 */
 	public Label(ArrayList<String> domain, String string) {
 		this.label = string;
@@ -44,5 +44,4 @@ public class Label {
 	public String toString(){
 		return this.label;
 	}
-
 }

@@ -21,16 +21,7 @@ public class RecordSet {
 	public RecordSet(){
 		this.records = new ArrayList<NominalRecord>(0);
 	}
-	
-	/**
-	 * New record set from file
-	 * @param file name
-	 */
-//	public RecordSet(String fileName){
-//		records = CSVLoader.loadRecordSet(fileName);
-//		
-//	}
-	
+		
 	/**
 	 * getRecords
 	 * @return an ArrayList of records
@@ -76,7 +67,6 @@ public class RecordSet {
 	}
 	
 	/**
-	 * TODO pastrocchio
 	 * @deprecated
 	 */
 	public ArrayList<ArrayList<String>> toArray() {
@@ -93,5 +83,4 @@ public class RecordSet {
 		
 		return array;
 	}
-
 }

@@ -74,8 +74,7 @@ public class CSVLoader {
 							attributes.add(attribute);
 						} else {
 							// label initialization
-							l = st.nextToken();
-							
+							l = st.nextToken();		
 						}
 						
 						i++;
@@ -99,63 +98,18 @@ public class CSVLoader {
 						}
 						
 						recordsDomains.add(domain);
-						
 					}
-					
 				}
 			}
-
-
 
 		return recordSet;
 	}
 
-//	/**
-//	 * @deprecated
-//	 * load
-//	 * @param file name
-//	 * return an ArrayList of record (deprecated)
-//	 */
-//	
-//	public static ArrayList<ArrayList<String>> load(String strFile) {
-//
-//		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>(0);
-//
-//		try {
-//
-//			// create BufferedReader to read csv file
-//			BufferedReader br = new BufferedReader(new FileReader(strFile));
-//			String strLine = "";
-//			StringTokenizer st = null;
-//
-//			// read comma separated file line by line
-//			while ((strLine = br.readLine()) != null) {
-//				
-//				//skip comment lines
-//				if (!strLine.substring(0).substring(0, 1).equals("#")) {
-//					
-//					// break comma separated line using ","
-//					st = new StringTokenizer(strLine, ",");
-//
-//					ArrayList<String> attributes = new ArrayList<String>(0);
-//
-//					while (st.hasMoreTokens()) {
-//						attributes.add(st.nextToken());
-//					}
-//
-//					list.add(attributes);
-//					
-//				}
-//			}
-//
-//		} catch (Exception e) {
-//			System.out.println("Error reading csv file: " + e);
-//		}
-//		return list;
-//	}
-
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		test();
+//		test();
 	}
 
 	/**
@@ -169,7 +123,6 @@ public class CSVLoader {
 		try {
 			list = loadRecordSet(strFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -177,7 +130,5 @@ public class CSVLoader {
 		for (NominalRecord record : list.getRecords()) {
 			System.out.println(record.toString());
 		}
-
 	}
-
 }

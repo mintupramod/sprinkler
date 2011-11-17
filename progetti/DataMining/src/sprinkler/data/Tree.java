@@ -41,12 +41,10 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		// We're going to assume a pre-order traversal by default
 
 		String stringRepresentation = "";
-
-		// if(root != null) {
-		// stringRepresentation =
-		// build(GenericTreeTraversalOrderEnum.PRE_ORDER).toString();
-		//
-		// }
+//		if(root != null) {
+//			stringRepresentation =
+//					build(GenericTreeTraversalOrderEnum.PRE_ORDER).toString();
+//		}
 
 		return stringRepresentation;
 	}
@@ -64,19 +62,16 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 
 		// Write object out to disk
 		obj_out.writeObject(this);
-	
 	}
 
 	/**
 	 * clean tree nodes records
 	 */
 	public void clean() {
-
 		// for all nodes
 		for (GenericTreeNode<Node> node : this.build(GenericTreeTraversalOrderEnum.PRE_ORDER)) {
 			((Node) node).setRecords(null);
 		}
-
 	}
 	
 	/**
@@ -88,7 +83,6 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		BufferedWriter bufferedWriter = null;
 
 		try {
-
 			// Construct the BufferedWriter object
 			bufferedWriter = new BufferedWriter(new FileWriter(filename));
 
@@ -156,7 +150,6 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 			if (this.classify(record).equals(record.getLabel().toString())) {
 				positive++;
 			}
-			
 		}
 
 		// return error ratio
@@ -208,5 +201,4 @@ public class Tree extends GenericTree<Node> implements java.io.Serializable {
 		
 		return label;
 	}
-	
 }
