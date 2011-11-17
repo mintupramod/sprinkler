@@ -13,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -24,6 +26,7 @@ import sprinkler.GenericHunt;
 import sprinkler.data.Node;
 import sprinkler.data.Tree;
 import sprinkler.utilities.CSVLoader;
+import java.awt.Color;
 
 /**
  * @author Claudio Tanci
@@ -91,6 +94,11 @@ public class SprinklerApplet extends JApplet {
 		JLabel lblLoadTest = new JLabel("3) Load Test Set");
 		lblLoadTest.setBounds(12, 99, 215, 30);
 		getContentPane().add(lblLoadTest);
+		
+		final JLabel lblStatus = new JLabel("Welcome");
+		lblStatus.setForeground(Color.GRAY);
+		lblStatus.setBounds(12, 190, 417, 15);
+		getContentPane().add(lblStatus);
 
 		btnLoadTrainingSet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -101,32 +109,25 @@ public class SprinklerApplet extends JApplet {
 		            File file = fc.getSelectedFile();
 		            
 		            Node root = new Node();
-
-//		    		System.out.println("Reading file data " + training);
+		            
+		            lblStatus.setText("Reading data file");
 		    		try {
 		    			root.setRecords(CSVLoader.loadRecordSet(file));
 		    		} catch (IOException e1) {
-//		    			System.out.println("error reading file...");
+		    			lblStatus.setText("Sorry, an error occurred while reading the file");
 		    		}
 
-//		    		System.out.println("Generating decision tree...");
+		    		lblStatus.setText("Generating decision tree...");
 		    		
 		    		tree.setRoot(root);
 
-//		    		System.out.println(((Node) tree.getRoot()).size() + " records to be analyzed");
-		    		
 		    		tree = (Tree) GenericHunt.treeGrowth(tree, (Float) spinner.getValue() / Float.valueOf(2));
 
-//		    		System.out.println(tree.getNumberOfNodes() + " nodes in the tree");
-		    		
-//		    		System.out.println("Cleaning data set records...");
+		    		lblStatus.setText(tree.getNumberOfNodes() + " nodes in the tree");
+
 		    		tree.clean();
 
 		    		btnLoadTestSet.setEnabled(true);
-
-//		            log.append("Opening: " + file.getName() + "." + newline);
-		        } else {
-//		            log.append("Open command cancelled by user." + newline);
 		        }
 			}
 		});
@@ -140,18 +141,18 @@ public class SprinklerApplet extends JApplet {
 		            double errorRate;
 		            
 		            try {
+		            	lblStatus.setText("Validating the model...");
 						errorRate = tree.validate(CSVLoader.loadRecordSet(file));
-						lblErr.setText(String.valueOf(errorRate*100)+" %");
+						
+						DecimalFormat df = new DecimalFormat("#0.00%");
+						lblErr.setText(df.format(errorRate));
+						lblStatus.setText("Model validated");
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						lblStatus.setText("Sorry, an error occurred while validating");
 					}
 
-		        } else {
-//		            log.append("Open command cancelled by user." + newline);
 		        }
 			}
 		});
-
 	}
 }
