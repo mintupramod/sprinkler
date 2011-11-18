@@ -1,0 +1,8 @@
+Classification Tree - .632 bootstrap validation
+
+Dataset		connect4
+Samples		10
+Purity Range	0-0.2  
+Steps		500
+
+java hunt.Cli validate ../data/connect4/connect4.data 10 0 0.2 500 .99

@@ -1,0 +1,8 @@
+Classification Tree - .632 bootstrap validation
+
+Dataset		tic-tac-toe
+Samples		10
+Purity Range	0-0.5  
+Steps		500
+
+java hunt.Cli validate ../data/tic-tac-toe/tic-tac-toe.data 10 0 0.5 500 .99

@@ -1,0 +1,17 @@
+Sprinkler is an educational decision-tree classifier for categorical data
+developed in Java.
+
+  /src                java sources
+  /src/sprinkler      sprinkler java package
+  /src/vivin          an implementation of Generic (n-ary) Tree by Vivin 
+                          Suresh Paliath (see README and LICENSE)
+  /data               demo record sets 
+  /doc/img            results obtained from demo record sets
+  /regression         Octave logistic regression code developed for 
+                          ml-class.org class
+                          
+  sprinkler.Cli       a command line interface for classification trees 
+                          generation, classify records and general 
+                          validation
+  /doc/html           demo applet
+  

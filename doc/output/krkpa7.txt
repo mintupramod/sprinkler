@@ -1,0 +1,8 @@
+Classification Tree - .632 bootstrap validation
+
+Dataset		krkpa7
+Samples		3
+Purity Range	0-0.2  
+Steps		500
+
+java hunt.Cli validate ../data/krkpa7/krkpa7.data 3 0 0.2 500 .99
