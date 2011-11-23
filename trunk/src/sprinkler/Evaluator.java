@@ -2,8 +2,8 @@ package sprinkler;
 
 import java.util.ArrayList;
 
-import sprinkler.data.NominalRecord;
-import sprinkler.data.RecordSet;
+data.NominalRecord;
+kler.data.RecordSet;
 import sprinkler.data.TrainingTestCouple;
 import sprinkler.utilities.Bundle;
 
