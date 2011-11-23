@@ -10,13 +10,19 @@
 <p>The amount of pre pruning can be set from 0 (no prepruning, full tree generation) to 1 (maximum amount of pre pruning, single node tree).</p>
 <p>Record set file format:<br>
 An input file starts with comments (each comment line starts with <code>#</code>).<br>
-A single special line begging with "<code># {</code>" and closed by "<code>}</code>" must be present before the record lines. It indicates attribute domains separated by ":", single domain values are separated by comma, as in the following example.
+A single special line beginning with "<code># {</code>" and closed by "<code>}</code>" must be present before the record lines. It indicates attribute domains separated by ":", single domain values are separated by comma, as in the following example.
 Each of the next lines specifies a record where attributes are separated by comma. Last attribute is the label associated with the record.
 </p>
 <code>   
 # {x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:positive,negative}
+</code><br>
+<code>
 x,x,x,x,o,o,x,o,o,positive
+</code><br>
+<code>
 x,x,x,x,o,o,o,x,o,positive
+</code><br>
+<code>
 ...
 </code>
 <br>
