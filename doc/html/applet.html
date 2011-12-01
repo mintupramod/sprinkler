@@ -1,32 +1,124 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Sprinkler</title>
+	<title>Sprinkler applet</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<style type="text/css">
+		html,body{margin:0;padding:0}
+		body{font: 76% sans-serif;text-align:center}
+		p{margin:0 10px 10px}
+		a{color: #366909}
+		div.header{text-align:center;height:80px;line-height:80px;margin:0;padding-left:10px;color: #62C012}
+		div.container{text-align:left}
+		div.content p{line-height:1.4}
+		div.container{width:700px;margin:0 auto}
+		div.left{font-weight: bold;color: #62C012;margin-bottom:6px;margin-top:18px;}
+		div.right{font-weight: normal; text-align:justify; margin-bottom:6px;margin-top:18px;}
+		div.footer{padding-top:10px;color: #333}
+		ul{list-style-type: square}
+		li.people{padding-bottom: 12px}
+	</style>
 </head>
+
 <body>
-<p>Sprinkler applet</p>
-<p>The applet first build a decision tree based model from a training set and then test it against a test set returning the error rate.</p>
-<p>The amount of pre pruning can be set from 0 (no prepruning, full tree generation) to 1 (maximum amount of pre pruning, single node tree).</p>
-<p>Record set file format:<br>
-An input file starts with comments (each comment line starts with <code>#</code>).<br>
-A single special line beginning with "<code># {</code>" and closed by "<code>}</code>" must be present before the record lines. It indicates attribute domains separated by ":", single domain values are separated by comma, as in the following example.
-Each of the next lines specifies a record where attributes are separated by comma. Last attribute is the label associated with the record.
-</p>
-<code>   
-# {x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:positive,negative}
-</code><br>
-<code>
-x,x,x,x,o,o,x,o,o,positive
-</code><br>
-<code>
-x,x,x,x,o,o,o,x,o,positive
-</code><br>
-<code>
-...
-</code>
-<br>
-<P><APPLET code="sprinkler.applet.SprinklerApplet.class" WIDTH="450" HEIGHT="230" ARCHIVE="./SprinklerApplet.jar">
-</APPLET></P>
+<div class="container">
+	<div class="header">
+		<h1>Sprinkler applet</h1>
+	</div>
+
+	<div class="left">
+		Abstract:
+	</div>
+
+	<div class="right">
+	   <p>
+	      A demonstrative applet for sprinkler <a href="http://code.google.com/p/sprinkler/">http://code.google.com/p/sprinkler/</a>, an educational decision-tree classifier for categorical data developed in Java.
+	   </p>
+		<p>
+			The applet first build a decision tree based model from a training set and then test it against a test set returning the error rate (the amount of incorrectly classified records on the total number of records).<br>
+			The amount of pre pruning can be set from 0 (no prepruning, full tree generation) to 1 (maximum amount of pre pruning, single node tree). This value is considered by the termination policy in the tree growing phase and compared with the Gini disparity index of the node.
+		</p>
+		<p>
+		   (A command line interface is provided by sprinkler for more advanced features as iterative validation for Accuracy Vs Purity using .632 validation).
+		</p>
+
+	</div>
+
+	<div class="left">
+		Record set file format:
+	</div>
+
+	<div class="right">
+	   <p>
+	   An input file starts with comments (each comment line starts with <code>#</code>).<br>
+      A single special line beginning with "<code># {</code>" and closed by "<code>}</code>" must be present before the record lines. It indicates attribute domains separated by ":", single domain values are separated by comma, as in the following example.
+      Each of the next lines specifies a record where attributes are separated by comma. Last attribute is the label associated with the record.
+      </p>
+      <pre>
+      # This is a comment line
+      # Next line specifies a record with 9 fields that can assume "x", "o" or "b" values and a last label field
+      # {x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:x,o,b:positive,negative}
+      x,x,x,x,o,o,x,o,o,positive
+      x,x,x,x,o,o,o,x,o,positive
+      ...</pre>
+	</div>
+
+	<div class="left">
+		Datasets:
+	</div>
+
+	<div class="right">
+		<ul>
+		<li>
+			<a href="http://code.google.com/p/sprinkler/downloads/detail?name=tic-tac-toe-training.data&can=2&q=">Tic-Tac-Toe training dataset</a>
+		</li>
+		<li>
+			<a href="http://code.google.com/p/sprinkler/downloads/detail?name=tic-tac-toe-validation.data&can=2&q=">Tic-Tac-Toe test dataset</a>
+		</li>
+		</ul>
+		<p>
+		A few other datasets converted for use for sprinkler and sprinler-applet can be dowloaded from <a href="http://code.google.com/p/sprinkler/downloads/list">http://code.google.com/p/sprinkler/downloads/list</a>
+		</p>
+	</div>
+
+	<div class="left">
+		Applet:
+	</div>
+
+	<div class="right">
+		<APPLET code="sprinkler.applet.SprinklerApplet.class" WIDTH="450" HEIGHT="230" ARCHIVE="./SprinklerApplet.jar">
+</APPLET><br>
+		<p>note: the applet authorization is required for loading of the training set file and the test set file. 
+		</p>
+	</div>
+
+	<div class="left">
+		Project source:
+	</div>
+
+	<div class="right">
+		<ul>
+			<li>svn checkout http://sprinkler.googlecode.com/svn/trunk/ sprinkler-read-only</li>
+		</ul>
+		<p>
+		</p>
+	</div>
+
+	<div class="left">
+		Links:
+	</div>
+
+	<div class="right">
+		<ul>
+			<li><a href="http://code.google.com/p/sprinkler/">http://code.google.com/p/sprinkler/</a></li>
+		</ul>
+	</div>
+
+	<div class="footer">
+		<p></p>
+	</div>
+</div>
 </body>
 </html>
