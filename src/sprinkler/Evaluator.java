@@ -2,11 +2,10 @@ package sprinkler;
 
 import java.util.ArrayList;
 
-data.NominalRecord;
-kler.data.RecordSet;
+import sprinkler.data.NominalRecord;
+import sprinkler.data.RecordSet;
 import sprinkler.data.TrainingTestCouple;
 import sprinkler.utilities.Bundle;
-
 
 public class Evaluator {
 	
